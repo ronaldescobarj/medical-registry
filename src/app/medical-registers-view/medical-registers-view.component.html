@@ -1,3 +1,33 @@
-<p>
-  medical-registers-view works!
-</p>
+<table>
+  <tr>
+    <th>
+      title
+    </th>
+    <th>
+      type
+    </th>
+    <th>
+      date
+    </th>
+    <th>
+      actions
+    </th>
+  </tr>
+  <tr *ngFor="let register of registers">
+    <td>
+      {{register.title}}  
+    </td>
+    <td>
+      {{register.type}}  
+    </td>
+    <td>
+      {{register.date}}  
+    </td>
+    <td>
+      <a *ngIf="register.type=='consultation'" routerLink="/medicalConsultation/{{register.id}}">ver mas</a>
+      <a *ngIf="register.type=='analysis'" routerLink="/medicalAnalysis/{{register.id}}">ver mas</a>
+      <a *ngIf="register.type=='self observation'" routerLink="/medicalSelfObservation/{{register.id}}">ver mas</a>
+      
+    </td>
+  </tr>
+</table>
