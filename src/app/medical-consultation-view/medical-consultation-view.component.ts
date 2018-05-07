@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-medical-consultation-view',
@@ -11,11 +12,21 @@ export class MedicalConsultationViewComponent implements OnInit {
   private consultation:any;
   private id: string;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private location: Location) { }
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
-      this.consultation = {doctor:'Dimitri moskov',prescripcion:'Debe tomar 5 pastillas al dia',diagnostico:'Tiene Paralisis cerebral',hospital:'Vietma',comentary:'Estuvo malo'}
+      this.consultation = {
+        doctor:'Juan Perez',
+        prescription:'take pills three times a day',
+        diagnostic:'sick',
+        hospital:'Viedma',
+        commentary:'the pills are too expensive'
+      }
+  }
+
+  goBack() {
+    this.location.back();
   }
 
 }

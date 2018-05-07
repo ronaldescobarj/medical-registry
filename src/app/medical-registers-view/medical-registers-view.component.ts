@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-medical-registers-view',
@@ -9,7 +10,7 @@ export class MedicalRegistersViewComponent implements OnInit {
 
   private registers: any[];
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
     this.registers = [
@@ -18,5 +19,22 @@ export class MedicalRegistersViewComponent implements OnInit {
       { id: 3, title: 'register3', type: 'self observation', date: '2018-05-07' },
     ];
   }
+
+  viewRegister(register: any) {
+    let type = "";
+    switch (register.type) {
+      case "consultation":
+        type = "/medicalConsultation";
+        break;
+      case "analysis":
+        type = "/medicalAnalysis";
+        break;
+      default:
+        type = "/medicalSelfObservation";
+        break;
+    }
+    this.router.navigateByUrl(type + "/" + register.id);
+  }
+  
 }
 

@@ -1,16 +1,19 @@
-<table>
-  <tr>
+<button class="btn btn-success" style="float: right">
+  Add register
+</button>
+<table class="table">
+  <tr class="thead-dark">
     <th>
-      title
+      Title
     </th>
     <th>
-      type
+      Type
     </th>
     <th>
-      date
+      Date
     </th>
     <th>
-      actions
+      Actions
     </th>
   </tr>
   <tr *ngFor="let register of registers">
@@ -24,10 +27,24 @@
       {{register.date}}  
     </td>
     <td>
-      <a *ngIf="register.type=='consultation'" routerLink="/medicalConsultation/{{register.id}}">ver mas</a>
-      <a *ngIf="register.type=='analysis'" routerLink="/medicalAnalysis/{{register.id}}">ver mas</a>
-      <a *ngIf="register.type=='self observation'" routerLink="/medicalSelfObservation/{{register.id}}">ver mas</a>
-      
+      <!-- <a *ngIf="register.type=='consultation'" class="btn btn-info btn-sm" routerLink="/medicalConsultation/{{register.id}}">
+        <span class="fa fa-info-circle"></span>
+      </a>
+      <a *ngIf="register.type=='analysis'" class="btn btn-info btn-sm" routerLink="/medicalAnalysis/{{register.id}}">
+        <span class="fa fa-info-circle"></span>
+      </a>
+      <a *ngIf="register.type=='self observation'" class="btn btn-info btn-sm" routerLink="/medicalSelfObservation/{{register.id}}">
+        <span class="fa fa-info-circle"></span>
+      </a> -->
+      <button class="btn btn-secondary" title="View" (click)="viewRegister(register)">
+        <span class="fa fa-info-circle"></span>        
+      </button>
+      <button class="btn btn-primary" title="Edit">
+        <span class="fas fa-edit"></span>        
+      </button>
+      <button class="btn btn-danger" title="Delete">
+        <span class="fas fa-trash-alt"></span>        
+      </button>
     </td>
   </tr>
 </table>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-medical-analysis-view',
@@ -9,10 +10,20 @@ export class MedicalAnalysisViewComponent implements OnInit {
 
   private analysis : any;
 
-  constructor() { }
+  constructor(private location: Location) { }
 
   ngOnInit() {
-      this.analysis = {id:1,type:'Blood Analysis',text:'Positivo',date:'2018-03-24',hospital:'Vietma',comentary:'Estaba bien'};
+      this.analysis = {
+        id:1,
+        type:'Blood Analysis',
+        text:'Clean',
+        date:'2018-03-24',
+        hospital:'Viedma',
+        commentary:'clean blood'};
+  }
+
+  goBack() {
+    this.location.back();
   }
 
 }
