@@ -9,17 +9,13 @@ import { Router } from '@angular/router';
 export class MedicalRegistersViewComponent implements OnInit {
 
   private registers: any[];
-
-  constructor(private router: Router) { }
+  constructor(private httpService: HttpService,private router: Router) { }
 
   ngOnInit() {
-    this.registers = [
-      { id: 1, title: 'register1', type: 'consultation', date: '2018-05-05' },
-      { id: 2, title: 'register2', type: 'analysis', date: '2018-05-06' },
-      { id: 3, title: 'register3', type: 'self observation', date: '2018-05-07' },
-    ];
+      this.httpService.get('registry/list').subscribe((response: any) => {
+          this.registers = response.response;
+      })
   }
-
   viewRegister(register: any) {
     let type = "";
     switch (register.type) {
@@ -35,6 +31,5 @@ export class MedicalRegistersViewComponent implements OnInit {
     }
     this.router.navigateByUrl(type + "/" + register.id);
   }
-  
 }
 
