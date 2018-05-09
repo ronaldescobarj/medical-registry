@@ -9,8 +9,11 @@ export class MedicalConsultationEditComponent implements OnInit {
 
   constructor() { }
 
-  @Input() medicalConsultation: any;
+  private medicalConsultation: any;
+  @Input() id: any;
+
   ngOnInit() {
+    // this.medicalConsultation = //request from the database
   }
 
 }
