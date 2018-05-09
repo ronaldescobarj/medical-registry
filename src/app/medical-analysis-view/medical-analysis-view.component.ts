@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 @Component({
@@ -9,19 +10,18 @@ import { Location } from '@angular/common';
 export class MedicalAnalysisViewComponent implements OnInit {
 
   private analysis : any;
-
-  constructor(private location: Location) { }
+  private id:String;
+  
+  constructor(private httpService: HttpService,private route: ActivatedRoute,private location: Location) { }
 
   ngOnInit() {
-      this.analysis = {
-        id:1,
-        type:'Blood Analysis',
-        text:'Clean',
-        date:'2018-03-24',
-        hospital:'Viedma',
-        commentary:'clean blood'};
+  
+      this.id = this.route.snapshot.paramMap.get('id');
+      this.analysis = {type: "",text:"",date:"",hospital:"",commentary:""};
+      this.httpService.get('analysis/get?id='+this.id).subscribe((response: any) => {
+          this.analysis = response.response;
+      })
   }
-
   goBack() {
     this.location.back();
   }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 @Component({
@@ -10,15 +11,16 @@ export class MedicalSelfObservationViewComponent implements OnInit {
 
 
   private selfObservation:any;
-
-  constructor(private location: Location) { }
-
+  private id:String;
+  constructor(private httpService: HttpService,private route: ActivatedRoute,private location: Location) { }
   ngOnInit() {
-    this.selfObservation = {
-      text:"after two weeks of medication i don't feel any better"
+    
+      this.id = this.route.snapshot.paramMap.get('id');
+      this.selfObservation = {text: ""};
+      this.httpService.get('selfObservation/get?id='+this.id).subscribe((response: any) => {
+          this.selfObservation = response.response;
+      })
     }
-  }
-
   goBack() {
     this.location.back();
   }
