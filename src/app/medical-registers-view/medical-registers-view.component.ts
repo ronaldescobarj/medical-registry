@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpService } from '../http.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-medical-registers-view',
@@ -10,7 +11,7 @@ import { HttpService } from '../http.service';
 export class MedicalRegistersViewComponent implements OnInit {
 
   private registers: any[];
-  constructor(private httpService: HttpService, private router: Router) { }
+  constructor(private httpService: HttpService, private router: Router, private location: Location) { }
 
   ngOnInit() {
       this.httpService.get('/registers/list').subscribe((response: any) => {
@@ -49,6 +50,7 @@ export class MedicalRegistersViewComponent implements OnInit {
   deleteRegister(register: any) {
     this.httpService.post('/consultation/delete',register).subscribe((response: any) => {
       console.log(response);
+      window.location.reload();
   })
   }
 

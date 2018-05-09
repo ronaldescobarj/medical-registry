@@ -15,7 +15,6 @@ router.get('/get', function (req, res) {
     var id = req.query.id;
     var queryString = 'SELECT * FROM medical_history.consultation WHERE id=' + id;
     var response = prepareResponse(req);  
-    var randomNumber = Math.random();
     dbConnection.pool.connect(function (error, connection, done) {
         if (error) {
             console.error("error");
@@ -26,13 +25,10 @@ router.get('/get', function (req, res) {
                     console.error(JSON.stringify(err));
                 } else {
                     var rows = resultObj.rows;
-                    console.log(rows);
                     response.success = true;
                     response.response = rows;
-                    res.setHeader("Access-Control-Allow-Origin", "*");
                     res.json(response);
                 }
-                // done();
             });
         }
     });
@@ -44,13 +40,6 @@ function generateQuery(data, type) {
         query = "INSERT INTO medical_history.consultation VALUES (" + data.id + ", '" + data.summary + "', '" + data.doctor + "', '" + data.diagnostic + "', '" + data.hospital + "', '" + data.description + "', '" + data.commentary + "', '" + data.date + "', " + data.user_id + ");";
     if (type=="update")
         query = "UPDATE medical_history.consultation SET summary='" + data.summary + "', doctor='" + data.doctor + "', diagnostic='" + data.diagnostic + "', hospital='" + data.hospital + "', description='" + data.description + "', commentary='" + data.commentary + "', date='" + data.date + "' WHERE id=" + data.id;
-    /* for (var property in data) {
-        if (data.hasOwnProperty(property)) {
-            if (property == "id" || property == "user_id") {
-                query += "'" + data[property] + "', ";
-            }
-        }
-    } */
     return query;
 }
 router.post('/create', function(req, res, next) {
@@ -66,13 +55,10 @@ router.post('/create', function(req, res, next) {
                 if (err) {
                     console.error(JSON.stringify(err));
                 } else {
-                    // var rows = resultObj.rows;
-                    // console.log(rows);
                     response.success = true;
                     response.response = {};
                     res.send(JSON.stringify(response));
                 }
-                // done();
             });
         }
     });
@@ -82,7 +68,6 @@ router.post('/create', function(req, res, next) {
 router.post('/update', function(req, res, next) {
     var data = req.body;
     var queryString = generateQuery(data, "update");
-    console.log(queryString);
     var response = prepareResponse(req);
     dbConnection.pool.connect(function (error, connection, done) {
         if (error) {
@@ -97,7 +82,6 @@ router.post('/update', function(req, res, next) {
                     response.response = {};
                     res.send(JSON.stringify(response));
                 }
-                // done();
             });
         }
     });
@@ -106,7 +90,6 @@ router.post('/update', function(req, res, next) {
 router.post('/delete', function(req, res, next) {
     var data = req.body;
     var queryString = "delete from medical_history.consultation where id=" + data.id;
-    console.log(queryString);
     var response = prepareResponse(req);
     dbConnection.pool.connect(function (error, connection, done) {
         if (error) {
@@ -121,7 +104,6 @@ router.post('/delete', function(req, res, next) {
                     response.response = {};
                     res.send(JSON.stringify(response));
                 }
-                // done();
             });
         }
     });
