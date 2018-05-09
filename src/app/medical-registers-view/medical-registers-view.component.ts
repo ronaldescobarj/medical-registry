@@ -15,6 +15,11 @@ export class MedicalRegistersViewComponent implements OnInit {
   constructor( private router: Router) { }
 
   ngOnInit() {
+    this.registers = [
+      { id: 1, title: 'register1', type: 'consultation', date: '2018-05-05' },
+      { id: 2, title: 'register2', type: 'analysis', date: '2018-05-06' },
+      { id: 3, title: 'register3', type: 'self observation', date: '2018-05-07' },
+    ];
       // this.httpService.get('registry/list').subscribe((response: any) => {
       //   if(response.succeess)
       //     this.registers = response.response;

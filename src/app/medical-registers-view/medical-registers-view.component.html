@@ -1,54 +1,45 @@
 <div class="btn-group" style="width: 100%;">
-    <button class="btn btn-success" style="width: 25%;">
+    <button class="btn btn-success" style="width: 33%;">
       Add self observation
     </button>
 
-    <button class="btn btn-success" style="width: 25%;" (click)="createMedicalConsultation()">
+    <button class="btn btn-success" style="width: 34%;" (click)="createMedicalConsultation()">
       Add medical consultation
     </button>
 
-    <button class="btn btn-success" style="width: 25%;">
+    <button class="btn btn-success" style="width: 33%;">
       Add analysis
     </button>
-
 </div>
-
-<table class="table">
-  <tr class="thead-dark">
-    <th>
-      Title
-    </th>
-    <th>
-      Type
-    </th>
-    <th>
-      Date
-    </th>
-    <th>
-      Actions
-    </th>
-  </tr>
-  <tr *ngFor="let register of registers">
-    <td>
-      {{register.title}}  
-    </td>
-    <td>
-      {{register.type}}  
-    </td>
-    <td>
-      {{register.date}}  
-    </td>
-    <td>
-      <button class="btn btn-secondary" title="View" (click)="viewRegister(register)">
-        <span class="fa fa-info-circle"></span>        
-      </button>
-      <button class="btn btn-primary" title="Edit" (click)="editRegister(register)">
-        <span class="fas fa-edit"></span>        
-      </button>
-      <button class="btn btn-danger" title="Delete" (click)="deleteModal.open();">
-        <span class="fas fa-trash-alt"></span>        
-      </button>
-      <app-delete-modal #deleteModal [type]="register.type"></app-delete-modal>
-    </td>
-  </tr>
-</table>
+<br><br/>
+<div class="container">
+  <table class="table table-striped table-bordered" style="width: 90%; margin: 0 auto;">
+      <thead>
+          <tr>
+              <th>Title</th>
+              <th>Type</th>
+              <th>Date</th>
+              <th>Actions</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let register of registers">
+              <td>{{register.title}}</td>
+              <td>{{register.type}}</td>
+              <td>{{register.date}}</td>
+              <td>
+                  <button class="btn btn-secondary" title="View" (click)="viewRegister(register)">
+                    <span class="fa fa-info-circle"></span>        
+                  </button>
+                  <button class="btn btn-primary" title="Edit" (click)="editRegister(register)">
+                    <span class="fas fa-edit"></span>        
+                  </button>
+                  <button class="btn btn-danger" title="Delete" (click)="deleteModal.open();">
+                    <span class="fas fa-trash-alt"></span>        
+                  </button>
+                  <app-delete-modal #deleteModal [type]="register.type"></app-delete-modal>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+</div>
