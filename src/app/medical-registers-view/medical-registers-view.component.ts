@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 export class MedicalRegistersViewComponent implements OnInit {
 
   private registers: any[];
+  @ViewChild('deleteModal') deleteModal: any;
 
   constructor(private router: Router) { }
 

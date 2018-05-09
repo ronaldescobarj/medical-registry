@@ -54,9 +54,10 @@
       <button class="btn btn-primary" title="Edit">
         <span class="fas fa-edit"></span>        
       </button>
-      <button class="btn btn-danger" title="Delete">
+      <button class="btn btn-danger" title="Delete" (click)="deleteModal.open();">
         <span class="fas fa-trash-alt"></span>        
       </button>
+      <app-delete-modal #deleteModal [type]="register.type"></app-delete-modal>
     </td>
   </tr>
 </table>

@@ -1,0 +1,17 @@
+<bs-modal #modal>
+    <bs-modal-header>
+        <h4 class="modal-title">Esta seguro?</h4>
+    </bs-modal-header>
+    <bs-modal-body>
+      <div *ngIf="type != analisis">
+        Esta seguro que desea eliminar la {{type}}?
+      </div>
+      <div *ngIf="type == analisis">
+        Esta seguro que desea eliminar el {{type}}?
+      </div>        
+    </bs-modal-body>
+    <bs-modal-footer>
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="close()">Cancel</button>
+        <button type="button" class="btn btn-danger" (click)="modal.close()">Delete</button>
+    </bs-modal-footer>
+</bs-modal>
