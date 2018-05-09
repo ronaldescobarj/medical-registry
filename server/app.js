@@ -5,10 +5,10 @@ var path = require('path');
 var http = require('http');
 var bodyParser = require('body-parser');
 var routes = require("./routes/routes");
-
+var cors = require('cors')
 var app = express();
 app.disable("x-powered-by");
-
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true

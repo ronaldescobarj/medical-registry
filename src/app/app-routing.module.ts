@@ -5,14 +5,16 @@ import { MedicalConsultationViewComponent } from './medical-consultation-view/me
 import { MedicalAnalysisViewComponent } from './medical-analysis-view/medical-analysis-view.component';
 import { MedicalSelfObservationViewComponent } from './medical-self-observation-view/medical-self-observation-view.component';
 import { MedicalConsultationCreateComponent } from './medical-consultation-create/medical-consultation-create.component';
+import { MedicalConsultationEditComponent } from './medical-consultation-edit/medical-consultation-edit.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/registries', pathMatch: 'full' },
-  { path: 'registries', component: MedicalRegistersViewComponent },
+  { path: '', redirectTo: '/registers', pathMatch: 'full' },
+  { path: 'registers', component: MedicalRegistersViewComponent },
   { path: 'medicalConsultation/:id', component: MedicalConsultationViewComponent },
   { path: 'medicalAnalysis/:id', component: MedicalAnalysisViewComponent},
   { path: 'medicalSelfObservation/:id',component:MedicalSelfObservationViewComponent},
-  { path: 'medicalConsultation/crud/create',component:MedicalConsultationCreateComponent}  
+  { path: 'medicalConsultation/crud/create',component:MedicalConsultationCreateComponent},
+  { path: 'medicalConsultation/crud/edit/:id',component:MedicalConsultationEditComponent}, 
 ];
 
 @NgModule({

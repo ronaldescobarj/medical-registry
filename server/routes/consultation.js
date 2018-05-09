@@ -29,6 +29,7 @@ router.get('/get', function (req, res) {
                     console.log(rows);
                     response.success = true;
                     response.response = rows;
+                    res.setHeader("Access-Control-Allow-Origin", "*");
                     res.json(response);
                 }
                 // done();

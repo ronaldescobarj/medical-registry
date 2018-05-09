@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, Output, ViewChild, EventEmitter } from '@angular/core';
 import { BsModalComponent } from 'ng2-bs3-modal';
 
 @Component({
@@ -11,15 +11,20 @@ export class DeleteModalComponent implements OnInit {
   constructor() { }
 
   @Input() type: any;
-  @ViewChild('modal') modal: BsModalComponent;
+  @ViewChild('deleteModal') deleteModal: BsModalComponent;
+  @Output() deleting: EventEmitter<any> = new EventEmitter<any>();
   ngOnInit() {
   }
 
   open() {
-    this.modal.open();
+    this.deleteModal.open();
   }
 
   close() {
-    this.modal.close();
+    this.deleteModal.close();
   }
+
+  deleteRegister() {
+    this.deleting.emit();
+  }  
 }

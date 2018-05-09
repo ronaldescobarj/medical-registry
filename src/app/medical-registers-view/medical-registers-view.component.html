@@ -16,7 +16,7 @@
   <table class="table table-striped table-bordered" style="width: 90%; margin: 0 auto;">
       <thead>
           <tr>
-              <th>Title</th>
+              <th>Summary</th>
               <th>Type</th>
               <th>Date</th>
               <th>Actions</th>
@@ -24,7 +24,7 @@
       </thead>
       <tbody>
           <tr *ngFor="let register of registers">
-              <td>{{register.title}}</td>
+              <td>{{register.summary}}</td>
               <td>{{register.type}}</td>
               <td>{{register.date}}</td>
               <td>
@@ -37,7 +37,7 @@
                   <button class="btn btn-danger" title="Delete" (click)="deleteModal.open();">
                     <span class="fas fa-trash-alt"></span>        
                   </button>
-                  <app-delete-modal #deleteModal [type]="register.type"></app-delete-modal>
+                  <app-delete-modal #deleteModal [type]="register.type" (deleting)="deleteRegister(register)"></app-delete-modal>
               </td>
           </tr>
       </tbody>

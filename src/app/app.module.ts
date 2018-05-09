@@ -3,8 +3,9 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
+import { HttpModule } from '@angular/http';
 
-import { HttpClientModule } from '@angular/common/http';
+// import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './/app-routing.module';
 import { MedicalRegistersViewComponent } from './medical-registers-view/medical-registers-view.component';
 import { MedicalConsultationViewComponent } from './medical-consultation-view/medical-consultation-view.component';
@@ -30,10 +31,11 @@ import { FormsModule } from '@angular/forms';
   ],
   imports: [
     BrowserModule,
-    HttpClientModule,
+    // HttpClientModule,
     AppRoutingModule,
     BsModalModule,
-    FormsModule
+    FormsModule,
+    HttpModule
   ],
   providers: [HttpService],
   bootstrap: [AppComponent]

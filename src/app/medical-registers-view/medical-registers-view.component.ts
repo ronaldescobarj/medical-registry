@@ -13,8 +13,13 @@ export class MedicalRegistersViewComponent implements OnInit {
   constructor(private httpService: HttpService, private router: Router) { }
 
   ngOnInit() {
-      this.httpService.get('registry/list').subscribe((response: any) => {
+      this.httpService.get('/registers/list').subscribe((response: any) => {
           this.registers = response.response;
+          this.registers.sort((a, b) => {
+            a = new Date(a.date);
+            b = new Date(b.date);
+            return a>b ? -1 : a<b ? 1 : 0;
+          })
       })
   }
   viewRegister(register: any) {
@@ -34,7 +39,17 @@ export class MedicalRegistersViewComponent implements OnInit {
   }
   
   createMedicalConsultation() {
-    this.router.navigateByUrl("/medicalConsultation/crud/ create")
+    this.router.navigateByUrl("/medicalConsultation/crud/create")
+  }
+
+  editRegister(register: any) {
+    this.router.navigateByUrl('medicalConsultation/crud/edit/' + register.id);
+  }
+
+  deleteRegister(register: any) {
+    this.httpService.post('/consultation/delete',register).subscribe((response: any) => {
+      console.log(response);
+  })
   }
 
 }

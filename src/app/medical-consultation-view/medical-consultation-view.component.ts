@@ -17,9 +17,9 @@ export class MedicalConsultationViewComponent implements OnInit {
 
   ngOnInit() {
       this.id = this.route.snapshot.paramMap.get('id');
-      this.consultation = {doctor: "",description:"",diagnostic:"",hospital:"",commentary:""};
-      this.httpService.get('consultation/get?id='+this.id).subscribe((response: any) => {
-          this.consultation = response.response;
+      // this.consultation = {doctor: "",description:"",diagnostic:"",hospital:"",commentary:""};
+      this.httpService.get('/consultation/get?id='+this.id).subscribe((response: any) => {
+          this.consultation = response.response[0];
       })
   }
   goBack() {
