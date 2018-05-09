@@ -5,16 +5,37 @@
 </div>
 
 <blockquote class = "blockquote text-center">
-    <h1><b>Observation Information</b></h1>
-    <br><br>
+    <h1>Observacion</h1>
+    <br>
     <div class="container">      
-
         <table class="table table-striped">
           <tbody>
             <tr>
-              <td>Observation</td>
-              <td>{{selfObservation.text}}</td>
+              <td>Resumen</td>
+              <td>{{selfObservation.summary}}</td>
+            </tr>
+            <tr>
+              <td>Observacion</td>
+              <td>{{selfObservation.observation}}</td>
+            </tr>
+            <tr>
+              <td>Fecha</td>
+              <td>{{selfObservation.date}}</td>
+            </tr>
           </tbody>
         </table>
+
+      <div class="row">
+          <div class="col-md-1">
+            <button class="btn btn-secondary" title="View" (click)="viewRegister(register)">
+              Editar        
+            </button>
+          </div>        
+          <div class="col-md-1">            
+            <button class="btn btn-danger" title="Edit" (click)="editRegister(register)">
+              Eliminar        
+            </button>
+          </div>
       </div>
+    </div>      
 </blockquote>

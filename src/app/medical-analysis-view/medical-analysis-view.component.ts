@@ -18,10 +18,11 @@ export class MedicalAnalysisViewComponent implements OnInit {
   ngOnInit() {
   
       this.id = this.route.snapshot.paramMap.get('id');
-      this.analysis = {type: "",text:"",date:"",hospital:"",commentary:""};
-      this.httpService.get('analysis/get?id='+this.id).subscribe((response: any) => {
-          this.analysis = response.response;
-      })
+      this.analysis = {summary: "analisis de sangre" ,type: "sangre",description:"analisis de sangre", 
+      date:"2018-05-09",hospital:"Viedma",commentary:"el analisis fue rapido"};
+      // this.httpService.get('analysis/get?id='+this.id).subscribe((response: any) => {
+      //     this.analysis = response.response;
+      // })
   }
   goBack() {
     this.location.back();
