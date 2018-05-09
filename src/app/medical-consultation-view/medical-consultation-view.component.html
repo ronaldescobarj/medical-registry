@@ -5,8 +5,8 @@
 </div>
 
 <blockquote class = "blockquote text-center">
-    <h1><b>Consulta</b></h1>
-    <br><br>
+    <h1>Consulta</h1>
+    <br>
     <div class="container">      
         <table class="table table-striped">
           <tbody>
@@ -19,7 +19,6 @@
               <td>{{consultation.doctor}}</td>
             </tr>
             <tr>
-            <tr>
               <td>Hospital</td>
               <td>{{consultation.hospital}}</td>
             </tr>
@@ -31,14 +30,27 @@
               <td>{{consultation.description}}</td>
             </tr>
             <tr>
-                <td>Comentario</td>
-                <td>{{consultation.commentary}}</td>
+              <td>Comentario</td>
+              <td>{{consultation.commentary}}</td>
             </tr>
             <tr>
-                <td>Fecha</td>
-                <td>{{consultation.date}}</td>
+              <td>Fecha</td>
+              <td>{{consultation.date}}</td>
             </tr>
           </tbody>
         </table>
+
+      <div class="row">
+          <div class="col-md-1">
+            <button class="btn btn-secondary" title="View" (click)="viewRegister(register)">
+              Editar        
+            </button>
+          </div>        
+          <div class="col-md-1">            
+            <button class="btn btn-danger" title="Edit" (click)="editRegister(register)">
+              Eliminar        
+            </button>
+          </div>
       </div>
+    </div>      
 </blockquote>
