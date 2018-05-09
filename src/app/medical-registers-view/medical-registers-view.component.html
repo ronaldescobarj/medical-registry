@@ -39,15 +39,6 @@
       {{register.date}}  
     </td>
     <td>
-      <!-- <a *ngIf="register.type=='consultation'" class="btn btn-info btn-sm" routerLink="/medicalConsultation/{{register.id}}">
-        <span class="fa fa-info-circle"></span>
-      </a>
-      <a *ngIf="register.type=='analysis'" class="btn btn-info btn-sm" routerLink="/medicalAnalysis/{{register.id}}">
-        <span class="fa fa-info-circle"></span>
-      </a>
-      <a *ngIf="register.type=='self observation'" class="btn btn-info btn-sm" routerLink="/medicalSelfObservation/{{register.id}}">
-        <span class="fa fa-info-circle"></span>
-      </a> -->
       <button class="btn btn-secondary" title="View" (click)="viewRegister(register)">
         <span class="fa fa-info-circle"></span>        
       </button>
