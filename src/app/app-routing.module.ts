@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'medicalConsultation/:id', component: MedicalConsultationViewComponent },
   { path: 'medicalAnalysis/:id', component: MedicalAnalysisViewComponent},
   { path: 'medicalSelfObservation/:id',component:MedicalSelfObservationViewComponent},
-  { path: 'medicalConsultation/create',component:MedicalConsultationCreateComponent}  
+  { path: 'medicalConsultation/crud/create',component:MedicalConsultationCreateComponent}  
 ];
 
 @NgModule({
