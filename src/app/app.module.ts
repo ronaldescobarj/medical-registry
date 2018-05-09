@@ -11,6 +11,11 @@ import { MedicalConsultationViewComponent } from './medical-consultation-view/me
 import { MedicalAnalysisViewComponent } from './medical-analysis-view/medical-analysis-view.component';
 import { MedicalSelfObservationViewComponent } from './medical-self-observation-view/medical-self-observation-view.component';
 import { HttpService } from './http.service';
+import { MedicalConsultationEditComponent } from './medical-consultation-edit/medical-consultation-edit.component';
+import { MedicalConsultationCreateComponent } from './medical-consultation-create/medical-consultation-create.component';
+import { DeleteModalComponent } from './delete-modal/delete-modal.component';
+import { BsModalModule } from 'ng2-bs3-modal';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,12 +23,17 @@ import { HttpService } from './http.service';
     MedicalRegistersViewComponent,
     MedicalConsultationViewComponent,
     MedicalAnalysisViewComponent,
-    MedicalSelfObservationViewComponent
+    MedicalSelfObservationViewComponent,
+    MedicalConsultationEditComponent,
+    MedicalConsultationCreateComponent,
+    DeleteModalComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BsModalModule,
+    FormsModule
   ],
   providers: [HttpService],
   bootstrap: [AppComponent]
