@@ -10,6 +10,7 @@ import { MedicalRegistersViewComponent } from './medical-registers-view/medical-
 import { MedicalConsultationViewComponent } from './medical-consultation-view/medical-consultation-view.component';
 import { MedicalAnalysisViewComponent } from './medical-analysis-view/medical-analysis-view.component';
 import { MedicalSelfObservationViewComponent } from './medical-self-observation-view/medical-self-observation-view.component';
+import { HttpService } from './http.service';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import { MedicalSelfObservationViewComponent } from './medical-self-observation-
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [HttpService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
