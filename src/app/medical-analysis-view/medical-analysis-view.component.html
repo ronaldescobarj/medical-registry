@@ -5,14 +5,17 @@
 </div>
 
 <blockquote class = "blockquote text-center">
-    <h1><b>Analysis Information</b></h1>
-    <br><br>
+    <h1>Analisis</h1>
+    <br>
     <div class="container">      
-
         <table class="table table-striped">
           <tbody>
             <tr>
-              <td>Type</td>
+              <td>Resumen</td>
+              <td>{{analysis.summary}}</td>
+            </tr>
+            <tr>
+              <td>Tipo</td>
               <td>{{analysis.type}}</td>
             </tr>
             <tr>
@@ -20,19 +23,32 @@
               <td>{{analysis.hospital}}</td>
             </tr>
             <tr>
-              <td>Text</td>
-              <td>{{analysis.text}}</td>
+              <td>Descripcion</td>
+              <td>{{analysis.description}}</td>
             </tr>
             <tr>
-              <td>Date</td>
+              <td>Fecha</td>
               <td>{{analysis.date}}</td>
             </tr>
             <tr>
-              <td>Commentary</td>
+              <td>Comentario</td>
               <td>{{analysis.commentary}}</td>
             </tr>
           </tbody>
         </table>
+
+        <div class="row">
+          <div class="col-md-1">
+            <button class="btn btn-secondary" title="View" (click)="viewRegister(register)">
+              Editar        
+            </button>
+          </div>        
+          <div class="col-md-1">            
+            <button class="btn btn-danger" title="Edit" (click)="editRegister(register)">
+              Eliminar        
+            </button>
+          </div>
+        </div>
       </div>
 </blockquote>
 
