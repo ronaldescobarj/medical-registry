@@ -36,5 +36,9 @@ export class MedicalRegistersViewComponent implements OnInit {
     this.router.navigateByUrl(type + "/" + register.id);
   }
   
+  createMedicalConsultation() {
+    this.router.navigateByUrl("/medicalConsultation/create")
+  }
+  
 }
 

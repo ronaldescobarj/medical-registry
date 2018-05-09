@@ -10,6 +10,8 @@ import { MedicalRegistersViewComponent } from './medical-registers-view/medical-
 import { MedicalConsultationViewComponent } from './medical-consultation-view/medical-consultation-view.component';
 import { MedicalAnalysisViewComponent } from './medical-analysis-view/medical-analysis-view.component';
 import { MedicalSelfObservationViewComponent } from './medical-self-observation-view/medical-self-observation-view.component';
+import { MedicalConsultationEditComponent } from './medical-consultation-edit/medical-consultation-edit.component';
+import { MedicalConsultationCreateComponent } from './medical-consultation-create/medical-consultation-create.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { MedicalSelfObservationViewComponent } from './medical-self-observation-
     MedicalRegistersViewComponent,
     MedicalConsultationViewComponent,
     MedicalAnalysisViewComponent,
-    MedicalSelfObservationViewComponent
+    MedicalSelfObservationViewComponent,
+    MedicalConsultationEditComponent,
+    MedicalConsultationCreateComponent
   ],
   imports: [
     BrowserModule,
