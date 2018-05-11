@@ -1,45 +1,59 @@
 <div class="btn-group" style="width: 100%;">
-    <button class="btn btn-success" style="width: 33%;">
-      Añadir una observacion
-    </button>
+  <button class="btn btn-success" style="width: 33%;">
+    Añadir una observacion
+  </button>
 
-    <button class="btn btn-success" style="width: 34%;" (click)="createMedicalConsultation()">
-      Añadir una consulta medica
-    </button>
+  <button class="btn btn-success" style="width: 34%;" (click)="createMedicalConsultation()">
+    Añadir una consulta medica
+  </button>
 
-    <button class="btn btn-success" style="width: 33%;">
-      Añadir un analisis
-    </button>
+  <button class="btn btn-success" style="width: 33%;">
+    Añadir un analisis
+  </button>
 </div>
-<br><br/>
+<br>
+<br/>
+
 <div class="container">
   <table class="table table-striped table-bordered" style="width: 90%; margin: 0 auto;">
-      <thead>
-          <tr>
-              <th>Resumen</th>
-              <th>Tipo</th>
-              <th>Fecha</th>
-              <th>Opciones</th>
-          </tr>
-      </thead>
-      <tbody>
-          <tr *ngFor="let register of registers">
-              <td>{{register.summary}}</td>
-              <td>{{register.type}}</td>
-              <td>{{register.date}}</td>
-              <td>
-                  <button class="btn btn-secondary" title="View" (click)="viewRegister(register)">
-                    <span class="fa fa-info-circle"></span>        
-                  </button>
-                  <button class="btn btn-primary" title="Edit" (click)="editRegister(register)">
-                    <span class="fas fa-edit"></span>        
-                  </button>
-                  <button class="btn btn-danger" title="Delete" (click)="deleteModal.open();">
-                    <span class="fas fa-trash-alt"></span>        
-                  </button>
-                  <app-delete-modal #deleteModal [type]="register.type" (deleting)="deleteRegister(register)"></app-delete-modal>
-              </td>
-          </tr>
-      </tbody>
+    <thead>
+      <tr>
+        <th>
+          <button class="btn btn-default">Resumen</button>
+        </th>
+        <th>
+          <button *ngIf="sort.type == 0" class="btn btn-default" (click)="sortRegisters('type')">Tipo</button>
+          <button *ngIf="sort.type == 1" class="btn btn-default" (click)="sortRegisters('type')">Tipo &darr;</button>
+          <button *ngIf="sort.type == 2" class="btn btn-default" (click)="sortRegisters('type')">Tipo &uarr;</button>
+        </th>
+        <th>
+          <button *ngIf="sort.date == 0" class="btn btn-default" (click)="sortRegisters('date')">Fecha</button>
+          <button *ngIf="sort.date == 1" class="btn btn-default" (click)="sortRegisters('date')">Fecha &darr;</button>
+          <button *ngIf="sort.date == 2" class="btn btn-default" (click)="sortRegisters('date')">Fecha &uarr;</button>
+        </th>
+        <th>
+          <button class="btn btn-default">Opciones</button>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let register of registers">
+        <td>{{register.summary}}</td>
+        <td>{{register.type}}</td>
+        <td>{{register.date}}</td>
+        <td>
+          <button class="btn btn-secondary" title="View" (click)="viewRegister(register)">
+            <span class="fa fa-info-circle"></span>
+          </button>
+          <button class="btn btn-primary" title="Edit" (click)="editRegister(register)">
+            <span class="fas fa-edit"></span>
+          </button>
+          <button class="btn btn-danger" title="Delete" (click)="deleteModal.open();">
+            <span class="fas fa-trash-alt"></span>
+          </button>
+          <app-delete-modal #deleteModal [type]="register.type" (deleting)="deleteRegister(register)"></app-delete-modal>
+        </td>
+      </tr>
+    </tbody>
   </table>
 </div>
