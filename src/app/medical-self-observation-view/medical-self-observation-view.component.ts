@@ -17,10 +17,10 @@ export class MedicalSelfObservationViewComponent implements OnInit {
   ngOnInit() {
     
       this.id = this.route.snapshot.paramMap.get('id');
-      this.selfObservation = {summary: "estado actual", observation: "no siento mejoria", date: "2018-05-08"};
-      // this.httpService.get('selfObservation/get?id='+this.id).subscribe((response: any) => {
-      //     this.selfObservation = response.response;
-      // })
+      this.selfObservation = {text: ""};
+      this.httpService.get('selfObservation/get?id='+this.id).subscribe((response: any) => {
+          this.selfObservation = response.response;
+      })
     }
   goBack() {
     this.location.back();

@@ -39,6 +39,7 @@ router.get('/list', function (req, res) {
                             console.error(JSON.stringify(err));
                         } else {
                             var analysisList = resultObjAn.rows;
+                            console.log("analisis", analysisList);
                             analysisList = addType(analysisList, "analysis");
                             registers = registers.concat(analysisList);
                             var queryObservations = 'SELECT id, summary, date FROM medical_history.self_observation';
@@ -48,8 +49,10 @@ router.get('/list', function (req, res) {
                                     console.error(JSON.stringify(err));
                                 } else {
                                     var observationsList = resultObjObs.rows;
+                                    console.log("observations", observationsList);                                    
                                     observationsList = addType(observationsList, "self_observation");
                                     registers = registers.concat(observationsList);
+                                    // console.log(registers);
                                     response.success = true;
                                     response.response = registers;
                                     res.json(response);

@@ -4,53 +4,41 @@
   </button>
 </div>
 
-<blockquote class="blockquote text-center">
-  <h1>Consulta</h1>
-  <br>
-  <div class="container">
-    <table class="table table-striped">
-      <tbody>
-        <tr>
-          <td>Resumen</td>
-          <td>{{consultation.summary}}</td>
-        </tr>
-        <tr>
-          <td>Doctor</td>
-          <td>{{consultation.doctor}}</td>
-        </tr>
-        <tr>
-          <td>Hospital</td>
-          <td>{{consultation.hospital}}</td>
-        </tr>
-        <tr>
-          <td>Diagnostico</td>
-          <td>{{consultation.diagnostic}}</td>
-          <tr>
-            <td>Descripcion</td>
-            <td>{{consultation.description}}</td>
-          </tr>
-          <tr>
-            <td>Comentario</td>
-            <td>{{consultation.commentary}}</td>
-          </tr>
-          <tr>
-            <td>Fecha</td>
-            <td>{{consultation.date}}</td>
-          </tr>
-      </tbody>
-    </table>
-
-    <div class="row">
-      <div class="col-md-1">
-        <button class="btn btn-secondary" title="View" (click)="viewRegister(register)">
-          Editar
-        </button>
+<blockquote class = "blockquote text-center">
+    <h1><b>Consultation Information</b></h1>
+    <br><br>
+    <div class="container">      
+        <table class="table table-striped">
+          <tbody>
+            <tr>
+              <td>Summary</td>
+              <td>{{consultation.summary}}</td>
+            </tr>
+            <tr>
+              <td>Doctor</td>
+              <td>{{consultation.doctor}}</td>
+            </tr>
+            <tr>
+              <td>Diagnostic</td>
+              <td>{{consultation.diagnostic}}</td>
+            </tr>
+            <tr>
+                <td>Hospital</td>
+                <td>{{consultation.hospital}}</td>
+              </tr>
+            <tr>
+              <td>Description</td>
+              <td>{{consultation.description}}</td>
+            </tr>
+            <tr>
+                <td>Commentary</td>
+                <td>{{consultation.commentary}}</td>
+            </tr>
+            <tr>
+                <td>Date</td>
+                <td>{{consultation.date}}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <div class="col-md-1">
-        <button class="btn btn-danger" title="Edit" (click)="editRegister(register)">
-          Eliminar
-        </button>
-      </div>
-    </div>
-  </div>
 </blockquote>
