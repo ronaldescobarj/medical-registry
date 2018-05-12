@@ -12,8 +12,8 @@ function prepareResponse(req) {
 
 router.get('/get', function (req, res) {
     var id = req.query.id;
-    var queryString = 'SELECT * FROM medical_history.consultation WHERE id=' + id;
-    var response = prepareResponse(req);  
+    var queryString = 'SELECT * FROM medical_history.self_observation WHERE id=' + id;
+    var response = prepareResponse(req);
     dbConnection.pool.connect(function (error, connection, done) {
         if (error) {
             console.error("error");
@@ -36,11 +36,12 @@ router.get('/get', function (req, res) {
 function generateQuery(data, type) {
     var query = "";
     if (type=="insert")
-        query = "INSERT INTO medical_history.consultation VALUES (" + data.id + ", '" + data.summary + "', '" + data.doctor + "', '" + data.diagnostic + "', '" + data.hospital + "', '" + data.description + "', '" + data.commentary + "', '" + data.date + "', " + data.user_id + ");";
+        query = "INSERT INTO medical_history.self_observation VALUES (" + data.id + ", '" + data.summary + "', '" + data.observation + "', '" + data.date + "', " + data.user_id + ");";
     if (type=="update")
-        query = "UPDATE medical_history.consultation SET summary='" + data.summary + "', doctor='" + data.doctor + "', diagnostic='" + data.diagnostic + "', hospital='" + data.hospital + "', description='" + data.description + "', commentary='" + data.commentary + "', date='" + data.date + "' WHERE id=" + data.id;
+        query = "UPDATE medical_history.self_observation SET summary='" + data.summary + "', observation='" + data.observation + "', date='" + data.date + "' WHERE id=" + data.id;
     return query;
 }
+
 router.post('/create', function(req, res, next) {
     var data = req.body;
     var queryString = generateQuery(data, "insert");
@@ -61,6 +62,7 @@ router.post('/create', function(req, res, next) {
             });
         }
     });
+
 });
 
 router.post('/update', function(req, res, next) {
@@ -87,7 +89,7 @@ router.post('/update', function(req, res, next) {
 
 router.post('/delete', function(req, res, next) {
     var data = req.body;
-    var queryString = "delete from medical_history.consultation where id=" + data.id;
+    var queryString = "delete from medical_history.self_observation where id=" + data.id;
     var response = prepareResponse(req);
     dbConnection.pool.connect(function (error, connection, done) {
         if (error) {
