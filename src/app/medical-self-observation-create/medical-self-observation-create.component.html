@@ -1,0 +1,38 @@
+<div class="col-md-12">
+    <button class="btn btn-secondary" title="Go back" (click)="goBack()">
+      <span class="fas fa-arrow-circle-left"></span>
+    </button>
+</div>
+  
+<div class="container">
+<div class="row">
+    <div class="col-md-12 col-md-offset-6">
+        <form class="form-horizontal">                
+            <h2>Edit a Self Observation</h2>
+            <div class="form-group">
+                <div class="col-md-9">
+                    <label class="validation-message">Summary</label>                      
+                    <input name="summary" [(ngModel)]="medicalSelfObservation.summary" type="text" placeholder="Summary" class="form-control"/> 
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-9">
+                    <label class="validation-message">Observation</label>                      
+                    <input name="observation" [(ngModel)]="medicalSelfObservation.observation" type="text" placeholder="Observation" class="form-control"/> 
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-9">
+                    <label class="validation-message">Date</label>                      
+                    <input name="date" [(ngModel)]="medicalSelfObservation.date" placeholder="Date" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-3">
+                    <button class="col-md-3 btn btn-success btn-block" (click)="createSelfObservation()">Save</button>                        
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</div>

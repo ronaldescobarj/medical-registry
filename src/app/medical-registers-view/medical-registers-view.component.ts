@@ -15,6 +15,7 @@ export class MedicalRegistersViewComponent implements OnInit {
   ngOnInit() {
       this.httpService.get('/registers/list').subscribe((response: any) => {
           this.registers = response.response;
+
           this.registers.sort((a, b) => {
             a = new Date(a.date);
             b = new Date(b.date);
@@ -39,15 +40,46 @@ export class MedicalRegistersViewComponent implements OnInit {
   }
   
   createMedicalConsultation() {
-    this.router.navigateByUrl("/medicalConsultation/crud/create")
+    this.router.navigateByUrl("/medicalConsultation/crud/create");
+  }
+  createMedicalAnalysis() {
+    this.router.navigateByUrl("/medicalAnalysis/crud/create");
+  }
+  createMedicalSelfObservation() {
+    this.router.navigateByUrl("/medicalSelfObservation/crud/create");
   }
 
   editRegister(register: any) {
-    this.router.navigateByUrl('medicalConsultation/crud/edit/' + register.id);
+    let type = "";
+    switch (register.type) {
+      case "consultation":
+        type = "/medicalConsultation";
+        break;
+      case "analysis":
+        type = "/medicalAnalysis";
+        break;
+      default:
+        type = "/medicalSelfObservation";
+        break;
+    }
+    this.router.navigateByUrl(type + "/crud/edit/" + register.id);
   }
 
   deleteRegister(register: any) {
-    this.httpService.post('/consultation/delete',register).subscribe((response: any) => {
+    let type = "";
+    switch (register.type) {
+      case "consultation":
+        type = "/consultation";
+        break;
+      case "analysis":
+        type = "/analysis";
+        break;
+      default:
+        type = "/selfObservation";
+        break;
+    }
+    type = type+"/delete";
+    this.httpService.post(type,register).subscribe((response: any) => {
       console.log(response);
   })
   }

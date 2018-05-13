@@ -15,6 +15,10 @@ const routes: Routes = [
   { path: 'medicalSelfObservation/:id',component:MedicalSelfObservationViewComponent},
   { path: 'medicalConsultation/crud/create',component:MedicalConsultationCreateComponent},
   { path: 'medicalConsultation/crud/edit/:id',component:MedicalConsultationEditComponent}, 
+  { path: 'medicalAnalysis/crud/create',component:MedicalConsultationEditComponent}, 
+  { path: 'medicalAnalysis/crud/edit/:id',component:MedicalConsultationEditComponent}, 
+  { path: 'medicalSelfObservation/crud/create',component:MedicalConsultationEditComponent}, 
+  { path: 'medicalSelfObservation/crud/edit/:id',component:MedicalConsultationEditComponent}, 
 ];
 
 @NgModule({

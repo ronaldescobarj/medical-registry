@@ -27,8 +27,7 @@ export class MedicalConsultationEditComponent implements OnInit {
   saveChanges(){
       this.httpService.post('/consultation/update', this.medicalConsultation).subscribe((response: any)=>{
            console.log(response);
-    this.router.navigateByUrl('/registers');
-           
+    this.router.navigateByUrl('/registers');  
       })
   }
 

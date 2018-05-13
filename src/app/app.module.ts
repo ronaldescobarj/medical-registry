@@ -17,6 +17,10 @@ import { MedicalConsultationCreateComponent } from './medical-consultation-creat
 import { DeleteModalComponent } from './delete-modal/delete-modal.component';
 import { BsModalModule } from 'ng2-bs3-modal';
 import { FormsModule } from '@angular/forms';
+import { MedicalAnalysisCreateComponent } from './medical-analysis-create/medical-analysis-create.component';
+import { MedicalAnalysisEditComponent } from './medical-analysis-edit/medical-analysis-edit.component';
+import { MedicalSelfObservationCreateComponent } from './medical-self-observation-create/medical-self-observation-create.component';
+import { MedicalSelfObservationEditComponent } from './medical-self-observation-edit/medical-self-observation-edit.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +31,11 @@ import { FormsModule } from '@angular/forms';
     MedicalSelfObservationViewComponent,
     MedicalConsultationEditComponent,
     MedicalConsultationCreateComponent,
-    DeleteModalComponent
+    DeleteModalComponent,
+    MedicalAnalysisCreateComponent,
+    MedicalAnalysisEditComponent,
+    MedicalSelfObservationCreateComponent,
+    MedicalSelfObservationEditComponent
   ],
   imports: [
     BrowserModule,
