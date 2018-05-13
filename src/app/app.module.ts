@@ -20,7 +20,7 @@ import { MedicalAnalysisCreateComponent } from './medical-analysis-create/medica
 import { MedicalAnalysisEditComponent } from './medical-analysis-edit/medical-analysis-edit.component';
 import { MedicalSelfObservationCreateComponent } from './medical-self-observation-create/medical-self-observation-create.component';
 import { MedicalSelfObservationEditComponent } from './medical-self-observation-edit/medical-self-observation-edit.component';
-
+import { NgxPaginationModule } from 'ngx-pagination';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +41,8 @@ import { MedicalSelfObservationEditComponent } from './medical-self-observation-
     AppRoutingModule,
     BsModalModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    NgxPaginationModule
   ],
   providers: [HttpService],
   bootstrap: [AppComponent]

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpService } from '../http.service';
+import { Location } from '@angular/common';
+// import { ENETDOWN } from 'constants';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-medical-registers-view',
@@ -10,18 +13,123 @@ import { HttpService } from '../http.service';
 export class MedicalRegistersViewComponent implements OnInit {
 
   private registers: any[];
-  constructor(private httpService: HttpService, private router: Router) { }
+  private originalRegisters: any[];
+  private arrowDownIcon: String;
+  private arrowUpIcon: String;
+  private sort: any;
+  private p: number = 1;
+  private subscription: Subscription;
+  constructor(private httpService: HttpService, private router: Router, private location: Location) { }
 
   ngOnInit() {
-      this.httpService.get('/registers/list').subscribe((response: any) => {
-          this.registers = response.response;
-          this.registers.sort((a, b) => {
-            a = new Date(a.date);
-            b = new Date(b.date);
-            return a>b ? -1 : a<b ? 1 : 0;
-          })
-      })
+    // this.registers = [];
+    this.originalRegisters = [];
+    this.sort = {
+      type: 0,
+      date: 0
+    };
+    if (this.subscription)
+      this.subscription.unsubscribe();
+    this.subscription = this.httpService.get('/registers/list').subscribe((response: any) => {
+      if (response.success) {
+        this.registers = response.response;
+        this.registers.forEach((register: any) => this.originalRegisters.push(register));
+      }
+    })
+    // this.registers = [
+    //   { date: 'October 13, 2014 11:13:00', summary: 'tenia dolor', type: 'consulta medica' },
+    //   { date: 'October 14, 2014 11:13:00', summary: 'me siento mejor sin ir', type: 'observacion' },
+    //   { date: 'October 15, 2014 11:13:00', summary: ' el doctor me dijo', type: 'observacion' },
+    //   { date: 'October 16, 2014 11:13:00', summary: 'analisis de sangre', type: 'analisis' },
+    //   { date: 'October 13, 2014 11:13:00', summary: 'tenia dolor', type: 'consulta medica' },
+    //   { date: 'October 14, 2014 11:13:00', summary: 'me siento mejor sin ir', type: 'observacion' },
+    //   { date: 'October 15, 2014 11:13:00', summary: ' el doctor me dijo', type: 'observacion' },
+    //   { date: 'October 16, 2014 11:13:00', summary: 'analisis de sangre', type: 'analisis' },
+    //   { date: 'October 13, 2014 11:13:00', summary: 'tenia dolor', type: 'consulta medica' },
+    //   { date: 'October 14, 2014 11:13:00', summary: 'me siento mejor sin ir', type: 'observacion' },
+    //   { date: 'October 15, 2014 11:13:00', summary: ' el doctor me dijo', type: 'observacion' },
+    //   { date: 'October 16, 2014 11:13:00', summary: 'analisis de sangre', type: 'analisis' },
+    //   { date: 'October 13, 2014 11:13:00', summary: 'tenia dolor', type: 'consulta medica' },
+    //   { date: 'October 14, 2014 11:13:00', summary: 'me siento mejor sin ir', type: 'observacion' },
+    //   { date: 'October 15, 2014 11:13:00', summary: ' el doctor me dijo', type: 'observacion' },
+    //   { date: 'October 16, 2014 11:13:00', summary: 'analisis de sangre', type: 'analisis' },
+    //   { date: 'October 13, 2014 11:13:00', summary: 'tenia dolor', type: 'consulta medica' },
+    //   { date: 'October 14, 2014 11:13:00', summary: 'me siento mejor sin ir', type: 'observacion' },
+    //   { date: 'October 15, 2014 11:13:00', summary: ' el doctor me dijo', type: 'observacion' },
+    //   { date: 'October 16, 2014 11:13:00', summary: 'analisis de sangre', type: 'analisis' },
+    //   { date: 'October 13, 2014 11:13:00', summary: 'tenia dolor', type: 'consulta medica' },
+    //   { date: 'October 14, 2014 11:13:00', summary: 'me siento mejor sin ir', type: 'observacion' },
+    //   { date: 'October 15, 2014 11:13:00', summary: ' el doctor me dijo', type: 'observacion' },
+    //   { date: 'October 16, 2014 11:13:00', summary: 'analisis de sangre', type: 'analisis' },
+    //   { date: 'October 13, 2014 11:13:00', summary: 'tenia dolor', type: 'consulta medica' },
+    //   { date: 'October 14, 2014 11:13:00', summary: 'me siento mejor sin ir', type: 'observacion' },
+    //   { date: 'October 15, 2014 11:13:00', summary: ' el doctor me dijo', type: 'observacion' },
+    //   { date: 'October 16, 2014 11:13:00', summary: 'analisis de sangre', type: 'analisis' },
+    //   { date: 'October 13, 2014 11:13:00', summary: 'tenia dolor', type: 'consulta medica' },
+    //   { date: 'October 14, 2014 11:13:00', summary: 'me siento mejor sin ir', type: 'observacion' },
+    //   { date: 'October 15, 2014 11:13:00', summary: ' el doctor me dijo', type: 'observacion' },
+    //   { date: 'October 16, 2014 11:13:00', summary: 'analisis de sangre', type: 'analisis' },
+    //   { date: 'October 13, 2014 11:13:00', summary: 'tenia dolor', type: 'consulta medica' },
+    //   { date: 'October 14, 2014 11:13:00', summary: 'me siento mejor sin ir', type: 'observacion' },
+    //   { date: 'October 15, 2014 11:13:00', summary: ' el doctor me dijo', type: 'observacion' },
+    //   { date: 'October 16, 2014 11:13:00', summary: 'analisis de sangre', type: 'analisis' },
+    //   { date: 'October 13, 2014 11:13:00', summary: 'tenia dolor', type: 'consulta medica' },
+    //   { date: 'October 14, 2014 11:13:00', summary: 'me siento mejor sin ir', type: 'observacion' },
+    //   { date: 'October 15, 2014 11:13:00', summary: ' el doctor me dijo', type: 'observacion' },
+    //   { date: 'October 16, 2014 11:13:00', summary: 'analisis de sangre', type: 'analisis' },
+    // ];
+    
+    // this.originalRegisters = this.registers;
   }
+
+  sortRegisters(value: any) {
+    // 0 default, 1 up, 2 down
+    if (this.sort[value] == 0) {
+      if (value == "date") {
+        this.registers.sort((a, b) => {
+          a = new Date(a[value]);
+          b = new Date(b[value]);
+          return a < b ? -1 : a > b ? 1 : 0;
+        });
+      }
+      else {
+        this.registers.sort((a, b) => {
+          a = a[value];
+          b = b[value];
+          return a < b ? -1 : a > b ? 1 : 0;
+        });
+      }
+      this.sort[value]++;
+      let otherValue = value == "type" ? "date" : "type";
+      this.sort[otherValue] = 0;
+      return;
+    }
+    if (this.sort[value] == 1) {
+      if (value == "date") {
+        this.registers.sort((a, b) => {
+          a = new Date(a[value]);
+          b = new Date(b[value]);
+          return a > b ? -1 : a < b ? 1 : 0;
+        });
+      }
+      else {
+        this.registers.sort((a, b) => {
+          a = a[value];
+          b = b[value];
+          return a > b ? -1 : a < b ? 1 : 0;
+        });
+      }
+      this.sort[value]++;
+      return;
+    }
+    if (this.sort[value] == 2) {
+      this.registers = [];
+      this.originalRegisters.forEach((register: any) => this.registers.push(register));
+      this.sort[value] = 0;
+      return;
+    }
+  }
+
   viewRegister(register: any) {
     let type = "";
     switch (register.type) {
@@ -37,15 +145,9 @@ export class MedicalRegistersViewComponent implements OnInit {
     }
     this.router.navigateByUrl(type + "/" + register.id);
   }
-  
-  createMedicalConsultation() {
-    this.router.navigateByUrl("/medicalConsultation/crud/create");
-  }
-  createMedicalAnalysis() {
-    this.router.navigateByUrl("/medicalAnalysis/crud/create");
-  }
-  createMedicalSelfObservation() {
-    this.router.navigateByUrl("/medicalSelfObservation/crud/create");
+
+  createRegister(type: string) {
+    this.router.navigateByUrl(type + "/crud/create")
   }
 
   editRegister(register: any) {
@@ -85,5 +187,53 @@ export class MedicalRegistersViewComponent implements OnInit {
   })
   }
 
+  test(textField: any) {
+    var str = "Hello world, welcome to the universe.";
+    var n: boolean = str.includes("world");
+    this.registers = this.originalRegisters;
+    let temp: any = [];
+    this.registers.forEach((register: any) => {
+      if ((register.date.includes(
+        textField) || register.summary.includes(textField) || register.type.includes(textField)
+      )) {
+        temp.push(register);
+      }
+      else {
+        console.log("false")
+        return false;
+      }
+    }
+    );
+    this.registers = temp;
+    if (this.sort.date != 0) {
+      if (this.sort.date == 2) {
+        this.registers.sort((a, b) => {
+          a = new Date(a.date);
+          b = new Date(b.date);
+          return a > b ? -1 : a < b ? 1 : 0;
+        });
+      } else {
+        this.registers.sort((a, b) => {
+          a = new Date(a.date);
+          b = new Date(b.date);
+          return a < b ? -1 : a > b ? 1 : 0;
+        });
+      }
+    }
+    if (this.sort.type != 0) {
+      if (this.sort.data == 1) {
+        this.registers.sort((a, b) => {
+          a = a.type;
+          b = b.type;
+          return a < b ? -1 : a > b ? 1 : 0;
+        });
+      } else {
+        this.registers.sort((a, b) => {
+          a = a.type;
+          b = b.type;
+          return a > b ? -1 : a < b ? 1 : 0;
+        });
+      }
+    }
+  }
 }
-
