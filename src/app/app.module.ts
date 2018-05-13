@@ -17,6 +17,7 @@ import { MedicalConsultationCreateComponent } from './medical-consultation-creat
 import { DeleteModalComponent } from './delete-modal/delete-modal.component';
 import { BsModalModule } from 'ng2-bs3-modal';
 import { FormsModule } from '@angular/forms';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { FormsModule } from '@angular/forms';
     AppRoutingModule,
     BsModalModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    NgxPaginationModule
   ],
   providers: [HttpService],
   bootstrap: [AppComponent]
