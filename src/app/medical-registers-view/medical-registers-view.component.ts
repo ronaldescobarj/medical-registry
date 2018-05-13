@@ -78,55 +78,62 @@ export class MedicalRegistersViewComponent implements OnInit {
     //   { date: 'October 15, 2014 11:13:00', summary: ' el doctor me dijo', type: 'observacion' },
     //   { date: 'October 16, 2014 11:13:00', summary: 'analisis de sangre', type: 'analisis' },
     // ];
-    
+
     // this.originalRegisters = this.registers;
   }
 
   sortRegisters(value: any) {
     // 0 default, 1 up, 2 down
-    if (this.sort[value] == 0) {
-      if (value == "date") {
-        this.registers.sort((a, b) => {
-          a = new Date(a[value]);
-          b = new Date(b[value]);
-          return a < b ? -1 : a > b ? 1 : 0;
-        });
+    if (this.registers) {
+      if (this.sort[value] == 0) {
+        if (value == "date") {
+          this.registers.sort((a, b) => {
+            a = new Date(a[value]);
+            b = new Date(b[value]);
+            return a < b ? -1 : a > b ? 1 : 0;
+          });
+        }
+        else {
+          this.registers.sort((a, b) => {
+            a = a[value];
+            b = b[value];
+            return a < b ? -1 : a > b ? 1 : 0;
+          });
+        }
+        this.sort[value]++;
+        let otherValue = value == "type" ? "date" : "type";
+        this.sort[otherValue] = 0;
+        return;
       }
-      else {
-        this.registers.sort((a, b) => {
-          a = a[value];
-          b = b[value];
-          return a < b ? -1 : a > b ? 1 : 0;
-        });
+      if (this.sort[value] == 1) {
+        if (value == "date") {
+          this.registers.sort((a, b) => {
+            a = new Date(a[value]);
+            b = new Date(b[value]);
+            return a > b ? -1 : a < b ? 1 : 0;
+          });
+        }
+        else {
+          this.registers.sort((a, b) => {
+            a = a[value];
+            b = b[value];
+            return a > b ? -1 : a < b ? 1 : 0;
+          });
+        }
+        this.sort[value]++;
+        return;
       }
-      this.sort[value]++;
-      let otherValue = value == "type" ? "date" : "type";
-      this.sort[otherValue] = 0;
-      return;
-    }
-    if (this.sort[value] == 1) {
-      if (value == "date") {
-        this.registers.sort((a, b) => {
-          a = new Date(a[value]);
-          b = new Date(b[value]);
-          return a > b ? -1 : a < b ? 1 : 0;
-        });
+      if (this.sort[value] == 2) {
+        this.registers = [];
+        this.originalRegisters.forEach((register: any) => this.registers.push(register));
+        this.sort[value] = 0;
+        return;
       }
-      else {
-        this.registers.sort((a, b) => {
-          a = a[value];
-          b = b[value];
-          return a > b ? -1 : a < b ? 1 : 0;
-        });
-      }
-      this.sort[value]++;
-      return;
-    }
-    if (this.sort[value] == 2) {
-      this.registers = [];
-      this.originalRegisters.forEach((register: any) => this.registers.push(register));
-      this.sort[value] = 0;
-      return;
+    } else {
+      if (this.sort[value] != 2)
+        this.sort[value]++;
+      else
+        this.sort[value] = 0;
     }
   }
 
@@ -180,16 +187,14 @@ export class MedicalRegistersViewComponent implements OnInit {
         type = "/selfObservation";
         break;
     }
-    type = type+"/delete";
-    this.httpService.post(type,register).subscribe((response: any) => {
+    type = type + "/delete";
+    this.httpService.post(type, register).subscribe((response: any) => {
       if (response.success)
-      location.reload();
-  })
+        location.reload();
+    })
   }
 
   test(textField: any) {
-    var str = "Hello world, welcome to the universe.";
-    var n: boolean = str.includes("world");
     this.registers = this.originalRegisters;
     let temp: any = [];
     this.registers.forEach((register: any) => {
