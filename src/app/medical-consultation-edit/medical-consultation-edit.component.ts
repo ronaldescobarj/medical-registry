@@ -14,20 +14,21 @@ export class MedicalConsultationEditComponent implements OnInit {
 
   private medicalConsultation: any;
   private id: any;
+  private show: boolean = false;
   
   ngOnInit() {
-    // this.medicalConsultation = //request from the database
     this.id = this.route.snapshot.paramMap.get('id');
-      // this.medicalConsultation = {doctor: "",description:"",diagnostic:"",hospital:"",commentary:""};
       this.httpService.get('/consultation/get?id='+this.id).subscribe((response: any) => {
-        console.log(response);
-          this.medicalConsultation = response.response[0];
+        if (response.success) {
+          this.medicalConsultation = response.response;
+          this.show = true;
+        }  
       })
   }
   saveChanges(){
       this.httpService.post('/consultation/update', this.medicalConsultation).subscribe((response: any)=>{
-           console.log(response);
-    this.router.navigateByUrl('/registers');  
+        if (response.success)
+          this.router.navigateByUrl('/registers');  
       })
   }
 

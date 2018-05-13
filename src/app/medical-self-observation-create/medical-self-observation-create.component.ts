@@ -27,8 +27,9 @@ export class MedicalSelfObservationCreateComponent implements OnInit {
     this.medicalSelfObservation.user_id = 10;    
     console.log(this.medicalSelfObservation);
     this.httpService.post('/selfObservation/create', this.medicalSelfObservation).subscribe((response: any)=>{
-      console.log(response);
-    this.router.navigateByUrl('/registers'); })
+      if (response.success)
+        this.router.navigateByUrl('/registers');
+    })
   }
   goBack() {
     this.router.navigateByUrl('/registers');    

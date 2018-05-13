@@ -12,13 +12,17 @@ export class MedicalAnalysisViewComponent implements OnInit {
 
   private analysis : any;
   private id:String;
+  private show: boolean = false;
+
   constructor(private httpService: HttpService, private route: ActivatedRoute,private location: Location) { }
 
   ngOnInit() {
-  
       this.id = this.route.snapshot.paramMap.get('id');
       this.httpService.get('/analysis/get?id='+this.id).subscribe((response: any) => {
-          this.analysis = response.response[0];
+        if (response.success) {
+          this.analysis = response.response;
+          this.show = true;
+        }  
       })
   }
   goBack() {

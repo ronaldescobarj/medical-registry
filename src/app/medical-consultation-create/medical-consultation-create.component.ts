@@ -32,8 +32,8 @@ export class MedicalConsultationCreateComponent implements OnInit {
     this.medicalConsultation.user_id = 10;    
     console.log(this.medicalConsultation);
     this.httpService.post('/consultation/create', this.medicalConsultation).subscribe((response: any)=>{
-      console.log(response);
-    this.router.navigateByUrl('/registers'); })
+      if (response.success)
+        this.router.navigateByUrl('/registers'); })
   }
 
   goBack() {

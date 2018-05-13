@@ -13,22 +13,24 @@ export class MedicalAnalysisEditComponent implements OnInit {
 
   private medicalAnalysis:any;
   private id;
+  private show: boolean = false;
 
   constructor(private httpService: HttpService, private route: ActivatedRoute,private location: Location,private router: Router) { }
 
   ngOnInit() {
-
     this.id = this.route.snapshot.paramMap.get('id');
       this.httpService.get('/analysis/get?id='+this.id).subscribe((response: any) => {
-        console.log(response);
-          this.medicalAnalysis = response.response[0];
+        if (response.success) {
+          this.medicalAnalysis = response.response;
+          this.show = true;
+        }
       })
   }
 
   saveChanges(){
     this.httpService.post('/analysis/update', this.medicalAnalysis).subscribe((response: any)=>{
-         console.log(response);
-    this.router.navigateByUrl('/registers');  
+      if (response.success)
+        this.router.navigateByUrl('/registers');  
     })
 }
   goBack() {

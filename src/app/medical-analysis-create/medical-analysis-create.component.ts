@@ -26,11 +26,10 @@ export class MedicalAnalysisCreateComponent implements OnInit {
   }
   createAnalysis() {
     this.medicalAnalysis.id = Math.floor(Math.random() * 100000);
-    this.medicalAnalysis.user_id = 10;    
-    console.log(this.medicalAnalysis);
+    this.medicalAnalysis.user_id = 10;
     this.httpService.post('/analysis/create', this.medicalAnalysis).subscribe((response: any)=>{
-      console.log(response);
-    this.router.navigateByUrl('/registers');})
+      if (response.success)
+        this.router.navigateByUrl('/registers');})
   }
   goBack() {
     this.router.navigateByUrl('/registers');    

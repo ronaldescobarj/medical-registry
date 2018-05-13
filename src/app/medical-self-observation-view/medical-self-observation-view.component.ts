@@ -13,13 +13,19 @@ export class MedicalSelfObservationViewComponent implements OnInit {
 
   private selfObservation:any;
   private id:String;
+  private show: boolean = false;
+
   constructor(private httpService: HttpService, private route: ActivatedRoute,private location: Location) { }
+
   ngOnInit() {
-    
       this.id = this.route.snapshot.paramMap.get('id');
       this.selfObservation = {text: ""};
-      this.httpService.get('selfObservation/get?id='+this.id).subscribe((response: any) => {
+      this.httpService.get('/selfObservation/get?id='+this.id).subscribe((response: any) => {
+        console.log(response);
+        if (response.success) {
           this.selfObservation = response.response;
+          this.show = true;
+        }  
       })
     }
   goBack() {

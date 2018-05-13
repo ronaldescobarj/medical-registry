@@ -12,14 +12,17 @@ export class MedicalConsultationViewComponent implements OnInit {
 
   private consultation:any;
   private id: string;
+  private show: boolean = false;
 
   constructor(private httpService: HttpService, private route: ActivatedRoute, private location: Location) { }
 
   ngOnInit() {
       this.id = this.route.snapshot.paramMap.get('id');
-      // this.consultation = {doctor: "",description:"",diagnostic:"",hospital:"",commentary:""};
       this.httpService.get('/consultation/get?id='+this.id).subscribe((response: any) => {
-          this.consultation = response.response[0];
+        if (response.success) {
+          this.consultation = response.response;
+          this.show = true;
+        }
       })
   }
   goBack() {

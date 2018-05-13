@@ -4,7 +4,7 @@
   </button>
 </div>
 
-<blockquote class = "blockquote text-center">
+<blockquote *ngIf="show" class = "blockquote text-center">
     <h1><b>Observation Information</b></h1>
     <br><br>
     <div class="container">      
@@ -13,15 +13,15 @@
           <tbody>
             <tr>
                <td>Summary</td>
-               <td>{{consultation.summary}}</td>
+               <td>{{selfObservation.summary}}</td>
             </tr>
             <tr>
               <td>Observation</td>
-              <td>{{selfObservation.text}}</td>
+              <td>{{selfObservation.observation}}</td>
             </tr>
             <tr>
                 <td>Date</td>
-                <td>{{consultation.date}}</td>
+                <td>{{selfObservation.date}}</td>
               </tr>  
           </tbody>
         </table>

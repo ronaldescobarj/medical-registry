@@ -15,7 +15,6 @@ export class MedicalRegistersViewComponent implements OnInit {
   ngOnInit() {
       this.httpService.get('/registers/list').subscribe((response: any) => {
           this.registers = response.response;
-
           this.registers.sort((a, b) => {
             a = new Date(a.date);
             b = new Date(b.date);
@@ -62,6 +61,7 @@ export class MedicalRegistersViewComponent implements OnInit {
         type = "/medicalSelfObservation";
         break;
     }
+    console.log(type + "/crud/edit/" + register.id);
     this.router.navigateByUrl(type + "/crud/edit/" + register.id);
   }
 
@@ -80,7 +80,8 @@ export class MedicalRegistersViewComponent implements OnInit {
     }
     type = type+"/delete";
     this.httpService.post(type,register).subscribe((response: any) => {
-      console.log(response);
+      if (response.success)
+      location.reload();
   })
   }
 

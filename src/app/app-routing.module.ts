@@ -6,19 +6,23 @@ import { MedicalAnalysisViewComponent } from './medical-analysis-view/medical-an
 import { MedicalSelfObservationViewComponent } from './medical-self-observation-view/medical-self-observation-view.component';
 import { MedicalConsultationCreateComponent } from './medical-consultation-create/medical-consultation-create.component';
 import { MedicalConsultationEditComponent } from './medical-consultation-edit/medical-consultation-edit.component';
+import { MedicalAnalysisCreateComponent } from './medical-analysis-create/medical-analysis-create.component';
+import { MedicalAnalysisEditComponent } from './medical-analysis-edit/medical-analysis-edit.component';
+import { MedicalSelfObservationCreateComponent } from './medical-self-observation-create/medical-self-observation-create.component';
+import { MedicalSelfObservationEditComponent } from './medical-self-observation-edit/medical-self-observation-edit.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/registers', pathMatch: 'full' },
   { path: 'registers', component: MedicalRegistersViewComponent },
   { path: 'medicalConsultation/:id', component: MedicalConsultationViewComponent },
   { path: 'medicalAnalysis/:id', component: MedicalAnalysisViewComponent},
-  { path: 'medicalSelfObservation/:id',component:MedicalSelfObservationViewComponent},
-  { path: 'medicalConsultation/crud/create',component:MedicalConsultationCreateComponent},
-  { path: 'medicalConsultation/crud/edit/:id',component:MedicalConsultationEditComponent}, 
-  { path: 'medicalAnalysis/crud/create',component:MedicalConsultationEditComponent}, 
-  { path: 'medicalAnalysis/crud/edit/:id',component:MedicalConsultationEditComponent}, 
-  { path: 'medicalSelfObservation/crud/create',component:MedicalConsultationEditComponent}, 
-  { path: 'medicalSelfObservation/crud/edit/:id',component:MedicalConsultationEditComponent}, 
+  { path: 'medicalSelfObservation/:id', component: MedicalSelfObservationViewComponent},
+  { path: 'medicalConsultation/crud/create', component: MedicalConsultationCreateComponent},
+  { path: 'medicalConsultation/crud/edit/:id', component: MedicalConsultationEditComponent}, 
+  { path: 'medicalAnalysis/crud/create', component: MedicalAnalysisCreateComponent}, 
+  { path: 'medicalAnalysis/crud/edit/:id', component: MedicalAnalysisEditComponent}, 
+  { path: 'medicalSelfObservation/crud/create', component: MedicalSelfObservationCreateComponent}, 
+  { path: 'medicalSelfObservation/crud/edit/:id', component: MedicalSelfObservationEditComponent}
 ];
 
 @NgModule({
