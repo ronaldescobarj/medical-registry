@@ -34,9 +34,13 @@ router.get('/get', function (req, res) {
     
   });
 
-router.post('/create', function(req, res, next) {
+router.post('/add', function(req, res, next) {
     var data = req.body;
-    var queryString = "INSERT INTO medical_history.image VALUES (" + data.id + ", '" + data.image + "', '" + data.user_id + ");";    
+    console.log(data);
+    response.success = true;
+    response.response = {};
+    res.send(JSON.stringify(response));
+    /* var queryString = "INSERT INTO medical_history.image VALUES (" + data.id + ", '" + data.image + "', '" + data.user_id + ");";    
     var response = prepareResponse(req);
     dbConnection.pool.connect(function (error, connection, done) {
         if (error) {
@@ -54,7 +58,7 @@ router.post('/create', function(req, res, next) {
             });
         }
     });
-
+ */
 });
 
 router.post('/delete', function(req, res, next) {
