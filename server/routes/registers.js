@@ -32,14 +32,14 @@ router.get('/list', function (req, res) {
                     console.error(JSON.stringify(err));
                 } else {
                     registers = resultObjCons.rows;
-                    registers = addType(registers, "consultation");
+                    registers = addType(registers, "Consulta");
                     var queryAnalysis = 'SELECT id, summary, date FROM medical_history.analysis';
                     var queryAn = connection.query(queryAnalysis, function (err, resultObjAn) {
                         if (err) {
                             console.error(JSON.stringify(err));
                         } else {
                             var analysisList = resultObjAn.rows;
-                            analysisList = addType(analysisList, "analysis");
+                            analysisList = addType(analysisList, "Analisis");
                             registers = registers.concat(analysisList);
                             var queryObservations = 'SELECT id, summary, date FROM medical_history.self_observation';
                             var queryObs = connection.query(queryObservations, function (err, resultObjObs) {
@@ -48,7 +48,7 @@ router.get('/list', function (req, res) {
                                     console.error(JSON.stringify(err));
                                 } else {
                                     var observationsList = resultObjObs.rows;
-                                    observationsList = addType(observationsList, "self_observation");
+                                    observationsList = addType(observationsList, "Observacion propia");
                                     registers = registers.concat(observationsList);
                                     response.success = true;
                                     response.response = registers;

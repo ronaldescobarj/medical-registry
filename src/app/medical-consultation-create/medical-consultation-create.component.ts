@@ -30,7 +30,6 @@ export class MedicalConsultationCreateComponent implements OnInit {
   createConsultation() {
     this.medicalConsultation.id = Math.floor(Math.random() * 100000);
     this.medicalConsultation.user_id = 10;    
-    console.log(this.medicalConsultation);
     this.httpService.post('/consultation/create', this.medicalConsultation).subscribe((response: any)=>{
       if (response.success)
         this.router.navigateByUrl('/registers'); })

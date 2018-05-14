@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { HttpService } from '../http.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-medical-analysis-view',
@@ -13,15 +14,37 @@ export class MedicalAnalysisViewComponent implements OnInit {
   private analysis : any;
   private id:String;
   private show: boolean = false;
+  private images: any[];
 
-  constructor(private httpService: HttpService, private route: ActivatedRoute,private location: Location) { }
+  private testImage: any;
+
+  // private imageDecoded: any;
+  private imagesDecoded: any[];
+
+  constructor(
+    private httpService: HttpService,
+    private route: ActivatedRoute,
+    private location: Location,
+    private domSanitizer: DomSanitizer
+  ) { }
 
   ngOnInit() {
       this.id = this.route.snapshot.paramMap.get('id');
       this.httpService.get('/analysis/get?id='+this.id).subscribe((response: any) => {
         if (response.success) {
           this.analysis = response.response;
-          this.show = true;
+          this.httpService.get('/image/get?analysisId='+this.analysis.id).subscribe((res: any) => {
+            if (response.success) {
+              this.images = res.response;
+              this.imagesDecoded = [];
+              for (let i = 0; i < this.images.length; i++) {
+                let imageDecoded = this.domSanitizer.bypassSecurityTrustResourceUrl('data:' + this.images[i].file_type + ';base64,' 
+                  + this.images[i].base_64_image);
+                this.imagesDecoded.push(imageDecoded);
+              }
+              this.show = true;
+            }
+          })
         }  
       })
   }

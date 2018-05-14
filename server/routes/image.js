@@ -31,16 +31,25 @@ router.get('/get', function (req, res) {
             });
         }
     });
-    
   });
+
+function generateQuery(images) {
+    var query = "INSERT INTO medical_history.image VALUES ";
+    for (let i = 0; i < images.length; i++) {
+        query += "(" + images[i].id + ", '" + images[i].base_64_image + "', '" + images[i].file_name + "', '" + images[i].file_type + "', " + images[i].analysis_id + ")";
+        if (i == images.length - 1) {
+            query += ";"
+        }
+        else {
+            query += ", ";
+        }
+    }
+    return query;
+}
 
 router.post('/add', function(req, res, next) {
     var data = req.body;
-    console.log(data);
-    response.success = true;
-    response.response = {};
-    res.send(JSON.stringify(response));
-    /* var queryString = "INSERT INTO medical_history.image VALUES (" + data.id + ", '" + data.image + "', '" + data.user_id + ");";    
+    var queryString = generateQuery(data.images);
     var response = prepareResponse(req);
     dbConnection.pool.connect(function (error, connection, done) {
         if (error) {
@@ -58,12 +67,16 @@ router.post('/add', function(req, res, next) {
             });
         }
     });
- */
+
 });
 
 router.post('/delete', function(req, res, next) {
     var data = req.body;
-    var queryString = "delete from medical_history.image where id=" + data.id;
+    var queryString = "";
+    if (data.id)
+        queryString = "delete from medical_history.image where id=" + data.id;
+    if (data.analysis_id)
+        queryString = "delete from medical_history.image where analysis_id=" + data.analysis_id;    
     var response = prepareResponse(req);
     dbConnection.pool.connect(function (error, connection, done) {
         if (error) {

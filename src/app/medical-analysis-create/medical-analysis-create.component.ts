@@ -10,7 +10,9 @@ import { Router } from '@angular/router';
 export class MedicalAnalysisCreateComponent implements OnInit {
 
   private medicalAnalysis:any = {};
-  private testImage: File;
+  private testImage: any;
+  private images: any;
+
   constructor(private httpService: HttpService, private router: Router) { }
 
   ngOnInit() {
@@ -25,39 +27,52 @@ export class MedicalAnalysisCreateComponent implements OnInit {
       user_id:"",
     }
   }
+
   createAnalysis() {
     this.medicalAnalysis.id = Math.floor(Math.random() * 100000);
     this.medicalAnalysis.user_id = 10;
+    var imagesObj = {images: []};
     this.httpService.post('/analysis/create', this.medicalAnalysis).subscribe((response: any)=>{
       if (response.success) {
-        let imageObj = {
-          id: Math.floor(Math.random() * 100000),
-          image: this.testImage,
-          analysis_id: this.medicalAnalysis.id
+        for (let i = 0; i < this.images.length; i++) {
+          let imageObj = {
+            id: Math.floor(Math.random() * 100000),
+            base_64_image: this.images[i].value,
+            file_name: this.images[i].filename,
+            file_type: this.images[i].filetype,
+            analysis_id: this.medicalAnalysis.id
+          };
+          imagesObj.images.push(imageObj);
         }
-        this.httpService.post('image/add', imageObj).subscribe((res: any) => {
+        this.httpService.post('/image/add', imagesObj).subscribe((res: any) => {
           if (res.success) {
             this.router.navigateByUrl('/registers');            
-            console.log(res);
           }
         })
       }
     })
   }
+
   goBack() {
     this.router.navigateByUrl('/registers');    
   }
 
-  fileChange(event: any, files: any) {
-    console.log("event", event);
-    console.log("files", files);
-    console.log("test image", this.testImage);
-    console.log("files 0", files[0]);
-    this.testImage = files[0];
-    let fr = new FileReader()
-    fr.onload = function(e) 
+  onFileChange(event) {
+    let readers = [];
+    this.images = [];
+    if(event.target.files && event.target.files.length > 0) {
+      for (let i = 0; i < event.target.files.length; i++) {
+        readers[i] = new FileReader();
+        let file = event.target.files[i];
+        readers[i].readAsDataURL(file);
+        readers[i].onload = () => {
+          this.images.push({
+            filename: file.name,
+            filetype: file.type,
+            value: readers[i].result.split(',')[1]
+          });
+        };
+      }
+    }
   }
-
-  convertToBase64
-  
 }

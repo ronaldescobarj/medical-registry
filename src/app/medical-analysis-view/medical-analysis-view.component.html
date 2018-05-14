@@ -5,35 +5,47 @@
 </div>
 
 <blockquote *ngIf="show" class = "blockquote text-center">
-    <h1><b>Analysis Information</b></h1>
+    <h1><b>Informacion del analisis</b></h1>
     <br><br>
     <div class="container">      
 
         <table class="table table-striped">
           <tbody>
             <tr>
-              <td>Summary</td>
+              <td>Resumen</td>
               <td>{{analysis.summary}}</td>
             </tr>
             <tr>
-              <td>Type</td>
+              <td>Tipo</td>
               <td>{{analysis.type}}</td>
             </tr>
             <tr>
               <td>Hospital</td>
               <td>{{analysis.hospital}}</td>
             </tr>
-            <tr>
+            <!-- <tr>
               <td>Text</td>
               <td>{{analysis.description}}</td>
-            </tr>
+            </tr> -->
             <tr>
-              <td>Date</td>
+              <td>Fecha</td>
               <td>{{analysis.date}}</td>
             </tr>
             <tr>
-              <td>Commentary</td>
+              <td>Comentario</td>
               <td>{{analysis.commentary}}</td>
+            </tr>
+            <tr>
+              <td>Imagenes</td>
+              <td>
+                <div *ngFor="let imgDecoded of imagesDecoded">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" [src]="imgDecoded" alt="Card image cap">
+                    <div class="card-body">
+                    </div>
+                  </div>
+                </div>
+              </td>
             </tr>
           </tbody>
         </table>

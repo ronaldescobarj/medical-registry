@@ -67,7 +67,7 @@
             <button class="btn btn-danger" title="Delete" (click)="deleteModal.open();">
               <span class="fas fa-trash-alt"></span>
             </button>
-            <app-delete-modal #deleteModal [type]="register.type" (deleting)="deleteRegister(register)"></app-delete-modal>
+            <app-delete-modal #deleteModal [type]="register.type" (canceling)="refresh()" (deleting)="deleteRegister(register)"></app-delete-modal>
           </td>
         </tr>
       </tbody>

@@ -8,23 +8,17 @@
   <div class="row">
       <div class="col-md-12 col-md-offset-6">
           <form class="form-horizontal">                
-              <h2>Create a Medical Analysis</h2>
+              <h2>Registrar un analisis medico</h2>
               <div class="form-group">
                   <div class="col-md-9">
-                      <label class="validation-message">Summary</label>                      
-                      <input name="summary" [(ngModel)]="medicalAnalysis.summary" type="text" placeholder="summary" class="form-control"/> 
+                      <label class="validation-message">Resumen</label>                      
+                      <input name="summary" [(ngModel)]="medicalAnalysis.summary" type="text" placeholder="Resumen" class="form-control"/> 
                   </div>
               </div>
               <div class="form-group">
                   <div class="col-md-9">
-                      <label class="validation-message">Type</label>                      
-                      <input name="type" [(ngModel)]="medicalAnalysis.type" type="text" placeholder="type" class="form-control"/> 
-                  </div>
-              </div>
-              <div class="form-group">
-                  <div class="col-md-9">
-                      <label class="validation-message">Diagnostic</label>                      
-                      <textarea name="diagnostic" [(ngModel)]="medicalAnalysis.diagnostic" rows="5" placeholder="Diagnostic" class="form-control"></textarea> 
+                      <label class="validation-message">Tipo</label>                      
+                      <input name="type" [(ngModel)]="medicalAnalysis.type" type="text" placeholder="Tipo" class="form-control"/> 
                   </div>
               </div>
               <!-- <div class="form-group">
@@ -36,30 +30,30 @@
               <div class="form-group">
                   <div class="col-md-9">
                       <label class="validation-message">Hospital</label>                      
-                      <input name="hospital" [(ngModel)]="medicalAnalysis.hospital" type="text" placeholder="hospital" class="form-control"/> 
+                      <input name="hospital" [(ngModel)]="medicalAnalysis.hospital" type="text" placeholder="Hospital" class="form-control"/> 
                   </div>
               </div>
               <div class="form-group">
                   <div class="col-md-9">
-                      <label class="validation-message">Commentary</label>                      
-                      <textarea name="commentary" [(ngModel)]="medicalAnalysis.commentary" rows="5" placeholder="Commentary" class="form-control"></textarea> 
+                      <label class="validation-message">Comentario</label>                      
+                      <textarea name="commentary" [(ngModel)]="medicalAnalysis.commentary" rows="5" placeholder="Comentario" class="form-control"></textarea> 
                   </div>
               </div>
               <div class="form-group">
                   <div class="col-md-9">
-                      <label class="validation-message">Date</label>                      
-                      <input name="date" [(ngModel)]="medicalAnalysis.date" placeholder="Date" class="form-control">
+                      <label class="validation-message">Fecha</label>                      
+                      <input name="date" [(ngModel)]="medicalAnalysis.date" placeholder="Fecha" class="form-control">
                   </div>
               </div>
               <div class="form-group">
                 <div class="col-md-9">
-                    <label class="validation-message">Image</label>                      
-                    <input type="file" #fileupload name="image" [(ngModel)]="testImage" class="form-control" (ngModelChange)="fileChange($event, fileupload.files)">
+                    <label class="validation-message">Imagenes</label>
+                    <input multiple type="file" #fileupload name="image" class="form-control" (change)="onFileChange($event)">
                 </div>
             </div>
               <div class="form-group">
                   <div class="col-md-3">
-                      <button class="col-md-3 btn btn-success btn-block" (click)="createAnalysis()">Save</button>                        
+                      <button class="btn btn-success btn-block" (click)="createAnalysis()">Registrar</button>                        
                   </div>
               </div>
           </form>

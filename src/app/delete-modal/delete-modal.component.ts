@@ -13,6 +13,7 @@ export class DeleteModalComponent implements OnInit {
   @Input() type: any;
   @ViewChild('deleteModal') deleteModal: BsModalComponent;
   @Output() deleting: EventEmitter<any> = new EventEmitter<any>();
+  @Output() canceling: EventEmitter<any> = new EventEmitter<any>();  
   ngOnInit() {
   }
 

@@ -22,7 +22,6 @@ export class MedicalRegistersViewComponent implements OnInit {
   constructor(private httpService: HttpService, private router: Router, private location: Location) { }
 
   ngOnInit() {
-    // this.registers = [];
     this.originalRegisters = [];
     this.sort = {
       type: 0,
@@ -36,50 +35,7 @@ export class MedicalRegistersViewComponent implements OnInit {
         this.registers.forEach((register: any) => this.originalRegisters.push(register));
       }
     })
-    // this.registers = [
-    //   { date: 'October 13, 2014 11:13:00', summary: 'tenia dolor', type: 'consulta medica' },
-    //   { date: 'October 14, 2014 11:13:00', summary: 'me siento mejor sin ir', type: 'observacion' },
-    //   { date: 'October 15, 2014 11:13:00', summary: ' el doctor me dijo', type: 'observacion' },
-    //   { date: 'October 16, 2014 11:13:00', summary: 'analisis de sangre', type: 'analisis' },
-    //   { date: 'October 13, 2014 11:13:00', summary: 'tenia dolor', type: 'consulta medica' },
-    //   { date: 'October 14, 2014 11:13:00', summary: 'me siento mejor sin ir', type: 'observacion' },
-    //   { date: 'October 15, 2014 11:13:00', summary: ' el doctor me dijo', type: 'observacion' },
-    //   { date: 'October 16, 2014 11:13:00', summary: 'analisis de sangre', type: 'analisis' },
-    //   { date: 'October 13, 2014 11:13:00', summary: 'tenia dolor', type: 'consulta medica' },
-    //   { date: 'October 14, 2014 11:13:00', summary: 'me siento mejor sin ir', type: 'observacion' },
-    //   { date: 'October 15, 2014 11:13:00', summary: ' el doctor me dijo', type: 'observacion' },
-    //   { date: 'October 16, 2014 11:13:00', summary: 'analisis de sangre', type: 'analisis' },
-    //   { date: 'October 13, 2014 11:13:00', summary: 'tenia dolor', type: 'consulta medica' },
-    //   { date: 'October 14, 2014 11:13:00', summary: 'me siento mejor sin ir', type: 'observacion' },
-    //   { date: 'October 15, 2014 11:13:00', summary: ' el doctor me dijo', type: 'observacion' },
-    //   { date: 'October 16, 2014 11:13:00', summary: 'analisis de sangre', type: 'analisis' },
-    //   { date: 'October 13, 2014 11:13:00', summary: 'tenia dolor', type: 'consulta medica' },
-    //   { date: 'October 14, 2014 11:13:00', summary: 'me siento mejor sin ir', type: 'observacion' },
-    //   { date: 'October 15, 2014 11:13:00', summary: ' el doctor me dijo', type: 'observacion' },
-    //   { date: 'October 16, 2014 11:13:00', summary: 'analisis de sangre', type: 'analisis' },
-    //   { date: 'October 13, 2014 11:13:00', summary: 'tenia dolor', type: 'consulta medica' },
-    //   { date: 'October 14, 2014 11:13:00', summary: 'me siento mejor sin ir', type: 'observacion' },
-    //   { date: 'October 15, 2014 11:13:00', summary: ' el doctor me dijo', type: 'observacion' },
-    //   { date: 'October 16, 2014 11:13:00', summary: 'analisis de sangre', type: 'analisis' },
-    //   { date: 'October 13, 2014 11:13:00', summary: 'tenia dolor', type: 'consulta medica' },
-    //   { date: 'October 14, 2014 11:13:00', summary: 'me siento mejor sin ir', type: 'observacion' },
-    //   { date: 'October 15, 2014 11:13:00', summary: ' el doctor me dijo', type: 'observacion' },
-    //   { date: 'October 16, 2014 11:13:00', summary: 'analisis de sangre', type: 'analisis' },
-    //   { date: 'October 13, 2014 11:13:00', summary: 'tenia dolor', type: 'consulta medica' },
-    //   { date: 'October 14, 2014 11:13:00', summary: 'me siento mejor sin ir', type: 'observacion' },
-    //   { date: 'October 15, 2014 11:13:00', summary: ' el doctor me dijo', type: 'observacion' },
-    //   { date: 'October 16, 2014 11:13:00', summary: 'analisis de sangre', type: 'analisis' },
-    //   { date: 'October 13, 2014 11:13:00', summary: 'tenia dolor', type: 'consulta medica' },
-    //   { date: 'October 14, 2014 11:13:00', summary: 'me siento mejor sin ir', type: 'observacion' },
-    //   { date: 'October 15, 2014 11:13:00', summary: ' el doctor me dijo', type: 'observacion' },
-    //   { date: 'October 16, 2014 11:13:00', summary: 'analisis de sangre', type: 'analisis' },
-    //   { date: 'October 13, 2014 11:13:00', summary: 'tenia dolor', type: 'consulta medica' },
-    //   { date: 'October 14, 2014 11:13:00', summary: 'me siento mejor sin ir', type: 'observacion' },
-    //   { date: 'October 15, 2014 11:13:00', summary: ' el doctor me dijo', type: 'observacion' },
-    //   { date: 'October 16, 2014 11:13:00', summary: 'analisis de sangre', type: 'analisis' },
-    // ];
     
-    // this.originalRegisters = this.registers;
   }
 
   sortRegisters(value: any) {
@@ -133,10 +89,10 @@ export class MedicalRegistersViewComponent implements OnInit {
   viewRegister(register: any) {
     let type = "";
     switch (register.type) {
-      case "consultation":
+      case "Consulta":
         type = "/medicalConsultation";
         break;
-      case "analysis":
+      case "Analisis":
         type = "/medicalAnalysis";
         break;
       default:
@@ -153,27 +109,26 @@ export class MedicalRegistersViewComponent implements OnInit {
   editRegister(register: any) {
     let type = "";
     switch (register.type) {
-      case "consultation":
+      case "Consulta":
         type = "/medicalConsultation";
         break;
-      case "analysis":
+      case "Analisis":
         type = "/medicalAnalysis";
         break;
       default:
         type = "/medicalSelfObservation";
         break;
     }
-    console.log(type + "/crud/edit/" + register.id);
     this.router.navigateByUrl(type + "/crud/edit/" + register.id);
   }
 
   deleteRegister(register: any) {
     let type = "";
     switch (register.type) {
-      case "consultation":
+      case "Consulta":
         type = "/consultation";
         break;
-      case "analysis":
+      case "Analisis":
         type = "/analysis";
         break;
       default:
@@ -182,8 +137,16 @@ export class MedicalRegistersViewComponent implements OnInit {
     }
     type = type+"/delete";
     this.httpService.post(type,register).subscribe((response: any) => {
-      if (response.success)
-      location.reload();
+      if (response.success) {
+        if (type == "/analysis") {
+          this.httpService.post('/image/delete', {analysis_id: register.id}).subscribe((res: any) => {
+            if (res.success)
+              location.reload();
+          })
+        }
+        else
+          location.reload();
+      }
   })
   }
 
@@ -199,7 +162,6 @@ export class MedicalRegistersViewComponent implements OnInit {
         temp.push(register);
       }
       else {
-        console.log("false")
         return false;
       }
     }
@@ -235,5 +197,9 @@ export class MedicalRegistersViewComponent implements OnInit {
         });
       }
     }
+  }
+
+  refresh() {
+    location.reload();
   }
 }

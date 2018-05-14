@@ -3,15 +3,15 @@
         <h4 class="modal-title">Esta seguro?</h4>
     </bs-modal-header>
     <bs-modal-body>
-      <div *ngIf="type != analisis">
+      <div *ngIf="type != 'Analisis'">
         Esta seguro que desea eliminar la {{type}}?
       </div>
-      <div *ngIf="type == analisis">
+      <div *ngIf="type == 'Analisis'">
         Esta seguro que desea eliminar el {{type}}?
       </div>        
     </bs-modal-body>
     <bs-modal-footer>
-        <button type="button" class="btn btn-default" (click)="deleteModal.close()">Cancel</button>
-        <button type="button" class="btn btn-danger" (click)="deleteRegister(); deleteModal.close();">Delete</button>
+        <button type="button" class="btn btn-default" (click)="canceling.emit(); deleteModal.close()">Cancelar</button>
+        <button type="button" class="btn btn-danger" (click)="deleteRegister(); deleteModal.close();">Eliminar</button>
     </bs-modal-footer>
 </bs-modal>
