@@ -1,63 +1,63 @@
 <div class="col-md-12">
-    <button class="btn btn-secondary" title="Go back" (click)="goBack()">
-      <span class="fas fa-arrow-circle-left"></span>
-    </button>
-  </div>
-  
+        <button class="btn btn-secondary" title="Go back" (click)="goBack()">
+          <span class="fas fa-arrow-circle-left"></span>
+        </button>
+      </div>
+      
 <div class="container">
-<div class="row">
-    <div class="col-md-12 col-md-offset-6">
-        <form class="form-horizontal">                
-            <h2>Registrar una consulta medica</h2>
-            <div class="form-group">
+    <div class="row">
+        <div class="col-md-12 col-md-offset-6">
+            <form class="form-horizontal">                
+                <h2>Registrar una consulta medica</h2>
+                <div class="form-group">
+                        <div class="col-md-9">
+                            <label class="validation-message">Resumen</label>                      
+                            <input name="summary" [(ngModel)]="medicalConsultation.summary" type="text" placeholder="Resumen" class="form-control"/> 
+                        </div>
+                    </div>
+                <div class="form-group">
                     <div class="col-md-9">
-                        <label class="validation-message">Resumen</label>                      
-                        <input name="summary" [(ngModel)]="medicalConsultation.summary" type="text" placeholder="Resumen" class="form-control"/> 
+                        <label class="validation-message">Doctor</label>                      
+                        <input name="doctor" [(ngModel)]="medicalConsultation.doctor" type="text" placeholder="Doctor" class="form-control"/> 
                     </div>
                 </div>
-            <div class="form-group">
-                <div class="col-md-9">
-                    <label class="validation-message">Doctor</label>                      
-                    <input name="doctor" [(ngModel)]="medicalConsultation.doctor" type="text" placeholder="Doctor" class="form-control"/> 
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-9">
-                    <label class="validation-message">Diagnostico</label>                      
-                    <textarea name="diagnostic" [(ngModel)]="medicalConsultation.diagnostic" rows="5" placeholder="Diagnostico" class="form-control"></textarea> 
-                </div>
-                </div>
-            <div class="form-group">
-                <div class="col-md-9">
-                    <label class="validation-message">Hospital</label>                      
-                    <input name="hospital" [(ngModel)]="medicalConsultation.hospital" type="text" placeholder="Hospital" class="form-control"/> 
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-9">
-                    <label class="validation-message">Descripcion</label>                      
-                    <input name="description" [(ngModel)]="medicalConsultation.description" type="text" placeholder="Descripcion" class="form-control"/> 
-                </div>
-            </div>
-            
-            <div class="form-group">
-                <div class="col-md-9">
-                    <label class="validation-message">Comentario</label>                      
-                    <textarea name="commentary" [(ngModel)]="medicalConsultation.commentary" rows="5" placeholder="Comentario" class="form-control"></textarea> 
-                </div>
-            </div>
-            <div class="form-group">
+                <div class="form-group">
                     <div class="col-md-9">
-                        <label class="validation-message">Fecha</label>                      
-                        <input name="date" [(ngModel)]="medicalConsultation.date" placeholder="AAAA-MM-DD" class="form-control">
+                        <label class="validation-message">Diagnostico</label>                      
+                        <textarea name="diagnostic" [(ngModel)]="medicalConsultation.diagnostic" rows="5" placeholder="Diagnostico" class="form-control"></textarea> 
+                    </div>
+                    </div>
+                <div class="form-group">
+                    <div class="col-md-9">
+                        <label class="validation-message">Hospital</label>                      
+                        <input name="hospital" [(ngModel)]="medicalConsultation.hospital" type="text" placeholder="Hospital" class="form-control"/> 
                     </div>
                 </div>
-            <div class="form-group">
-                <div class="col-md-3">
-                    <button class="btn btn-success btn-block" (click)="createConsultation()">Registrar</button>                        
+                <div class="form-group">
+                    <div class="col-md-9">
+                        <label class="validation-message">Descripcion</label>                      
+                        <input name="description" [(ngModel)]="medicalConsultation.description" type="text" placeholder="Descripcion" class="form-control"/> 
+                    </div>
                 </div>
-            </div>
-        </form>
+                
+                <div class="form-group">
+                    <div class="col-md-9">
+                        <label class="validation-message">Comentario</label>                      
+                        <textarea name="commentary" [(ngModel)]="medicalConsultation.commentary" rows="5" placeholder="Comentario" class="form-control"></textarea> 
+                    </div>
+                </div>
+                <div class="form-group">
+                        <div class="col-md-9">
+                            <label class="validation-message">Fecha</label>                      
+                            <input name="date" [(ngModel)]="medicalConsultation.date" placeholder="AAAA-MM-DD" class="form-control">
+                        </div>
+                    </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <button class="btn btn-success btn-block" (click)="createConsultation()">Registrar</button>                        
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 </div>

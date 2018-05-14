@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpService } from '../http.service';
 import { Location } from '@angular/common';
+// import { ENETDOWN } from 'constants';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
@@ -34,104 +35,54 @@ export class MedicalRegistersViewComponent implements OnInit {
         this.registers.forEach((register: any) => this.originalRegisters.push(register));
       }
     })
-    // this.registers = [
-    //   { date: 'October 13, 2014 11:13:00', summary: 'tenia dolor', type: 'consulta medica' },
-    //   { date: 'October 14, 2014 11:13:00', summary: 'me siento mejor sin ir', type: 'observacion' },
-    //   { date: 'October 15, 2014 11:13:00', summary: ' el doctor me dijo', type: 'observacion' },
-    //   { date: 'October 16, 2014 11:13:00', summary: 'analisis de sangre', type: 'analisis' },
-    //   { date: 'October 13, 2014 11:13:00', summary: 'tenia dolor', type: 'consulta medica' },
-    //   { date: 'October 14, 2014 11:13:00', summary: 'me siento mejor sin ir', type: 'observacion' },
-    //   { date: 'October 15, 2014 11:13:00', summary: ' el doctor me dijo', type: 'observacion' },
-    //   { date: 'October 16, 2014 11:13:00', summary: 'analisis de sangre', type: 'analisis' },
-    //   { date: 'October 13, 2014 11:13:00', summary: 'tenia dolor', type: 'consulta medica' },
-    //   { date: 'October 14, 2014 11:13:00', summary: 'me siento mejor sin ir', type: 'observacion' },
-    //   { date: 'October 15, 2014 11:13:00', summary: ' el doctor me dijo', type: 'observacion' },
-    //   { date: 'October 16, 2014 11:13:00', summary: 'analisis de sangre', type: 'analisis' },
-    //   { date: 'October 13, 2014 11:13:00', summary: 'tenia dolor', type: 'consulta medica' },
-    //   { date: 'October 14, 2014 11:13:00', summary: 'me siento mejor sin ir', type: 'observacion' },
-    //   { date: 'October 15, 2014 11:13:00', summary: ' el doctor me dijo', type: 'observacion' },
-    //   { date: 'October 16, 2014 11:13:00', summary: 'analisis de sangre', type: 'analisis' },
-    //   { date: 'October 13, 2014 11:13:00', summary: 'tenia dolor', type: 'consulta medica' },
-    //   { date: 'October 14, 2014 11:13:00', summary: 'me siento mejor sin ir', type: 'observacion' },
-    //   { date: 'October 15, 2014 11:13:00', summary: ' el doctor me dijo', type: 'observacion' },
-    //   { date: 'October 16, 2014 11:13:00', summary: 'analisis de sangre', type: 'analisis' },
-    //   { date: 'October 13, 2014 11:13:00', summary: 'tenia dolor', type: 'consulta medica' },
-    //   { date: 'October 14, 2014 11:13:00', summary: 'me siento mejor sin ir', type: 'observacion' },
-    //   { date: 'October 15, 2014 11:13:00', summary: ' el doctor me dijo', type: 'observacion' },
-    //   { date: 'October 16, 2014 11:13:00', summary: 'analisis de sangre', type: 'analisis' },
-    //   { date: 'October 13, 2014 11:13:00', summary: 'tenia dolor', type: 'consulta medica' },
-    //   { date: 'October 14, 2014 11:13:00', summary: 'me siento mejor sin ir', type: 'observacion' },
-    //   { date: 'October 15, 2014 11:13:00', summary: ' el doctor me dijo', type: 'observacion' },
-    //   { date: 'October 16, 2014 11:13:00', summary: 'analisis de sangre', type: 'analisis' },
-    //   { date: 'October 13, 2014 11:13:00', summary: 'tenia dolor', type: 'consulta medica' },
-    //   { date: 'October 14, 2014 11:13:00', summary: 'me siento mejor sin ir', type: 'observacion' },
-    //   { date: 'October 15, 2014 11:13:00', summary: ' el doctor me dijo', type: 'observacion' },
-    //   { date: 'October 16, 2014 11:13:00', summary: 'analisis de sangre', type: 'analisis' },
-    //   { date: 'October 13, 2014 11:13:00', summary: 'tenia dolor', type: 'consulta medica' },
-    //   { date: 'October 14, 2014 11:13:00', summary: 'me siento mejor sin ir', type: 'observacion' },
-    //   { date: 'October 15, 2014 11:13:00', summary: ' el doctor me dijo', type: 'observacion' },
-    //   { date: 'October 16, 2014 11:13:00', summary: 'analisis de sangre', type: 'analisis' },
-    //   { date: 'October 13, 2014 11:13:00', summary: 'tenia dolor', type: 'consulta medica' },
-    //   { date: 'October 14, 2014 11:13:00', summary: 'me siento mejor sin ir', type: 'observacion' },
-    //   { date: 'October 15, 2014 11:13:00', summary: ' el doctor me dijo', type: 'observacion' },
-    //   { date: 'October 16, 2014 11:13:00', summary: 'analisis de sangre', type: 'analisis' },
-    // ];
-
-    // this.originalRegisters = this.registers;
+    
   }
 
   sortRegisters(value: any) {
     // 0 default, 1 up, 2 down
-    if (this.registers) {
-      if (this.sort[value] == 0) {
-        if (value == "date") {
-          this.registers.sort((a, b) => {
-            a = new Date(a[value]);
-            b = new Date(b[value]);
-            return a < b ? -1 : a > b ? 1 : 0;
-          });
-        }
-        else {
-          this.registers.sort((a, b) => {
-            a = a[value];
-            b = b[value];
-            return a < b ? -1 : a > b ? 1 : 0;
-          });
-        }
-        this.sort[value]++;
-        let otherValue = value == "type" ? "date" : "type";
-        this.sort[otherValue] = 0;
-        return;
+    if (this.sort[value] == 0) {
+      if (value == "date") {
+        this.registers.sort((a, b) => {
+          a = new Date(a[value]);
+          b = new Date(b[value]);
+          return a < b ? -1 : a > b ? 1 : 0;
+        });
       }
-      if (this.sort[value] == 1) {
-        if (value == "date") {
-          this.registers.sort((a, b) => {
-            a = new Date(a[value]);
-            b = new Date(b[value]);
-            return a > b ? -1 : a < b ? 1 : 0;
-          });
-        }
-        else {
-          this.registers.sort((a, b) => {
-            a = a[value];
-            b = b[value];
-            return a > b ? -1 : a < b ? 1 : 0;
-          });
-        }
-        this.sort[value]++;
-        return;
+      else {
+        this.registers.sort((a, b) => {
+          a = a[value];
+          b = b[value];
+          return a < b ? -1 : a > b ? 1 : 0;
+        });
       }
-      if (this.sort[value] == 2) {
-        this.registers = [];
-        this.originalRegisters.forEach((register: any) => this.registers.push(register));
-        this.sort[value] = 0;
-        return;
+      this.sort[value]++;
+      let otherValue = value == "type" ? "date" : "type";
+      this.sort[otherValue] = 0;
+      return;
+    }
+    if (this.sort[value] == 1) {
+      if (value == "date") {
+        this.registers.sort((a, b) => {
+          a = new Date(a[value]);
+          b = new Date(b[value]);
+          return a > b ? -1 : a < b ? 1 : 0;
+        });
       }
-    } else {
-      if (this.sort[value] != 2)
-        this.sort[value]++;
-      else
-        this.sort[value] = 0;
+      else {
+        this.registers.sort((a, b) => {
+          a = a[value];
+          b = b[value];
+          return a > b ? -1 : a < b ? 1 : 0;
+        });
+      }
+      this.sort[value]++;
+      return;
+    }
+    if (this.sort[value] == 2) {
+      this.registers = [];
+      this.originalRegisters.forEach((register: any) => this.registers.push(register));
+      this.sort[value] = 0;
+      return;
     }
   }
 
@@ -184,11 +135,11 @@ export class MedicalRegistersViewComponent implements OnInit {
         type = "/selfObservation";
         break;
     }
-    type = type + "/delete";
-    this.httpService.post(type, register).subscribe((response: any) => {
+    type = type+"/delete";
+    this.httpService.post(type,register).subscribe((response: any) => {
       if (response.success) {
         if (type == "/analysis") {
-          this.httpService.post('/image/delete', { analysis_id: register.id }).subscribe((res: any) => {
+          this.httpService.post('/image/delete', {analysis_id: register.id}).subscribe((res: any) => {
             if (res.success)
               location.reload();
           })
@@ -196,10 +147,12 @@ export class MedicalRegistersViewComponent implements OnInit {
         else
           location.reload();
       }
-    })
+  })
   }
 
   test(textField: any) {
+    var str = "Hello world, welcome to the universe.";
+    var n: boolean = str.includes("world");
     this.registers = this.originalRegisters;
     let temp: any = [];
     this.registers.forEach((register: any) => {
