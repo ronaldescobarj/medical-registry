@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpService } from '../http.service';
 import { Location } from '@angular/common';
-// import { ENETDOWN } from 'constants';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
