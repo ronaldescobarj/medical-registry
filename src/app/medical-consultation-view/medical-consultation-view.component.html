@@ -4,41 +4,44 @@
   </button>
 </div>
 
-<blockquote *ngIf="show" class = "blockquote text-center">
-    <h1><b>Informacion de la consulta</b></h1>
-    <br><br>
-    <div class="container">      
-        <table class="table table-striped">
-          <tbody>
-            <tr>
-              <td>Resumen</td>
-              <td>{{consultation.summary}}</td>
-            </tr>
-            <tr>
-              <td>Doctor</td>
-              <td>{{consultation.doctor}}</td>
-            </tr>
-            <tr>
-              <td>Diagnostico</td>
-              <td>{{consultation.diagnostic}}</td>
-            </tr>
-            <tr>
-                <td>Hospital</td>
-                <td>{{consultation.hospital}}</td>
-              </tr>
-            <tr>
-              <td>Descripcion</td>
-              <td>{{consultation.description}}</td>
-            </tr>
-            <tr>
-                <td>Comentario</td>
-                <td>{{consultation.commentary}}</td>
-            </tr>
-            <tr>
-                <td>Fecha</td>
-                <td>{{consultation.date}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+<blockquote *ngIf="show" class="blockquote text-center">
+  <h1>
+    <b>Informacion de la consulta</b>
+  </h1>
+  <br>
+  <br>
+  <div class="container">
+    <table class="table table-striped">
+      <tbody>
+        <tr>
+          <td>Resumen</td>
+          <td>{{consultation.summary}}</td>
+        </tr>
+        <tr>
+          <td>Doctor</td>
+          <td>{{consultation.doctor}}</td>
+        </tr>
+        <tr>
+          <td>Diagnostico</td>
+          <td>{{consultation.diagnostic}}</td>
+        </tr>
+        <tr>
+          <td>Hospital</td>
+          <td>{{consultation.hospital}}</td>
+        </tr>
+        <tr>
+          <td>Descripcion</td>
+          <td>{{consultation.description}}</td>
+        </tr>
+        <tr>
+          <td>Comentario</td>
+          <td>{{consultation.commentary}}</td>
+        </tr>
+        <tr>
+          <td>Fecha</td>
+          <td>{{consultation.date}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </blockquote>
