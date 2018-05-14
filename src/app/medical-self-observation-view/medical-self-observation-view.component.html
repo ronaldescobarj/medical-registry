@@ -4,26 +4,29 @@
   </button>
 </div>
 
-<blockquote *ngIf="show" class = "blockquote text-center">
-    <h1><b>Observation Information</b></h1>
-    <br><br>
-    <div class="container">      
+<blockquote *ngIf="show" class="blockquote text-center">
+  <h1>
+    <b>Observacion Propia</b>
+  </h1>
+  <br>
+  <br>
+  <div class="container">
 
-        <table class="table table-striped">
-          <tbody>
-            <tr>
-               <td>Summary</td>
-               <td>{{selfObservation.summary}}</td>
-            </tr>
-            <tr>
-              <td>Observation</td>
-              <td>{{selfObservation.observation}}</td>
-            </tr>
-            <tr>
-                <td>Date</td>
-                <td>{{selfObservation.date}}</td>
-              </tr>  
-          </tbody>
-        </table>
-      </div>
+    <table class="table table-striped">
+      <tbody>
+        <tr>
+          <td>Resumen</td>
+          <td>{{selfObservation.summary}}</td>
+        </tr>
+        <tr>
+          <td>Observacion</td>
+          <td>{{selfObservation.observation}}</td>
+        </tr>
+        <tr>
+          <td>Fecha</td>
+          <td>{{selfObservation.date}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </blockquote>

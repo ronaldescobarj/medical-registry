@@ -1,38 +1,40 @@
 <div class="col-md-12">
     <button class="btn btn-secondary" title="Go back" (click)="goBack()">
-      <span class="fas fa-arrow-circle-left"></span>
+        <span class="fas fa-arrow-circle-left"></span>
     </button>
 </div>
-  
+
 <div *ngIf="show" class="container">
-<div class="row">
-    <div class="col-md-12 col-md-offset-6">
-        <form class="form-horizontal" role="form">                
-            <h2>Edit a Self Observation</h2>
-            <div class="form-group">
-                <div class="col-md-9">
-                    <label class="validation-message">Summary</label>                      
-                    <input name="summary" [(ngModel)]="medicalSelfObservation.summary" type="text" placeholder="Summary" class="form-control"/> 
+    <div class="row">
+        <div class="col-md-12 col-md-offset-6">
+            <form class="form-horizontal" role="form">
+                <h2>Editar una observacion propia</h2>
+                <div class="form-group">
+                    <div class="col-md-9">
+                        <label class="validation-message">Resumen</label>
+                        <input name="summary" [(ngModel)]="medicalSelfObservation.summary" type="text" placeholder="Summary" class="form-control"
+                        />
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-9">
-                    <label class="validation-message">Observation</label>                      
-                    <input name="observation" [(ngModel)]="medicalSelfObservation.observation" type="text" placeholder="Observation" class="form-control"/> 
+                <div class="form-group">
+                    <div class="col-md-9">
+                        <label class="validation-message">Observacion</label>
+                        <input name="observation" [(ngModel)]="medicalSelfObservation.observation" type="text" placeholder="Observation" class="form-control"
+                        />
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-9">
-                    <label class="validation-message">Date</label>                      
-                    <input name="date" [(ngModel)]="medicalSelfObservation.date" placeholder="Date" class="form-control">
+                <div class="form-group">
+                    <div class="col-md-9">
+                        <label class="validation-message">Fecha</label>
+                        <input name="date" [(ngModel)]="medicalSelfObservation.date" placeholder="Date" class="form-control">
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-3">
-                    <button class="col-md-3 btn btn-success btn-block" (click)="saveChanges()">Save</button>                        
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <button class="col-md-3 btn btn-success btn-block" (click)="saveChanges()">Guardar</button>
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
-</div>
 </div>
