@@ -19,7 +19,7 @@
                 <div class="form-group">
                     <div class="col-md-9">
                         <label class="validation-message">Tipo</label>
-                        <input name="type" (input)="typeValidator=true; typeError=false" [(ngModel)]="medicalAnalysis.type" [style.border-color]="typeBorderColor()"
+                        <input name="type" (input)="typeValidator=true; typeError=false" [style.border-color]="borderColor()" [(ngModel)]="medicalAnalysis.type"
                             type="text" placeholder="Tipo" class="form-control" />
                         <div *ngIf="typeError && !firstTime" style="color: tomato">Introduzca el tipo</div>
                     </div>

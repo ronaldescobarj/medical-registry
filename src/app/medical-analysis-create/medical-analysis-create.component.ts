@@ -37,13 +37,10 @@ export class MedicalAnalysisCreateComponent implements OnInit {
   }
 
   createAnalysis() {
-    this.firstTime = false;
-    this.medicalAnalysis.id = Math.floor(Math.random() * 100000);
-    this.medicalAnalysis.user_id = 10;
-    var imagesObj = { images: [] };
-    console.log("before validate")
     if (this.validate()) {
-      console.log("enter validate")
+      this.medicalAnalysis.id = Math.floor(Math.random() * 100000);
+      this.medicalAnalysis.user_id = 10;
+      var imagesObj = { images: [] };
       this.httpService.post('/analysis/create', this.medicalAnalysis).subscribe((response: any) => {
         if (response.success) {
           for (let i = 0; i < this.images.length; i++) {
@@ -91,6 +88,7 @@ export class MedicalAnalysisCreateComponent implements OnInit {
 
   validate() {
     let res = true;
+    this.firstTime = false;
     if (this.medicalAnalysis.type == "") {
       this.typeError = true;
       this.typeValidator = false;
@@ -109,7 +107,7 @@ export class MedicalAnalysisCreateComponent implements OnInit {
     return res;
   }
 
-  typeBorderColor() {
+  borderColor() {
     if (!this.firstTime && (!this.typeValidator || this.typeError))
       return 'tomato'
     return "";

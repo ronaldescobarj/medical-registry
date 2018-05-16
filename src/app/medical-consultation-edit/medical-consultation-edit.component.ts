@@ -10,30 +10,86 @@ import { HttpService } from '../http.service';
 })
 export class MedicalConsultationEditComponent implements OnInit {
 
-  constructor(private httpService: HttpService, private route: ActivatedRoute,private location: Location, private router: Router) { }
+  constructor(private httpService: HttpService, private route: ActivatedRoute, private location: Location, private router: Router) { }
 
   private medicalConsultation: any;
   private id: any;
   private show: boolean = false;
-  
+
+  private diagnosticError: boolean;
+  private doctorError: boolean;
+  private dateError: boolean;
+  private diagnosticValidator: boolean;
+  private doctorValidator: boolean;
+  private firstTime: boolean;
+
   ngOnInit() {
+    this.diagnosticError = false;
+    this.doctorError = false;
+    this.diagnosticValidator = true;
+    this.doctorValidator = true;
+    this.firstTime = true;
+    this.dateError = false;
+
     this.id = this.route.snapshot.paramMap.get('id');
-      this.httpService.get('/consultation/get?id='+this.id).subscribe((response: any) => {
-        if (response.success) {
-          this.medicalConsultation = response.response;
-          this.show = true;
-        }  
-      })
+    this.httpService.get('/consultation/get?id=' + this.id).subscribe((response: any) => {
+      if (response.success) {
+        this.medicalConsultation = response.response;
+        this.show = true;
+      }
+    })
   }
-  saveChanges(){
-      this.httpService.post('/consultation/update', this.medicalConsultation).subscribe((response: any)=>{
-        if (response.success)
-          this.router.navigateByUrl('/registers');  
-      })
+  saveChanges() {
+    this.httpService.post('/consultation/update', this.medicalConsultation).subscribe((response: any) => {
+      if (response.success)
+        this.router.navigateByUrl('/registers');
+    })
   }
 
   goBack() {
-    this.router.navigateByUrl('/registers');    
+    this.router.navigateByUrl('/registers');
   }
-  
+
+  validate() {
+    let res = true;
+    this.firstTime = false;
+    if (this.medicalConsultation.diagnostic == "") {
+      this.diagnosticError = true;
+      this.diagnosticValidator = false;
+      res = false;
+    } else {
+      this.diagnosticError = false;
+      this.diagnosticValidator = true;
+    }
+
+    if (this.medicalConsultation.doctor == "") {
+      this.doctorError = true;
+      this.doctorValidator = false;
+      res = false;
+    } else {
+      this.doctorError = false;
+      this.doctorValidator = true;
+    }
+
+    if (this.medicalConsultation.date == "") {
+      this.dateError = true;
+      res = false;
+    } else {
+      this.dateError = false;
+    }
+    return res;
+  }
+
+  borderColor(isDoctor: boolean) {
+    if (isDoctor) {
+      if (!this.firstTime && (!this.doctorValidator || this.doctorError))
+        return 'tomato'
+    }
+    else {
+      if (!this.firstTime && (!this.diagnosticValidator || this.diagnosticError))
+        return 'tomato'
+    }
+    return "";
+  }
+
 }
