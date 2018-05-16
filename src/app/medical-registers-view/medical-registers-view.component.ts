@@ -35,7 +35,7 @@ export class MedicalRegistersViewComponent implements OnInit {
         this.registers.forEach((register: any) => this.originalRegisters.push(register));
       }
     })
-    
+
   }
 
   sortRegisters(value: any) {
@@ -135,11 +135,11 @@ export class MedicalRegistersViewComponent implements OnInit {
         type = "/selfObservation";
         break;
     }
-    type = type+"/delete";
-    this.httpService.post(type,register).subscribe((response: any) => {
+    type = type + "/delete";
+    this.httpService.post(type, register).subscribe((response: any) => {
       if (response.success) {
         if (type == "/analysis") {
-          this.httpService.post('/image/delete', {analysis_id: register.id}).subscribe((res: any) => {
+          this.httpService.post('/image/delete', { analysis_id: register.id }).subscribe((res: any) => {
             if (res.success)
               location.reload();
           })
@@ -147,18 +147,17 @@ export class MedicalRegistersViewComponent implements OnInit {
         else
           location.reload();
       }
-  })
+    })
   }
 
-  test(textField: any) {
-    var str = "Hello world, welcome to the universe.";
-    var n: boolean = str.includes("world");
+  search(textField: any) {
     this.registers = this.originalRegisters;
     let temp: any = [];
     this.registers.forEach((register: any) => {
-      if ((register.date.includes(
-        textField) || register.summary.includes(textField) || register.type.includes(textField)
-      )) {
+      if (register.date.toLowerCase().includes(
+        textField.toLowerCase()) || register.summary.toLowerCase().includes(textField.toLowerCase())
+        || register.type.toLowerCase().includes(textField.toLowerCase())
+      ) {
         temp.push(register);
       }
       else {

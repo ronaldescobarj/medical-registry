@@ -9,58 +9,68 @@ import { Router } from '@angular/router';
 })
 export class MedicalAnalysisCreateComponent implements OnInit {
 
-  private medicalAnalysis:any = {};
+  private medicalAnalysis: any = {};
   private testImage: any;
   private images: any;
+  private typeError: boolean;
+  private dateError: boolean;
+  private firstTime = true;
+  private typeValidator = false;
 
   constructor(private httpService: HttpService, private router: Router) { }
 
   ngOnInit() {
     this.medicalAnalysis = {
-      id:"",
-      summary:"",
-      type:"",
-      description:"",
-      hospital:"",
-      commentary:"",
-      date:"",  
-      user_id:"",
+      id: "",
+      summary: "",
+      type: "",
+      description: "",
+      hospital: "",
+      commentary: "",
+      date: "",
+      user_id: "",
     }
   }
 
   createAnalysis() {
+    this.firstTime = false;
     this.medicalAnalysis.id = Math.floor(Math.random() * 100000);
     this.medicalAnalysis.user_id = 10;
-    var imagesObj = {images: []};
-    this.httpService.post('/analysis/create', this.medicalAnalysis).subscribe((response: any)=>{
-      if (response.success) {
-        for (let i = 0; i < this.images.length; i++) {
-          let imageObj = {
-            id: Math.floor(Math.random() * 100000),
-            base_64_image: this.images[i].value,
-            file_name: this.images[i].filename,
-            file_type: this.images[i].filetype,
-            analysis_id: this.medicalAnalysis.id
-          };
-          imagesObj.images.push(imageObj);
-        }
-        this.httpService.post('/image/add', imagesObj).subscribe((res: any) => {
-          if (res.success) {
-            this.router.navigateByUrl('/registers');            
+    var imagesObj = { images: [] };
+    if (this.validate()) {
+      this.httpService.post('/analysis/create', this.medicalAnalysis).subscribe((response: any) => {
+        if (response.success) {
+          for (let i = 0; i < this.images.length; i++) {
+            let imageObj = {
+              id: Math.floor(Math.random() * 100000),
+              base_64_image: this.images[i].value,
+              file_name: this.images[i].filename,
+              file_type: this.images[i].filetype,
+              analysis_id: this.medicalAnalysis.id
+            };
+            imagesObj.images.push(imageObj);
           }
-        })
-      }
-    })
+          this.httpService.post('/image/add', imagesObj).subscribe((res: any) => {
+            if (res.success) {
+              this.router.navigateByUrl('/registers');
+            }
+          })
+        }
+      })
+    }
+    else {
+      this.typeValidator = false;
+    }
   }
 
   goBack() {
-    this.router.navigateByUrl('/registers');    
+    this.router.navigateByUrl('/registers');
   }
 
   onFileChange(event) {
     let readers = [];
     this.images = [];
-    if(event.target.files && event.target.files.length > 0) {
+    if (event.target.files && event.target.files.length > 0) {
       for (let i = 0; i < event.target.files.length; i++) {
         readers[i] = new FileReader();
         let file = event.target.files[i];
@@ -74,5 +84,22 @@ export class MedicalAnalysisCreateComponent implements OnInit {
         };
       }
     }
+  }
+
+  validate() {
+    let res = true;
+    if (this.medicalAnalysis.type == "") {
+      console.log("entra");
+      this.typeError = true;
+      res = false;
+    }
+    else
+      this.typeValidator = true;
+    if (this.medicalAnalysis.date == "") {
+      this.dateError = true;
+      res = false;
+    }
+    console.log(this.typeValidator);
+    return res;
   }
 }
