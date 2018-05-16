@@ -19,18 +19,12 @@
                 <div class="form-group">
                     <div class="col-md-9">
                         <label class="validation-message">Tipo</label>
-                        <input name="type" (input)="typeValidator=true; typeError=false" [(ngModel)]="medicalAnalysis.type" [style.border-color]="typeValidator || firstTime ? '' : 'tomato'"
+                        <input name="type" (input)="typeValidator=true; typeError=false" [(ngModel)]="medicalAnalysis.type" [style.border-color]="typeBorderColor()"
                             type="text" placeholder="Tipo" class="form-control" />
                         <div *ngIf="typeError && !firstTime" style="color: tomato">Introduzca el tipo</div>
                     </div>
 
                 </div>
-                <!-- <div class="form-group">
-                  <div class="col-md-9">
-                      <label class="validation-message">Description</label>                      
-                      <input name="description" [(ngModel)]="medicalAnalysis.description" type="text" placeholder="Description" class="form-control"/> 
-                  </div>
-              </div> -->
                 <div class="form-group">
                     <div class="col-md-9">
                         <label class="validation-message">Hospital</label>

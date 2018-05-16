@@ -14,12 +14,16 @@ export class MedicalAnalysisCreateComponent implements OnInit {
   private images: any;
   private typeError: boolean;
   private dateError: boolean;
-  private firstTime = true;
-  private typeValidator = false;
+  private firstTime: boolean;
+  private typeValidator: boolean;
 
   constructor(private httpService: HttpService, private router: Router) { }
 
   ngOnInit() {
+    this.dateError = false;
+    this.typeError = false;
+    this.firstTime = true;
+    this.typeValidator = true;
     this.medicalAnalysis = {
       id: "",
       summary: "",
@@ -37,7 +41,9 @@ export class MedicalAnalysisCreateComponent implements OnInit {
     this.medicalAnalysis.id = Math.floor(Math.random() * 100000);
     this.medicalAnalysis.user_id = 10;
     var imagesObj = { images: [] };
+    console.log("before validate")
     if (this.validate()) {
+      console.log("enter validate")
       this.httpService.post('/analysis/create', this.medicalAnalysis).subscribe((response: any) => {
         if (response.success) {
           for (let i = 0; i < this.images.length; i++) {
@@ -57,9 +63,6 @@ export class MedicalAnalysisCreateComponent implements OnInit {
           })
         }
       })
-    }
-    else {
-      this.typeValidator = false;
     }
   }
 
@@ -89,17 +92,27 @@ export class MedicalAnalysisCreateComponent implements OnInit {
   validate() {
     let res = true;
     if (this.medicalAnalysis.type == "") {
-      console.log("entra");
       this.typeError = true;
+      this.typeValidator = false;
       res = false;
-    }
-    else
+    } else {
+      this.typeError = false;
       this.typeValidator = true;
+    }
+
     if (this.medicalAnalysis.date == "") {
       this.dateError = true;
       res = false;
+    } else {
+      this.dateError = false;
     }
-    console.log(this.typeValidator);
     return res;
   }
+
+  typeBorderColor() {
+    if (!this.firstTime && (!this.typeValidator || this.typeError))
+      return 'tomato'
+    return "";
+  }
+
 }
