@@ -18,7 +18,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-9">
-                        <label class="validation-message">Tipo</label>
+                        <label class="validation-message">Tipo *</label>
                         <input name="type" (input)="typeValidator=true; typeError=false" [style.border-color]="borderColor()" [(ngModel)]="medicalAnalysis.type"
                             type="text" placeholder="Tipo" class="form-control" />
                         <div *ngIf="typeError && !firstTime" style="color: tomato">Introduzca el tipo</div>
@@ -40,7 +40,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-9">
-                        <label class="validation-message">Fecha</label>
+                        <label class="validation-message">Fecha *</label>
                         <input required="required" name="date" [(ngModel)]="medicalAnalysis.date" placeholder="AAAA-MM-DD" class="form-control">
                         <div *ngIf="dateError && !firstTime" style="color: tomato">Introduzca la fecha</div>
                     </div>
@@ -54,6 +54,12 @@
                 <div class="form-group">
                     <div class="col-md-3">
                         <button class="btn btn-success btn-block" (click)="createAnalysis()">Registrar</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-9">
+                        <div>Los campos con * son obligatorios</div>
+                        <div *ngIf="(dateError || typeError) && !firstTime" style="color: tomato">Por favor introduzca los datos marcados como obligatorios</div>
                     </div>
                 </div>
             </form>

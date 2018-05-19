@@ -150,13 +150,42 @@ export class MedicalRegistersViewComponent implements OnInit {
     })
   }
 
+  removeSpecialCharacters(text: any) {
+    let textlower = text.toLowerCase();
+    let res = "";
+    for (var i = 0; i < textlower.length; i++) {
+      if (textlower.atChar(i) == 'á') {
+        res += 'a'
+        continue;
+      }
+      if (textlower.atChar(i) == 'é') {
+        res += 'e'
+        continue;
+      }
+      if (textlower.atChar(i) == 'í') {
+        res += 'i'
+        continue;
+      }
+      if (textlower.atChar(i) == 'ó') {
+        res += 'o'
+        continue;
+      }
+      if (textlower.atChar(i) == 'ú') {
+        res += 'u'
+        continue;
+      }
+      res += textlower.atChar(i);
+    }
+    return res;
+  }
+
   search(textField: any) {
     this.registers = this.originalRegisters;
     let temp: any = [];
     this.registers.forEach((register: any) => {
-      if (register.date.toLowerCase().includes(
-        textField.toLowerCase()) || register.summary.toLowerCase().includes(textField.toLowerCase())
-        || register.type.toLowerCase().includes(textField.toLowerCase())
+      if (this.removeSpecialCharacters(register.date).includes(
+        this.removeSpecialCharacters(textField)) || this.removeSpecialCharacters(register.summary).includes(this.removeSpecialCharacters(textField))
+        || this.removeSpecialCharacters(register.type).includes(this.removeSpecialCharacters(textField))
       ) {
         temp.push(register);
       }

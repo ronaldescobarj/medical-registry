@@ -9,28 +9,67 @@ import { HttpService } from '../http.service';
 })
 export class MedicalSelfObservationCreateComponent implements OnInit {
 
-  private medicalSelfObservation:any={};
+  private medicalSelfObservation: any = {};
+
+  private dateError: boolean;
+  private observationError: boolean;
+  private firstTime: boolean;
+  private observationValidator: boolean;
   constructor(private httpService: HttpService, private router: Router) { }
 
   ngOnInit() {
+    this.dateError = false;
+    this.observationError = false;
+    this.firstTime = true;
+    this.observationValidator = true;
     this.medicalSelfObservation = {
-      id:"",
-      summary:"",
-      observation:"",
-      date:"",
-      user_id:"",
+      id: "",
+      summary: "",
+      observation: "",
+      date: "",
+      user_id: "",
     }
   }
 
   createSelfObservation() {
-    this.medicalSelfObservation.id = Math.floor(Math.random() * 100000);
-    this.medicalSelfObservation.user_id = 10;    
-    this.httpService.post('/selfObservation/create', this.medicalSelfObservation).subscribe((response: any)=>{
-      if (response.success)
-        this.router.navigateByUrl('/registers');
-    })
+    if (this.validate()) {
+      this.medicalSelfObservation.id = Math.floor(Math.random() * 100000);
+      this.medicalSelfObservation.user_id = 10;
+      this.httpService.post('/selfObservation/create', this.medicalSelfObservation).subscribe((response: any) => {
+        if (response.success)
+          this.router.navigateByUrl('/registers');
+      })
+    }
   }
+
   goBack() {
-    this.router.navigateByUrl('/registers');    
+    this.router.navigateByUrl('/registers');
+  }
+
+  validate() {
+    let res = true;
+    this.firstTime = false;
+    if (this.medicalSelfObservation.observation == "") {
+      this.observationError = true;
+      this.observationValidator = false;
+      res = false;
+    } else {
+      this.observationError = false;
+      this.observationValidator = true;
+    }
+
+    if (this.medicalSelfObservation.date == "") {
+      this.dateError = true;
+      res = false;
+    } else {
+      this.dateError = false;
+    }
+    return res;
+  }
+
+  borderColor() {
+    if (!this.firstTime && (!this.observationValidator || this.observationError))
+      return 'tomato'
+    return "";
   }
 }
