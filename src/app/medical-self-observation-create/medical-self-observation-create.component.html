@@ -1,14 +1,20 @@
-<div class="col-md-12">
-    <button class="btn btn-secondary" title="Go back" (click)="goBack()">
-        <span class="fas fa-arrow-circle-left"></span>
-    </button>
-</div>
-
 <div class="container">
     <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-3">
+                <button class="btn btn-secondary" title="Go back" (click)="goBack()">
+                    <span class="fas fa-arrow-circle-left"></span>
+                </button>
+            </div>
+            <br/>
+        </div>
         <div class="col-md-12 col-md-offset-6">
             <form class="form-horizontal">
-                <h2>Registrar una observacion propia</h2>
+                <div class="form-group">
+                    <div class="col-md-9">
+                        <h2>Registrar una observacion propia</h2>
+                    </div>
+                </div>
                 <div class="form-group">
                     <div class="col-md-9">
                         <label class="validation-message">Resumen</label>
