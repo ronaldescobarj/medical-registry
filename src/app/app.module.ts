@@ -21,6 +21,10 @@ import { MedicalAnalysisEditComponent } from './medical-analysis-edit/medical-an
 import { MedicalSelfObservationCreateComponent } from './medical-self-observation-create/medical-self-observation-create.component';
 import { MedicalSelfObservationEditComponent } from './medical-self-observation-edit/medical-self-observation-edit.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { LoginComponent } from './login/login.component';
+import { LoginService } from './login.service';
+import { RegisterAccountComponent } from './register-account/register-account.component';
+import { AuthGuard } from './guards/auth.guard';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +38,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
     MedicalAnalysisCreateComponent,
     MedicalAnalysisEditComponent,
     MedicalSelfObservationCreateComponent,
-    MedicalSelfObservationEditComponent
+    MedicalSelfObservationEditComponent,
+    LoginComponent,
+    RegisterAccountComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +50,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     HttpModule,
     NgxPaginationModule
   ],
-  providers: [HttpService],
+  providers: [HttpService, LoginService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
