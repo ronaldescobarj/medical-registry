@@ -13,11 +13,15 @@ import { MedicalSelfObservationEditComponent } from './medical-self-observation-
 import { AuthGuard } from './guards/auth.guard';
 import { LoginComponent } from './login/login.component';
 import { RegisterAccountComponent } from './register-account/register-account.component';
+import { UsersViewComponent } from './users-view/users-view.component';
+import { UserDetailsComponent } from './user-details/user-details.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/registers', pathMatch: 'full', canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterAccountComponent },
+  { path: 'users', component: UsersViewComponent },
+  { path: 'user/:id', component: UserDetailsComponent },
   { path: 'registers', component: MedicalRegistersViewComponent, canActivate: [AuthGuard] },
   { path: 'medicalConsultation/:id', component: MedicalConsultationViewComponent, canActivate: [AuthGuard] },
   { path: 'medicalAnalysis/:id', component: MedicalAnalysisViewComponent, canActivate: [AuthGuard] },

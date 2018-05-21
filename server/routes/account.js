@@ -105,6 +105,7 @@ router.post('/update', function (req, res, next) {
     dbConnection.pool.connect(function (error, connection, done) {
         if (error) {
             console.error("error");
+            res.send(JSON.stringify(response));
         } else {
             var query = connection.query(queryString, function (err, resultObj) {
                 done();
@@ -127,6 +128,7 @@ router.post('/delete', function (req, res, next) {
     dbConnection.pool.connect(function (error, connection, done) {
         if (error) {
             console.error("error");
+            res.send(JSON.stringify(response));
         } else {
             var query = connection.query(queryString, function (err, resultObj) {
                 done();

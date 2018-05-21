@@ -19,6 +19,7 @@ export class MedicalRegistersViewComponent implements OnInit {
   private sort: any;
   private p: number = 1;
   private subscription: Subscription;
+  private userId: any;
   constructor(private httpService: HttpService, private router: Router, private location: Location) { }
 
   ngOnInit() {
@@ -27,15 +28,18 @@ export class MedicalRegistersViewComponent implements OnInit {
       type: 0,
       date: 0
     };
+    console.log(JSON.parse(localStorage.getItem('currentUser')));
+    this.userId = JSON.parse(localStorage.getItem('currentUser')).id;
     if (this.subscription)
       this.subscription.unsubscribe();
-    this.subscription = this.httpService.get('/registers/list').subscribe((response: any) => {
-      if (response.success) {
-        this.registers = response.response;
-        this.registers.forEach((register: any) => this.originalRegisters.push(register));
-      }
-    })
-    
+    this.subscription = this.httpService.get('/registers/list?userId=' + this.userId)
+      .subscribe((response: any) => {
+        if (response.success) {
+          this.registers = response.response;
+          this.registers.forEach((register: any) => this.originalRegisters.push(register));
+        }
+      })
+
   }
 
   sortRegisters(value: any) {
@@ -135,11 +139,11 @@ export class MedicalRegistersViewComponent implements OnInit {
         type = "/selfObservation";
         break;
     }
-    type = type+"/delete";
-    this.httpService.post(type,register).subscribe((response: any) => {
+    type = type + "/delete";
+    this.httpService.post(type, register).subscribe((response: any) => {
       if (response.success) {
         if (type == "/analysis") {
-          this.httpService.post('/image/delete', {analysis_id: register.id}).subscribe((res: any) => {
+          this.httpService.post('/image/delete', { analysis_id: register.id }).subscribe((res: any) => {
             if (res.success)
               location.reload();
           })
@@ -147,7 +151,7 @@ export class MedicalRegistersViewComponent implements OnInit {
         else
           location.reload();
       }
-  })
+    })
   }
 
   test(textField: any) {

@@ -17,6 +17,7 @@ router.get('/get', function (req, res) {
     dbConnection.pool.connect(function (error, connection, done) {
         if (error) {
             console.error("error");
+            res.json(response);
         } else {
             var query = connection.query(queryString, function (err, resultObj) {
                 done();
@@ -26,29 +27,30 @@ router.get('/get', function (req, res) {
                     var rows = resultObj.rows[0];
                     response.success = true;
                     response.response = rows;
-                    res.json(response);
                 }
+                res.json(response);
             });
         }
     });
-    
-  });
+
+});
 function generateQuery(data, type) {
     var query = "";
-    if (type=="insert")
+    if (type == "insert")
         query = "INSERT INTO medical_history.self_observation VALUES (" + data.id + ", '" + data.summary + "', '" + data.observation + "', '" + data.date + "', " + data.user_id + ");";
-    if (type=="update")
+    if (type == "update")
         query = "UPDATE medical_history.self_observation SET summary='" + data.summary + "', observation='" + data.observation + "', date='" + data.date + "' WHERE id=" + data.id;
     return query;
 }
 
-router.post('/create', function(req, res, next) {
+router.post('/create', function (req, res, next) {
     var data = req.body;
     var queryString = generateQuery(data, "insert");
     var response = prepareResponse(req);
     dbConnection.pool.connect(function (error, connection, done) {
         if (error) {
             console.error("error");
+            res.send(JSON.stringify(response));
         } else {
             var query = connection.query(queryString, function (err, resultObj) {
                 done();
@@ -57,21 +59,22 @@ router.post('/create', function(req, res, next) {
                 } else {
                     response.success = true;
                     response.response = {};
-                    res.send(JSON.stringify(response));
                 }
+                res.send(JSON.stringify(response));
             });
         }
     });
 
 });
 
-router.post('/update', function(req, res, next) {
+router.post('/update', function (req, res, next) {
     var data = req.body;
     var queryString = generateQuery(data, "update");
     var response = prepareResponse(req);
     dbConnection.pool.connect(function (error, connection, done) {
         if (error) {
             console.error("error");
+            res.send(JSON.stringify(response));
         } else {
             var query = connection.query(queryString, function (err, resultObj) {
                 done();
@@ -80,20 +83,21 @@ router.post('/update', function(req, res, next) {
                 } else {
                     response.success = true;
                     response.response = {};
-                    res.send(JSON.stringify(response));
                 }
+                res.send(JSON.stringify(response));
             });
         }
     });
 });
 
-router.post('/delete', function(req, res, next) {
+router.post('/delete', function (req, res, next) {
     var data = req.body;
     var queryString = "delete from medical_history.self_observation where id=" + data.id;
     var response = prepareResponse(req);
     dbConnection.pool.connect(function (error, connection, done) {
         if (error) {
             console.error("error");
+            res.send(JSON.stringify(response));
         } else {
             var query = connection.query(queryString, function (err, resultObj) {
                 done();
@@ -102,11 +106,10 @@ router.post('/delete', function(req, res, next) {
                 } else {
                     response.success = true;
                     response.response = {};
-                    res.send(JSON.stringify(response));
                 }
+                res.send(JSON.stringify(response));
             });
         }
     });
 });
 module.exports = router;
-  

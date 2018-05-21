@@ -13,10 +13,11 @@ function prepareResponse(req) {
 router.get('/get', function (req, res) {
     var analysisId = req.query.analysisId;
     var queryString = 'SELECT * FROM medical_history.image WHERE analysis_id=' + analysisId;
-    var response = prepareResponse(req);  
+    var response = prepareResponse(req);
     dbConnection.pool.connect(function (error, connection, done) {
         if (error) {
             console.error("error");
+            res.json(response);
         } else {
             var query = connection.query(queryString, function (err, resultObj) {
                 done();
@@ -26,12 +27,12 @@ router.get('/get', function (req, res) {
                     var rows = resultObj.rows;
                     response.success = true;
                     response.response = rows;
-                    res.json(response);
                 }
+                res.json(response);
             });
         }
     });
-  });
+});
 
 function generateQuery(images) {
     var query = "INSERT INTO medical_history.image VALUES ";
@@ -47,13 +48,14 @@ function generateQuery(images) {
     return query;
 }
 
-router.post('/add', function(req, res, next) {
+router.post('/add', function (req, res, next) {
     var data = req.body;
     var queryString = generateQuery(data.images);
     var response = prepareResponse(req);
     dbConnection.pool.connect(function (error, connection, done) {
         if (error) {
             console.error("error");
+            res.send(JSON.stringify(response));
         } else {
             var query = connection.query(queryString, function (err, resultObj) {
                 done();
@@ -62,25 +64,26 @@ router.post('/add', function(req, res, next) {
                 } else {
                     response.success = true;
                     response.response = {};
-                    res.send(JSON.stringify(response));
                 }
+                res.send(JSON.stringify(response));
             });
         }
     });
 
 });
 
-router.post('/delete', function(req, res, next) {
+router.post('/delete', function (req, res, next) {
     var data = req.body;
     var queryString = "";
     if (data.id)
         queryString = "delete from medical_history.image where id=" + data.id;
     if (data.analysis_id)
-        queryString = "delete from medical_history.image where analysis_id=" + data.analysis_id;    
+        queryString = "delete from medical_history.image where analysis_id=" + data.analysis_id;
     var response = prepareResponse(req);
     dbConnection.pool.connect(function (error, connection, done) {
         if (error) {
             console.error("error");
+            res.send(JSON.stringify(response));
         } else {
             var query = connection.query(queryString, function (err, resultObj) {
                 done();
@@ -89,11 +92,10 @@ router.post('/delete', function(req, res, next) {
                 } else {
                     response.success = true;
                     response.response = {};
-                    res.send(JSON.stringify(response));
                 }
+                res.send(JSON.stringify(response));
             });
         }
     });
 });
 module.exports = router;
-  

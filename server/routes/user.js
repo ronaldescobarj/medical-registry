@@ -17,6 +17,7 @@ router.get('/list', function (req, res) {
     dbConnection.pool.connect(function (error, connection, done) {
         if (error) {
             console.error("error");
+            res.json(response);
         } else {
             var query = connection.query(queryString, function (err, resultObj) {
                 done();
@@ -40,6 +41,7 @@ router.get('/get', function (req, res) {
     dbConnection.pool.connect(function (error, connection, done) {
         if (error) {
             console.error("error");
+            res.json(response);
         } else {
             var query = connection.query(queryString, function (err, resultObj) {
                 done();
@@ -75,6 +77,7 @@ router.post('/create', function (req, res, next) {
     dbConnection.pool.connect(function (error, connection, done) {
         if (error) {
             console.error("error");
+            res.send(JSON.stringify(response));
         } else {
             var query = connection.query(queryString, function (err, resultObj) {
                 done();
@@ -98,6 +101,7 @@ router.post('/update', function (req, res, next) {
     dbConnection.pool.connect(function (error, connection, done) {
         if (error) {
             console.error("error");
+            res.send(JSON.stringify(response));
         } else {
             var query = connection.query(queryString, function (err, resultObj) {
                 done();
@@ -120,6 +124,7 @@ router.post('/delete', function (req, res, next) {
     dbConnection.pool.connect(function (error, connection, done) {
         if (error) {
             console.error("error");
+            res.send(JSON.stringify(response));
         } else {
             var query = connection.query(queryString, function (err, resultObj) {
                 done();

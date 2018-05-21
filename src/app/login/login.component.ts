@@ -28,7 +28,10 @@ export class LoginComponent implements OnInit {
     if (this.account.username != "" && this.account.password != "") {
       this.loading = true;
       this.loginService.login(this.account.username, this.account.password,
-        (message: string) => { this.errorMessage = message; this.loading = false; });
+        (message: string) => {
+          this.errorMessage = message;
+          this.loading = false;
+        });
     }
     else {
       this.errorMessage = "Faltan campos a introducir";

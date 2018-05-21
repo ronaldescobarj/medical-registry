@@ -25,6 +25,8 @@ import { LoginComponent } from './login/login.component';
 import { LoginService } from './login.service';
 import { RegisterAccountComponent } from './register-account/register-account.component';
 import { AuthGuard } from './guards/auth.guard';
+import { UsersViewComponent } from './users-view/users-view.component';
+import { UserDetailsComponent } from './user-details/user-details.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,7 +42,9 @@ import { AuthGuard } from './guards/auth.guard';
     MedicalSelfObservationCreateComponent,
     MedicalSelfObservationEditComponent,
     LoginComponent,
-    RegisterAccountComponent
+    RegisterAccountComponent,
+    UsersViewComponent,
+    UserDetailsComponent
   ],
   imports: [
     BrowserModule,

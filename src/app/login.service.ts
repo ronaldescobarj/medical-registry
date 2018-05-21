@@ -12,13 +12,15 @@ export class LoginService {
       .subscribe((response: any) => {
         callback(response.message);
         if (response.success) {
-          localStorage.setItem('currentUser', JSON.stringify(response.response));
-          this.router.navigateByUrl('/registers');
+          localStorage.setItem('currentAccount', JSON.stringify(response.response));
+          this.router.navigateByUrl('/users');
         }
       })
   }
 
   logout() {
+    localStorage.removeItem('currentAccount');
     localStorage.removeItem('currentUser');
+    this.router.navigateByUrl('/login');
   }
 }

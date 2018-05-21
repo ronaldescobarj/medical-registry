@@ -19,29 +19,32 @@ function addType(arr, type) {
 }
 
 router.get('/list', function (req, res) {
-    var id = req.query.id;
+    var userId = req.query.userId;
     var response = prepareResponse(req);
     var registers = [];
     dbConnection.pool.connect(function (error, connection, done) {
         if (error) {
             console.error("error");
+            res.json(response);
         } else {
-            var queryConsultations = 'SELECT id, summary, date FROM medical_history.consultation';            
+            var queryConsultations = 'SELECT id, summary, date FROM medical_history.consultation where user_id=' + userId;
             var queryCons = connection.query(queryConsultations, function (err, resultObjCons) {
                 if (err) {
                     console.error(JSON.stringify(err));
+                    res.json(response);
                 } else {
                     registers = resultObjCons.rows;
                     registers = addType(registers, "Consulta");
-                    var queryAnalysis = 'SELECT id, summary, date FROM medical_history.analysis';
+                    var queryAnalysis = 'SELECT id, summary, date FROM medical_history.analysis where user_id=' + userId;
                     var queryAn = connection.query(queryAnalysis, function (err, resultObjAn) {
                         if (err) {
                             console.error(JSON.stringify(err));
+                            res.json(response);
                         } else {
                             var analysisList = resultObjAn.rows;
                             analysisList = addType(analysisList, "Analisis");
                             registers = registers.concat(analysisList);
-                            var queryObservations = 'SELECT id, summary, date FROM medical_history.self_observation';
+                            var queryObservations = 'SELECT id, summary, date FROM medical_history.self_observation where user_id=' + userId;
                             var queryObs = connection.query(queryObservations, function (err, resultObjObs) {
                                 done();
                                 if (err) {
@@ -52,8 +55,8 @@ router.get('/list', function (req, res) {
                                     registers = registers.concat(observationsList);
                                     response.success = true;
                                     response.response = registers;
-                                    res.json(response);
                                 }
+                                res.json(response);
                             });
                         }
                     });
@@ -61,6 +64,5 @@ router.get('/list', function (req, res) {
             });
         }
     });
-  });
+});
 module.exports = router;
-  

@@ -1,4 +1,16 @@
 <div class="page-header" style="background-color: #4ed28e; height: 60px">
+  <div style="float:right" *ngIf="loggedIn()" class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+      aria-expanded="false">
+      <i class="fas fa-user-circle"></i>
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <button class="dropdown-item" (click)="viewUser()">Ver usuario</button>
+      <button class="dropdown-item" (click)="changeUser()">Cambiar de usuario</button>
+      <a class="dropdown-item" href="#">Gestionar cuenta</a>
+      <button class="dropdown-item" (click)="logout()">Cerrar sesion</button>
+    </div>
+  </div>
   <h1 style="color: white; text-align: center;">Medical registry</h1>
 </div>
 <br>
