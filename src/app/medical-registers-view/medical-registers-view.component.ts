@@ -183,10 +183,9 @@ export class MedicalRegistersViewComponent implements OnInit {
     this.registers = this.originalRegisters;
     let temp: any = [];
     this.registers.forEach((register: any) => {
-      if (this.removeSpecialCharacters(register.date).includes(
-        this.removeSpecialCharacters(textField)) || this.removeSpecialCharacters(register.summary).includes(this.removeSpecialCharacters(textField))
-        || this.removeSpecialCharacters(register.type).includes(this.removeSpecialCharacters(textField))
-      ) {
+      if (this.removeSpecialCharacters(register.date).includes(this.removeSpecialCharacters(textField))
+        || this.removeSpecialCharacters(register.summary).includes(this.removeSpecialCharacters(textField))
+        || this.removeSpecialCharacters(register.type).includes(this.removeSpecialCharacters(textField))) {
         temp.push(register);
       }
       else {
