@@ -154,27 +154,27 @@ export class MedicalRegistersViewComponent implements OnInit {
     let textlower = text.toLowerCase();
     let res = "";
     for (var i = 0; i < textlower.length; i++) {
-      if (textlower.atChar(i) == 'á') {
+      if (textlower.charAt(i) == 'á') {
         res += 'a'
         continue;
       }
-      if (textlower.atChar(i) == 'é') {
+      if (textlower.charAt(i) == 'é') {
         res += 'e'
         continue;
       }
-      if (textlower.atChar(i) == 'í') {
+      if (textlower.charAt(i) == 'í') {
         res += 'i'
         continue;
       }
-      if (textlower.atChar(i) == 'ó') {
+      if (textlower.charAt(i) == 'ó') {
         res += 'o'
         continue;
       }
-      if (textlower.atChar(i) == 'ú') {
+      if (textlower.charAt(i) == 'ú') {
         res += 'u'
         continue;
       }
-      res += textlower.atChar(i);
+      res += textlower.charAt(i);
     }
     return res;
   }
