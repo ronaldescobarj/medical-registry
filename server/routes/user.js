@@ -50,7 +50,7 @@ router.get('/get', function (req, res) {
                 } else {
                     var rows = resultObj.rows;
                     response.success = true;
-                    response.response = rows;
+                    response.response = rows[0];
                 }
                 res.json(response);
             });
