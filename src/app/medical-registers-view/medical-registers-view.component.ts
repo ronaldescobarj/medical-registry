@@ -38,6 +38,11 @@ export class MedicalRegistersViewComponent implements OnInit {
       if (response.success) {
         this.registers = response.response;
         this.registers.forEach((register: any) => this.originalRegisters.push(register));
+        this.registers.sort((a, b) => {
+          a = new Date(a.date);
+          b = new Date(b.date);
+          return a < b ? -1 : a > b ? 1 : 0;
+        });
       }
     })
 
