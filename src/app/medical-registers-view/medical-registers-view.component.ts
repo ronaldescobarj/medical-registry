@@ -24,7 +24,7 @@ export class MedicalRegistersViewComponent implements OnInit {
   constructor(private httpService: HttpService, private router: Router, private location: Location) { }
 
   ngOnInit() {
-    this.listOfTypes = ["Todos", "Consulta medica", "Observacion propia", "Analisis medico"]
+    this.listOfTypes = ["Todos", "Consulta", "Observacion propia", "Analisis"]
     this.selectedType = this.listOfTypes[0];
     this.originalRegisters = [];
     this.sort = {
