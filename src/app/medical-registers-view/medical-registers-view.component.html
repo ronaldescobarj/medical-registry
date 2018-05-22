@@ -18,11 +18,16 @@
   <div class="table-wrapper">
     <div class="table-title">
       <div class="row">
-        <div class="col-sm-7">
+        <div class="col-sm-6">
           <h2>Registros Medicos
           </h2>
         </div>
-        <div class="col-sm-4">
+        <div class="col-md-3">
+          <select class='btn btn-default' style="border-color:black" (change)='filterByType($event.target.value)'>
+            <option class='option' *ngFor='let type of listOfTypes' [selected]="type == selectedType" [value]="type">{{type}}</option>
+          </select>
+        </div>
+        <div class="col-sm-3">
           <div class="search-box">
             <input type="text" style="border-color:black" class="form-control" (input)="search($event.target.value)" placeholder="Buscar..."
             />
@@ -36,7 +41,9 @@
       <thead>
         <tr>
           <th>
-            <button class="btn btn-default">Resumen</button>
+            <button *ngIf="sort.summary == 0" class="btn btn-default" (click)="sortRegisters('summary')">Resumen</button>
+            <button *ngIf="sort.summary == 1" class="btn btn-default" (click)="sortRegisters('summary')">Resumen &darr;</button>
+            <button *ngIf="sort.summary == 2" class="btn btn-default" (click)="sortRegisters('summary')">Resumen &uarr;</button>
           </th>
           <th>
             <button *ngIf="sort.type == 0" class="btn btn-default" (click)="sortRegisters('type')">Tipo</button>

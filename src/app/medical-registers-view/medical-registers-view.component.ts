@@ -18,14 +18,19 @@ export class MedicalRegistersViewComponent implements OnInit {
   private arrowUpIcon: String;
   private sort: any;
   private p: number = 1;
+  private selectedType: String;
+  private listOfTypes: String[];
   private subscription: Subscription;
   constructor(private httpService: HttpService, private router: Router, private location: Location) { }
 
   ngOnInit() {
+    this.listOfTypes = ["Todos", "Consulta medica", "Observacion propia", "Analisis medico"]
+    this.selectedType = this.listOfTypes[0];
     this.originalRegisters = [];
     this.sort = {
       type: 0,
-      date: 0
+      date: 0,
+      summary: 0
     };
     if (this.subscription)
       this.subscription.unsubscribe();
@@ -56,8 +61,10 @@ export class MedicalRegistersViewComponent implements OnInit {
         });
       }
       this.sort[value]++;
-      let otherValue = value == "type" ? "date" : "type";
-      this.sort[otherValue] = 0;
+      for (let key in this.sort) {
+        if (key != value)
+          this.sort[key] = 0;
+      }
       return;
     }
     if (this.sort[value] == 1) {
@@ -83,6 +90,15 @@ export class MedicalRegistersViewComponent implements OnInit {
       this.originalRegisters.forEach((register: any) => this.registers.push(register));
       this.sort[value] = 0;
       return;
+    }
+  }
+
+  filterByType(event: any) {
+    if (event != "Todos") {
+      this.search(this.removeSpecialCharacters(event))
+    }
+    else {
+      this.registers = this.originalRegisters;
     }
   }
 
