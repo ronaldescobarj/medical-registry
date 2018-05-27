@@ -16,6 +16,7 @@ export class UsersViewComponent implements OnInit {
   constructor(private httpService: HttpService, private router: Router) { }
 
   ngOnInit() {
+    localStorage.removeItem('currentUser');
     this.accountId = JSON.parse(localStorage.getItem('currentAccount')).id;
     this.httpService.get('/user/list?accountId=' + this.accountId).subscribe((response: any) => {
       if (response.success) {

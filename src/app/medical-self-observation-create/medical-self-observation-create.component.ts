@@ -9,28 +9,28 @@ import { HttpService } from '../http.service';
 })
 export class MedicalSelfObservationCreateComponent implements OnInit {
 
-  private medicalSelfObservation:any={};
+  private medicalSelfObservation: any = {};
   constructor(private httpService: HttpService, private router: Router) { }
 
   ngOnInit() {
     this.medicalSelfObservation = {
-      id:"",
-      summary:"",
-      observation:"",
-      date:"",
-      user_id:"",
+      id: "",
+      summary: "",
+      observation: "",
+      date: "",
+      user_id: "",
     }
   }
 
   createSelfObservation() {
     this.medicalSelfObservation.id = Math.floor(Math.random() * 100000);
-    this.medicalSelfObservation.user_id = 10;    
-    this.httpService.post('/selfObservation/create', this.medicalSelfObservation).subscribe((response: any)=>{
+    this.medicalSelfObservation.user_id = JSON.parse(localStorage.getItem('currentUser')).id;
+    this.httpService.post('/selfObservation/create', this.medicalSelfObservation).subscribe((response: any) => {
       if (response.success)
         this.router.navigateByUrl('/registers');
     })
   }
   goBack() {
-    this.router.navigateByUrl('/registers');    
+    this.router.navigateByUrl('/registers');
   }
 }

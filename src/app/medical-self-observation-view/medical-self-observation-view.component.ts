@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { HttpService } from '../http.service';
 
@@ -11,24 +11,28 @@ import { HttpService } from '../http.service';
 export class MedicalSelfObservationViewComponent implements OnInit {
 
 
-  private selfObservation:any;
-  private id:String;
+  private selfObservation: any;
+  private id: String;
   private show: boolean = false;
 
-  constructor(private httpService: HttpService, private route: ActivatedRoute,private location: Location) { }
+  constructor(
+    private httpService: HttpService,
+    private route: ActivatedRoute,
+    private location: Location,
+    private router: Router) { }
 
   ngOnInit() {
-      this.id = this.route.snapshot.paramMap.get('id');
-      this.selfObservation = {text: ""};
-      this.httpService.get('/selfObservation/get?id='+this.id).subscribe((response: any) => {
-        console.log(response);
-        if (response.success) {
-          this.selfObservation = response.response;
-          this.show = true;
-        }  
-      })
-    }
+    this.id = this.route.snapshot.paramMap.get('id');
+    this.selfObservation = { text: "" };
+    this.httpService.get('/selfObservation/get?id=' + this.id).subscribe((response: any) => {
+      console.log(response);
+      if (response.success) {
+        this.selfObservation = response.response;
+        this.show = true;
+      }
+    })
+  }
   goBack() {
-    this.location.back();
+    this.router.navigateByUrl('/registers');
   }
 }

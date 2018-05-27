@@ -28,6 +28,7 @@
             <button class="btn btn-danger btn-block" (click)="goBack()">Cancelar</button>
           </div>
         </div>
+        <div *ngIf="!firstTime && errorMessage" class="help-block">{{errorMessage}}</div>
       </form>
     </div>
   </div>

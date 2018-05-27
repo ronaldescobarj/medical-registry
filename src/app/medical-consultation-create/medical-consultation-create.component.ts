@@ -15,28 +15,29 @@ export class MedicalConsultationCreateComponent implements OnInit {
 
   ngOnInit() {
     this.medicalConsultation = {
-      id:"",
-      summary:"",
-      doctor:"",
-      diagnostic:"",
-      hospital:"",
-      description:"",
-      commentary:"",
-      date:"",
-      user_id:"",
+      id: "",
+      summary: "",
+      doctor: "",
+      diagnostic: "",
+      hospital: "",
+      description: "",
+      commentary: "",
+      date: "",
+      user_id: "",
     }
   }
 
   createConsultation() {
     this.medicalConsultation.id = Math.floor(Math.random() * 100000);
-    this.medicalConsultation.user_id = 10;    
-    this.httpService.post('/consultation/create', this.medicalConsultation).subscribe((response: any)=>{
+    this.medicalConsultation.user_id = JSON.parse(localStorage.getItem('currentUser')).id;
+    this.httpService.post('/consultation/create', this.medicalConsultation).subscribe((response: any) => {
       if (response.success)
-        this.router.navigateByUrl('/registers'); })
+        this.router.navigateByUrl('/registers');
+    })
   }
 
   goBack() {
-    this.router.navigateByUrl('/registers');    
+    this.router.navigateByUrl('/registers');
   }
 
 }

@@ -13,6 +13,8 @@ export class CreateEditUserComponent implements OnInit {
   private action: any;
   private user: any = {};
   private show: boolean = false;
+  private errorMessage: string = "";
+  private firstTime: boolean = true;
 
   constructor(private httpService: HttpService, private route: ActivatedRoute, private router: Router) { }
 
@@ -38,6 +40,7 @@ export class CreateEditUserComponent implements OnInit {
   }
 
   saveChanges() {
+    this.firstTime = false;
     let apiRoute = "";
     if (this.user.name != "" && this.user.last_name != "") {
       if (this.action == "create") {
@@ -51,6 +54,9 @@ export class CreateEditUserComponent implements OnInit {
           this.goBack();
         }
       })
+    }
+    else {
+      this.errorMessage = "Faltan campos a introducir";
     }
   }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../http.service';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-manage-account',
@@ -16,7 +17,7 @@ export class ManageAccountComponent implements OnInit {
   private errorMessage: string = "";
   private show: boolean = false;
 
-  constructor(private httpService: HttpService, private router: Router) { }
+  constructor(private httpService: HttpService, private router: Router, private location: Location) { }
 
   ngOnInit() {
     this.accountId = JSON.parse(localStorage.getItem('currentAccount')).id;
@@ -78,6 +79,10 @@ export class ManageAccountComponent implements OnInit {
         }
       })
     }
+  }
+
+  goBack() {
+    this.location.back();
   }
 
 }

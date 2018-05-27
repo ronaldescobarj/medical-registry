@@ -24,6 +24,8 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    localStorage.removeItem('currentAccount');
+    localStorage.removeItem('currentUser');
     this.firstTime = false;
     if (this.account.username != "" && this.account.password != "") {
       this.loading = true;

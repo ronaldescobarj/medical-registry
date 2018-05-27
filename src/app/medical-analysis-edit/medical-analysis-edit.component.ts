@@ -1,6 +1,6 @@
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { HttpService } from '../http.service';
-import { ActivatedRoute,Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -12,7 +12,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class MedicalAnalysisEditComponent implements OnInit {
 
-  private medicalAnalysis:any;
+  private medicalAnalysis: any;
   private id;
   private show: boolean = false;
   private images: any[];
@@ -28,28 +28,28 @@ export class MedicalAnalysisEditComponent implements OnInit {
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
-      this.httpService.get('/analysis/get?id='+this.id).subscribe((response: any) => {
-        if (response.success) {
-          this.medicalAnalysis = response.response;
-          this.httpService.get('/image/get?analysisId='+this.medicalAnalysis.id).subscribe((res: any) => {
-            if (res.success) {
-              this.images = res.response;
-              this.imagesDecoded = [];
-              for (let i = 0; i < this.images.length; i++) {
-                let imageDecoded = this.domSanitizer.bypassSecurityTrustResourceUrl('data:' + this.images[i].file_type + ';base64,' 
-                  + this.images[i].base_64_image);
-                this.imagesDecoded.push({img: imageDecoded, id: this.images[i].id});
-              }
-              this.show = true;
+    this.httpService.get('/analysis/get?id=' + this.id).subscribe((response: any) => {
+      if (response.success) {
+        this.medicalAnalysis = response.response;
+        this.httpService.get('/image/get?analysisId=' + this.medicalAnalysis.id).subscribe((res: any) => {
+          if (res.success) {
+            this.images = res.response;
+            this.imagesDecoded = [];
+            for (let i = 0; i < this.images.length; i++) {
+              let imageDecoded = this.domSanitizer.bypassSecurityTrustResourceUrl('data:' + this.images[i].file_type + ';base64,'
+                + this.images[i].base_64_image);
+              this.imagesDecoded.push({ img: imageDecoded, id: this.images[i].id });
             }
-          })
-        }
-      })
+            this.show = true;
+          }
+        })
+      }
+    })
   }
 
-  saveChanges(){
-    var imagesObj = {images: []};    
-    this.httpService.post('/analysis/update', this.medicalAnalysis).subscribe((response: any)=>{
+  saveChanges() {
+    var imagesObj = { images: [] };
+    this.httpService.post('/analysis/update', this.medicalAnalysis).subscribe((response: any) => {
       if (response.success) {
         for (let i = 0; i < this.images.length; i++) {
           let imageObj = {
@@ -63,27 +63,27 @@ export class MedicalAnalysisEditComponent implements OnInit {
         }
         this.httpService.post('/image/add', imagesObj).subscribe((res: any) => {
           if (res.success) {
-            this.router.navigateByUrl('/registers');            
+            this.router.navigateByUrl('/registers');
           }
         })
       }
     })
-}
+  }
   goBack() {
-    this.location.back();
+    this.router.navigateByUrl('/registers');
   }
 
   deleteImage(id: any) {
-    this.httpService.post('/image/delete',{id: id}).subscribe((response: any) => {
+    this.httpService.post('/image/delete', { id: id }).subscribe((response: any) => {
       if (response.success)
         location.reload();
-  })
+    })
   }
 
   onFileChange(event) {
     let readers = [];
     this.images = [];
-    if(event.target.files && event.target.files.length > 0) {
+    if (event.target.files && event.target.files.length > 0) {
       for (let i = 0; i < event.target.files.length; i++) {
         readers[i] = new FileReader();
         let file = event.target.files[i];

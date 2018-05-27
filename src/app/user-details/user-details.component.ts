@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpService } from '../http.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-user-details',
@@ -13,7 +14,7 @@ export class UserDetailsComponent implements OnInit {
   private show = false;
   private user: any = {};
 
-  constructor(private route: ActivatedRoute, private httpService: HttpService) { }
+  constructor(private route: ActivatedRoute, private httpService: HttpService, private location: Location) { }
 
   ngOnInit() {
     this.userId = this.route.snapshot.paramMap.get('id');
@@ -23,6 +24,10 @@ export class UserDetailsComponent implements OnInit {
         this.show = true;
       }
     })
+  }
+
+  goBack() {
+    this.location.back();
   }
 
 }

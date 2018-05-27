@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class MedicalAnalysisCreateComponent implements OnInit {
 
-  private medicalAnalysis:any = {};
+  private medicalAnalysis: any = {};
   private testImage: any;
   private images: any;
 
@@ -17,22 +17,22 @@ export class MedicalAnalysisCreateComponent implements OnInit {
 
   ngOnInit() {
     this.medicalAnalysis = {
-      id:"",
-      summary:"",
-      type:"",
-      description:"",
-      hospital:"",
-      commentary:"",
-      date:"",  
-      user_id:"",
+      id: "",
+      summary: "",
+      type: "",
+      description: "",
+      hospital: "",
+      commentary: "",
+      date: "",
+      user_id: "",
     }
   }
 
   createAnalysis() {
     this.medicalAnalysis.id = Math.floor(Math.random() * 100000);
-    this.medicalAnalysis.user_id = 10;
-    var imagesObj = {images: []};
-    this.httpService.post('/analysis/create', this.medicalAnalysis).subscribe((response: any)=>{
+    this.medicalAnalysis.user_id = JSON.parse(localStorage.getItem('currentUser')).id;
+    var imagesObj = { images: [] };
+    this.httpService.post('/analysis/create', this.medicalAnalysis).subscribe((response: any) => {
       if (response.success) {
         for (let i = 0; i < this.images.length; i++) {
           let imageObj = {
@@ -46,7 +46,7 @@ export class MedicalAnalysisCreateComponent implements OnInit {
         }
         this.httpService.post('/image/add', imagesObj).subscribe((res: any) => {
           if (res.success) {
-            this.router.navigateByUrl('/registers');            
+            this.router.navigateByUrl('/registers');
           }
         })
       }
@@ -54,13 +54,13 @@ export class MedicalAnalysisCreateComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigateByUrl('/registers');    
+    this.router.navigateByUrl('/registers');
   }
 
   onFileChange(event) {
     let readers = [];
     this.images = [];
-    if(event.target.files && event.target.files.length > 0) {
+    if (event.target.files && event.target.files.length > 0) {
       for (let i = 0; i < event.target.files.length; i++) {
         readers[i] = new FileReader();
         let file = event.target.files[i];
