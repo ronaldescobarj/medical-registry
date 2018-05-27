@@ -18,6 +18,10 @@ export class AppComponent {
     return localStorage.getItem('currentAccount');
   }
 
+  userLoggedIn() {
+    return localStorage.getItem('currentUser');
+  }
+
   changeUser() {
     localStorage.removeItem('currentUser');
     this.router.navigateByUrl('/users');
@@ -25,7 +29,7 @@ export class AppComponent {
 
   viewUser() {
     let userId = JSON.parse(localStorage.getItem('currentUser')).id;
-    this.router.navigateByUrl('/user/' + userId);
+    this.router.navigateByUrl('/viewUser/' + userId);
   }
 
   logout() {

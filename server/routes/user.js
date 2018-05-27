@@ -62,10 +62,10 @@ function generateQuery(data, type) {
     var query = "";
     if (type == "insert")
         query = "INSERT INTO medical_history.user VALUES (" + data.id + ", '" + data.name +
-            "', '" + data.lastname + "', " + data.account_id + ");";
+            "', '" + data.last_name + "', " + data.account_id + ");";
     if (type == "update")
         query = "UPDATE medical_history.user SET name='" + data.name + "', last_name='" +
-            data.lastname + "' WHERE id=" + data.id;
+            data.last_name + "' WHERE id=" + data.id;
     console.log(query);
     return query;
 }

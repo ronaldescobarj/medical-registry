@@ -56,6 +56,30 @@ router.get('/authenticate', function (req, res) {
     });
 });
 
+router.get('/get', function (req, res) {
+    var id = req.query.id;
+    var queryString = 'SELECT * FROM medical_history.account WHERE id=' + id;
+    var response = prepareResponse(req);
+    dbConnection.pool.connect(function (error, connection, done) {
+        if (error) {
+            console.error("error");
+            res.json(response);
+        } else {
+            var query = connection.query(queryString, function (err, resultObj) {
+                done();
+                if (err) {
+                    console.error(JSON.stringify(err));
+                } else {
+                    var rows = resultObj.rows[0];
+                    response.success = true;
+                    response.response = rows;
+                }
+                res.json(response);
+            });
+        }
+    });
+});
+
 router.post('/create', function (req, res, next) {
     var data = req.body;
     var checkQueryString = "SELECT * FROM medical_history.account WHERE username='" + data.username + "';";

@@ -15,13 +15,17 @@ import { LoginComponent } from './login/login.component';
 import { RegisterAccountComponent } from './register-account/register-account.component';
 import { UsersViewComponent } from './users-view/users-view.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
+import { CreateEditUserComponent } from './create-edit-user/create-edit-user.component';
+import { ManageAccountComponent } from './manage-account/manage-account.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/registers', pathMatch: 'full', canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterAccountComponent },
   { path: 'users', component: UsersViewComponent },
-  { path: 'user/:id', component: UserDetailsComponent },
+  { path: 'account', component: ManageAccountComponent },
+  { path: 'viewUser/:id', component: UserDetailsComponent },
+  { path: 'user/:action/:id', component: CreateEditUserComponent },
   { path: 'registers', component: MedicalRegistersViewComponent, canActivate: [AuthGuard] },
   { path: 'medicalConsultation/:id', component: MedicalConsultationViewComponent, canActivate: [AuthGuard] },
   { path: 'medicalAnalysis/:id', component: MedicalAnalysisViewComponent, canActivate: [AuthGuard] },

@@ -31,6 +31,7 @@ export class UsersViewComponent implements OnInit {
   }
 
   addUser() {
+    this.router.navigateByUrl('/user/create/#');
   }
 
   deleteUser(user: any) {

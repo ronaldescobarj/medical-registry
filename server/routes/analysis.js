@@ -32,8 +32,8 @@ router.get('/get', function (req, res) {
             });
         }
     });
-
 });
+
 function generateQuery(data, type) {
     var query = "";
     if (type == "insert")

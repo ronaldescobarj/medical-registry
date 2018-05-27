@@ -27,6 +27,8 @@ import { RegisterAccountComponent } from './register-account/register-account.co
 import { AuthGuard } from './guards/auth.guard';
 import { UsersViewComponent } from './users-view/users-view.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
+import { CreateEditUserComponent } from './create-edit-user/create-edit-user.component';
+import { ManageAccountComponent } from './manage-account/manage-account.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +46,9 @@ import { UserDetailsComponent } from './user-details/user-details.component';
     LoginComponent,
     RegisterAccountComponent,
     UsersViewComponent,
-    UserDetailsComponent
+    UserDetailsComponent,
+    CreateEditUserComponent,
+    ManageAccountComponent,
   ],
   imports: [
     BrowserModule,

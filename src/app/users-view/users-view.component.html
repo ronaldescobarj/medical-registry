@@ -1,6 +1,6 @@
 <div *ngIf="show" class="col-md-6 col-md-offset-3">
   <h2>Seleccionar usuario</h2>
-  <button *ngIf="users.length < 4" (click)="addUser()">
+  <button [disabled]="users.length == 4" class="btn btn-success" (click)="addUser()">
     Add user
   </button>
   <div *ngFor="let user of users">
@@ -10,7 +10,7 @@
       <div class="card-body">
         <h5 class="card-title">{{user.name}}</h5>
         <button class="btn btn-primary" (click)="selectUser(user)">Select user</button>
-        <button class="btn btn-primary" routerLink="/user/{user.id}}">View user</button>
+        <a class="btn btn-primary" routerLink="/viewUser/{{user.id}}">View user</a>
         <app-delete-modal #deleteModal [type]="'usuario'" (canceling)="refresh()" (deleting)="deleteUser(user)"></app-delete-modal>
         <button class="btn btn-primary" (click)="deleteModal.open()">Delete user</button>
       </div>
