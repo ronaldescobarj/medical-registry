@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { HttpService } from '../http.service';
 
@@ -11,24 +11,35 @@ import { HttpService } from '../http.service';
 export class MedicalSelfObservationViewComponent implements OnInit {
 
 
-  private selfObservation:any;
-  private id:String;
+  private selfObservation: any;
+  private id: String;
   private show: boolean = false;
+  private error: string;
 
-  constructor(private httpService: HttpService, private route: ActivatedRoute,private location: Location) { }
+  constructor(
+    private httpService: HttpService,
+    private route: ActivatedRoute,
+    private location: Location,
+    private router: Router) { }
 
   ngOnInit() {
-      this.id = this.route.snapshot.paramMap.get('id');
-      this.selfObservation = {text: ""};
-      this.httpService.get('/selfObservation/get?id='+this.id).subscribe((response: any) => {
-        console.log(response);
+    this.id = this.route.snapshot.paramMap.get('id');
+    let userId = JSON.parse(localStorage.getItem('currentUser')).id;
+    this.selfObservation = { text: "" };
+    this.httpService.get('/selfObservation/get?id=' + this.id + '&userId=' + userId)
+      .subscribe((response: any) => {
         if (response.success) {
-          this.selfObservation = response.response;
+          if (response.response.id) {
+            this.selfObservation = response.response;
+          }
+          else {
+            this.error = "La observacion propia solicitada no existe, o pertenece a otro usuario";
+          }
           this.show = true;
-        }  
+        }
       })
-    }
+  }
   goBack() {
-    this.location.back();
+    this.router.navigateByUrl('/registers');
   }
 }

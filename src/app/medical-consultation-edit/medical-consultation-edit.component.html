@@ -6,8 +6,8 @@
     </div>
     <br/>
 </div>
-
-<div *ngIf="show" class="container">
+<h4 *ngIf="show && error">{{error}}</h4>
+<div *ngIf="show && !error" class="container">
     <div class="row">
         <div class="col-md-12">
             <div class="col-md-3">
@@ -29,17 +29,22 @@
                 <div class="form-group">
                     <div class="col-md-9">
                         <label class="validation-message">Doctor</label>
-                        <input name="doctor" (input)="doctorValidator=true; doctorError=false" [style.border-color]="borderColor(true)" [(ngModel)]="medicalConsultation.doctor"
-                            type="text" placeholder="Doctor" class="form-control" />
+                        <<<<<<< HEAD <input name="doctor" (input)="doctorValidator=true; doctorError=false" [style.border-color]="borderColor(true)"
+                            [(ngModel)]="medicalConsultation.doctor" type="text" placeholder="Doctor" class="form-control" />
                         <div *ngIf="doctorError && !firstTime" style="color: tomato">Introduzca al doctor</div>
+                        =======
+                        <input name="doctor" [(ngModel)]="medicalConsultation.doctor" type="text" placeholder="Doctor" class="form-control" /> >>>>>>> f0d388e639c6658fd942bb82ec122d1ba6d46e41
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-md-9">
-                        <label class="validation-message">Diagnostico *</label>
-                        <textarea name="diagnostic" (input)="diagnosticValidator=true; diagnosticError=false" [style.border-color]="borderColor(false)"
-                            [(ngModel)]="medicalConsultation.diagnostic" rows="5" placeholder="Diagnostico" class="form-control"></textarea>
-                        <div *ngIf="diagnosticError && !firstTime" style="color: tomato">Introduzca un diagnostico</div>
+                        <<<<<<< HEAD <label class="validation-message">Diagnostico *</label>
+                            <textarea name="diagnostic" (input)="diagnosticValidator=true; diagnosticError=false" [style.border-color]="borderColor(false)"
+                                [(ngModel)]="medicalConsultation.diagnostic" rows="5" placeholder="Diagnostico" class="form-control"></textarea>
+                            <div *ngIf="diagnosticError && !firstTime" style="color: tomato">Introduzca un diagnostico</div>
+                            =======
+                            <label class="validation-message">Diagnostico</label>
+                            <textarea name="diagnostic" [(ngModel)]="medicalConsultation.diagnostic" rows="5" placeholder="Diagnostico" class="form-control"></textarea> >>>>>>> f0d388e639c6658fd942bb82ec122d1ba6d46e41
                     </div>
                 </div>
                 <div class="form-group">
@@ -64,23 +69,27 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-9">
-                        <label class="validation-message">Fecha *</label>
-                        <input name="date" [(ngModel)]="medicalConsultation.date" placeholder="AAAA-MM-DD" class="form-control">
-                        <div *ngIf="dateError && !firstTime" style="color: tomato">Introduzca la fecha</div>
+                        <<<<<<< HEAD <label class="validation-message">Fecha *</label>
+                            =======
+                            <label class="validation-message">Fecha</label>
+                            >>>>>>> f0d388e639c6658fd942bb82ec122d1ba6d46e41
+                            <input name="date" [(ngModel)]="medicalConsultation.date" placeholder="AAAA-MM-DD" class="form-control">
+                            <div *ngIf="dateError && !firstTime" style="color: tomato">Introduzca la fecha</div>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-md-3">
                         <button class="btn btn-success btn-block" (click)="saveChanges()">Guardar</button>
+                        <<<<<<< HEAD </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-9">
-                        <div>Los campos con * son obligatorios</div>
-                        <div *ngIf="(dateError || diagnosticError) && !firstTime" style="color: tomato">Por favor introduzca los datos marcados como obligatorios</div>
+                    <div class="form-group">
+                        <div class="col-md-9">
+                            <div>Los campos con * son obligatorios</div>
+                            <div *ngIf="(dateError || diagnosticError) && !firstTime" style="color: tomato">Por favor introduzca los datos marcados como obligatorios</div>
+                            ======= >>>>>>> f0d388e639c6658fd942bb82ec122d1ba6d46e41
+                        </div>
                     </div>
-                </div>
             </form>
+            </div>
         </div>
     </div>
-</div>

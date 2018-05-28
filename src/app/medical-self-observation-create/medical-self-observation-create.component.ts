@@ -34,7 +34,7 @@ export class MedicalSelfObservationCreateComponent implements OnInit {
   createSelfObservation() {
     if (this.validate()) {
       this.medicalSelfObservation.id = Math.floor(Math.random() * 100000);
-      this.medicalSelfObservation.user_id = 10;
+      this.medicalSelfObservation.user_id = JSON.parse(localStorage.getItem('currentUser')).id;
       this.httpService.post('/selfObservation/create', this.medicalSelfObservation).subscribe((response: any) => {
         if (response.success)
           this.router.navigateByUrl('/registers');

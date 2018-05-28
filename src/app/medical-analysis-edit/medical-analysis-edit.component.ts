@@ -17,6 +17,7 @@ export class MedicalAnalysisEditComponent implements OnInit {
   private show: boolean = false;
   private images: any[];
   private imagesDecoded: any[];
+  private error: string;
 
   private typeError: boolean;
   private dateError: boolean;
@@ -40,21 +41,27 @@ export class MedicalAnalysisEditComponent implements OnInit {
     this.id = this.route.snapshot.paramMap.get('id');
     this.httpService.get('/analysis/get?id=' + this.id).subscribe((response: any) => {
       if (response.success) {
-        this.medicalAnalysis = response.response;
-        this.httpService.get('/image/get?analysisId=' + this.medicalAnalysis.id).subscribe((res: any) => {
-          if (res.success) {
-            this.images = res.response;
-            this.imagesDecoded = [];
-            for (let i = 0; i < this.images.length; i++) {
-              let imageDecoded = this.domSanitizer.bypassSecurityTrustResourceUrl('data:' + this.images[i].file_type + ';base64,'
-                + this.images[i].base_64_image);
-              this.imagesDecoded.push({ img: imageDecoded, id: this.images[i].id });
+        if (response.response.id) {
+          this.medicalAnalysis = response.response;
+          this.httpService.get('/image/get?analysisId=' + this.medicalAnalysis.id).subscribe((res: any) => {
+            if (res.success) {
+              this.images = res.response;
+              this.imagesDecoded = [];
+              for (let i = 0; i < this.images.length; i++) {
+                let imageDecoded = this.domSanitizer.bypassSecurityTrustResourceUrl('data:' + this.images[i].file_type + ';base64,'
+                  + this.images[i].base_64_image);
+                this.imagesDecoded.push({ img: imageDecoded, id: this.images[i].id });
+              }
+              this.show = true;
             }
-            this.show = true;
-          }
-        })
+          })
+        }
+        else {
+          this.error = "La observacion propia solicitada no existe, o pertenece a otro usuario";
+          this.show = true;
+        }
       }
-    })
+    });
   }
 
   saveChanges() {
@@ -83,7 +90,7 @@ export class MedicalAnalysisEditComponent implements OnInit {
   }
 
   goBack() {
-    this.location.back();
+    this.router.navigateByUrl('/registers');
   }
 
   deleteImage(id: any) {

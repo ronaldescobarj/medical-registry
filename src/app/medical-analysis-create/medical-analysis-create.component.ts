@@ -39,7 +39,7 @@ export class MedicalAnalysisCreateComponent implements OnInit {
   createAnalysis() {
     if (this.validate()) {
       this.medicalAnalysis.id = Math.floor(Math.random() * 100000);
-      this.medicalAnalysis.user_id = 10;
+      this.medicalAnalysis.user_id = JSON.parse(localStorage.getItem('currentUser')).id;
       var imagesObj = { images: [] };
       this.httpService.post('/analysis/create', this.medicalAnalysis).subscribe((response: any) => {
         if (response.success) {

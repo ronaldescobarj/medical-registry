@@ -22,6 +22,14 @@ import { MedicalSelfObservationCreateComponent } from './medical-self-observatio
 import { MedicalSelfObservationEditComponent } from './medical-self-observation-edit/medical-self-observation-edit.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { LoginComponent } from './login/login.component';
+import { LoginService } from './login.service';
+import { RegisterAccountComponent } from './register-account/register-account.component';
+import { AuthGuard } from './guards/auth.guard';
+import { UsersViewComponent } from './users-view/users-view.component';
+import { UserDetailsComponent } from './user-details/user-details.component';
+import { CreateEditUserComponent } from './create-edit-user/create-edit-user.component';
+import { ManageAccountComponent } from './manage-account/manage-account.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +44,13 @@ import { NotFoundComponent } from './not-found/not-found.component';
     MedicalAnalysisEditComponent,
     MedicalSelfObservationCreateComponent,
     MedicalSelfObservationEditComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    LoginComponent,
+    RegisterAccountComponent,
+    UsersViewComponent,
+    UserDetailsComponent,
+    CreateEditUserComponent,
+    ManageAccountComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,7 +60,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
     HttpModule,
     NgxPaginationModule
   ],
-  providers: [HttpService],
+  providers: [HttpService, LoginService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -21,6 +21,7 @@ export class MedicalRegistersViewComponent implements OnInit {
   private selectedType: String;
   private listOfTypes: String[];
   private subscription: Subscription;
+  private userId: any;
   constructor(private httpService: HttpService, private router: Router, private location: Location) { }
 
   ngOnInit() {
@@ -32,6 +33,7 @@ export class MedicalRegistersViewComponent implements OnInit {
       date: 0,
       summary: 0
     };
+    this.userId = JSON.parse(localStorage.getItem('currentUser')).id;
     if (this.subscription)
       this.subscription.unsubscribe();
     this.subscription = this.httpService.get('/registers/list').subscribe((response: any) => {

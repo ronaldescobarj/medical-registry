@@ -13,6 +13,7 @@ export class MedicalSelfObservationEditComponent implements OnInit {
   private medicalSelfObservation: any;
   private id: any;
   private show: boolean = false;
+  private error: string;
 
   private dateError: boolean;
   private observationError: boolean;
@@ -29,7 +30,12 @@ export class MedicalSelfObservationEditComponent implements OnInit {
     this.id = this.route.snapshot.paramMap.get('id');
     this.httpService.get('/selfObservation/get?id=' + this.id).subscribe((response: any) => {
       if (response.success) {
-        this.medicalSelfObservation = response.response;
+        if (response.response.id) {
+          this.medicalSelfObservation = response.response;
+        }
+        else {
+          this.error = "La observacion propia solicitada no existe, o pertenece a otro usuario";
+        }
         this.show = true;
       }
     })

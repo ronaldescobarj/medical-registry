@@ -5,15 +5,14 @@ var dbConnection = require("../lib/dbConnection");
 function prepareResponse(req) {
     var response = {
         success: false,
-        response: {}
+        response: []
     };
     return response;
 }
 
-router.get('/get', function (req, res) {
-    var id = req.query.id;
-    var userId = req.query.userId;
-    var queryString = 'SELECT * FROM medical_history.analysis WHERE id=' + id + ' and user_id=' + userId + ';';
+router.get('/list', function (req, res) {
+    var accountId = req.query.accountId;
+    var queryString = 'SELECT * FROM medical_history.user WHERE account_id=' + accountId;
     var response = prepareResponse(req);
     dbConnection.pool.connect(function (error, connection, done) {
         if (error) {
@@ -25,9 +24,33 @@ router.get('/get', function (req, res) {
                 if (err) {
                     console.error(JSON.stringify(err));
                 } else {
+                    var rows = resultObj.rows;
                     response.success = true;
-                    if (resultObj.rows.length > 0)
-                        response.response = resultObj.rows[0];
+                    response.response = rows;
+                }
+                res.json(response);
+            });
+        }
+    });
+});
+
+router.get('/get', function (req, res) {
+    var id = req.query.id;
+    var queryString = 'SELECT * FROM medical_history.user WHERE id=' + id;
+    var response = prepareResponse(req);
+    dbConnection.pool.connect(function (error, connection, done) {
+        if (error) {
+            console.error("error");
+            res.json(response);
+        } else {
+            var query = connection.query(queryString, function (err, resultObj) {
+                done();
+                if (err) {
+                    console.error(JSON.stringify(err));
+                } else {
+                    var rows = resultObj.rows;
+                    response.success = true;
+                    response.response = rows[0];
                 }
                 res.json(response);
             });
@@ -38,9 +61,11 @@ router.get('/get', function (req, res) {
 function generateQuery(data, type) {
     var query = "";
     if (type == "insert")
-        query = "INSERT INTO medical_history.analysis VALUES (" + data.id + ", '" + data.summary + "', '" + data.type + "', '" + data.description + "', '" + data.hospital + "', '" + data.commentary + "', '" + data.date + "', " + data.user_id + ");";
+        query = "INSERT INTO medical_history.user VALUES (" + data.id + ", '" + data.name +
+            "', '" + data.last_name + "', " + data.account_id + ");";
     if (type == "update")
-        query = "UPDATE medical_history.analysis SET summary='" + data.summary + "', type='" + data.type + "', description='" + data.description + "', hospital='" + data.hospital + "', commentary='" + data.commentary + "', date='" + data.date + "' WHERE id=" + data.id;
+        query = "UPDATE medical_history.user SET name='" + data.name + "', last_name='" +
+            data.last_name + "' WHERE id=" + data.id;
     return query;
 }
 
@@ -93,7 +118,7 @@ router.post('/update', function (req, res, next) {
 
 router.post('/delete', function (req, res, next) {
     var data = req.body;
-    var queryString = "delete from medical_history.analysis where id=" + data.id;
+    var queryString = "delete from medical_history.user where id=" + data.id;
     var response = prepareResponse(req);
     dbConnection.pool.connect(function (error, connection, done) {
         if (error) {

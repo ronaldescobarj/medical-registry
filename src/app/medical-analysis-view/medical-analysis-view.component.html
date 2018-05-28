@@ -9,7 +9,8 @@
       <br/>
     </div>
   </div>
-  <blockquote *ngIf="show" class="blockquote text-center">
+  <h4 *ngIf="show && error">{{error}}</h4>
+  <blockquote *ngIf="show && !error" class="blockquote text-center">
     <h1>
       <b>Informacion del analisis</b>
     </h1>
