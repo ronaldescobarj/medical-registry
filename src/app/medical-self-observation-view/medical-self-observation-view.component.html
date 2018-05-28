@@ -3,27 +3,30 @@
     <span class="fas fa-arrow-circle-left"></span>
   </button>
 </div>
+<h4 *ngIf="show && error">{{error}}</h4>
+<blockquote *ngIf="show && !error" class="blockquote text-center">
+  <h1>
+    <b>Observacion propia</b>
+  </h1>
+  <br>
+  <br>
+  <div class="container">
 
-<blockquote *ngIf="show" class = "blockquote text-center">
-    <h1><b>Observacion propia</b></h1>
-    <br><br>
-    <div class="container">      
-
-        <table class="table table-striped">
-          <tbody>
-            <tr>
-               <td>Resumen</td>
-               <td>{{selfObservation.summary}}</td>
-            </tr>
-            <tr>
-              <td>Observacion</td>
-              <td>{{selfObservation.observation}}</td>
-            </tr>
-            <tr>
-                <td>Fecha</td>
-                <td>{{selfObservation.date}}</td>
-              </tr>  
-          </tbody>
-        </table>
-      </div>
+    <table class="table table-striped">
+      <tbody>
+        <tr>
+          <td>Resumen</td>
+          <td>{{selfObservation.summary}}</td>
+        </tr>
+        <tr>
+          <td>Observacion</td>
+          <td>{{selfObservation.observation}}</td>
+        </tr>
+        <tr>
+          <td>Fecha</td>
+          <td>{{selfObservation.date}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </blockquote>

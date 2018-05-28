@@ -5,14 +5,15 @@ var dbConnection = require("../lib/dbConnection");
 function prepareResponse(req) {
     var response = {
         success: false,
-        response: []
+        response: {}
     };
     return response;
 }
 
 router.get('/get', function (req, res) {
     var id = req.query.id;
-    var queryString = 'SELECT * FROM medical_history.self_observation WHERE id=' + id;
+    var userId = req.query.userId;
+    var queryString = 'SELECT * FROM medical_history.self_observation WHERE id=' + id + ' and user_id=' + userId + ';';
     var response = prepareResponse(req);
     dbConnection.pool.connect(function (error, connection, done) {
         if (error) {
@@ -24,9 +25,9 @@ router.get('/get', function (req, res) {
                 if (err) {
                     console.error(JSON.stringify(err));
                 } else {
-                    var rows = resultObj.rows[0];
                     response.success = true;
-                    response.response = rows;
+                    if (resultObj.rows.length > 0)
+                        response.response = resultObj.rows[0];
                 }
                 res.json(response);
             });

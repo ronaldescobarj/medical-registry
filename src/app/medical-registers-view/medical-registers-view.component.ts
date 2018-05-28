@@ -28,7 +28,6 @@ export class MedicalRegistersViewComponent implements OnInit {
       type: 0,
       date: 0
     };
-    console.log(JSON.parse(localStorage.getItem('currentUser')));
     this.userId = JSON.parse(localStorage.getItem('currentUser')).id;
     if (this.subscription)
       this.subscription.unsubscribe();

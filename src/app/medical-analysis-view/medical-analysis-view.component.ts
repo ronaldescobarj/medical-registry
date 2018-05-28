@@ -15,6 +15,7 @@ export class MedicalAnalysisViewComponent implements OnInit {
   private id: String;
   private show: boolean = false;
   private images: any[];
+  private error: string;
 
   private testImage: any;
 
@@ -33,19 +34,25 @@ export class MedicalAnalysisViewComponent implements OnInit {
     this.id = this.route.snapshot.paramMap.get('id');
     this.httpService.get('/analysis/get?id=' + this.id).subscribe((response: any) => {
       if (response.success) {
-        this.analysis = response.response;
-        this.httpService.get('/image/get?analysisId=' + this.analysis.id).subscribe((res: any) => {
-          if (response.success) {
-            this.images = res.response;
-            this.imagesDecoded = [];
-            for (let i = 0; i < this.images.length; i++) {
-              let imageDecoded = this.domSanitizer.bypassSecurityTrustResourceUrl('data:' + this.images[i].file_type + ';base64,'
-                + this.images[i].base_64_image);
-              this.imagesDecoded.push(imageDecoded);
+        if (response.response.id) {
+          this.analysis = response.response;
+          this.httpService.get('/image/get?analysisId=' + this.analysis.id).subscribe((res: any) => {
+            if (response.success) {
+              this.images = res.response;
+              this.imagesDecoded = [];
+              for (let i = 0; i < this.images.length; i++) {
+                let imageDecoded = this.domSanitizer.bypassSecurityTrustResourceUrl('data:' + this.images[i].file_type + ';base64,'
+                  + this.images[i].base_64_image);
+                this.imagesDecoded.push(imageDecoded);
+              }
+              this.show = true;
             }
-            this.show = true;
-          }
-        })
+          })
+        }
+        else {
+          this.error = "La observacion propia solicitada no existe, o pertenece a otro usuario";
+          this.show = true;
+        }
       }
     })
   }

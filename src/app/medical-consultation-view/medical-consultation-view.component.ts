@@ -13,6 +13,7 @@ export class MedicalConsultationViewComponent implements OnInit {
   private consultation: any;
   private id: string;
   private show: boolean = false;
+  private error: string;
 
   constructor(
     private httpService: HttpService,
@@ -24,7 +25,12 @@ export class MedicalConsultationViewComponent implements OnInit {
     this.id = this.route.snapshot.paramMap.get('id');
     this.httpService.get('/consultation/get?id=' + this.id).subscribe((response: any) => {
       if (response.success) {
-        this.consultation = response.response;
+        if (response.response.id) {
+          this.consultation = response.response;
+        }
+        else {
+          this.error = "La observacion propia solicitada no existe, o pertenece a otro usuario";
+        }
         this.show = true;
       }
     })

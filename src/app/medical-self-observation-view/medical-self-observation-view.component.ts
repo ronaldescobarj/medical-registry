@@ -14,6 +14,7 @@ export class MedicalSelfObservationViewComponent implements OnInit {
   private selfObservation: any;
   private id: String;
   private show: boolean = false;
+  private error: string;
 
   constructor(
     private httpService: HttpService,
@@ -23,14 +24,20 @@ export class MedicalSelfObservationViewComponent implements OnInit {
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
+    let userId = JSON.parse(localStorage.getItem('currentUser')).id;
     this.selfObservation = { text: "" };
-    this.httpService.get('/selfObservation/get?id=' + this.id).subscribe((response: any) => {
-      console.log(response);
-      if (response.success) {
-        this.selfObservation = response.response;
-        this.show = true;
-      }
-    })
+    this.httpService.get('/selfObservation/get?id=' + this.id + '&userId=' + userId)
+      .subscribe((response: any) => {
+        if (response.success) {
+          if (response.response.id) {
+            this.selfObservation = response.response;
+          }
+          else {
+            this.error = "La observacion propia solicitada no existe, o pertenece a otro usuario";
+          }
+          this.show = true;
+        }
+      })
   }
   goBack() {
     this.router.navigateByUrl('/registers');

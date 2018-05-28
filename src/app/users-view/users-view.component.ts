@@ -38,7 +38,6 @@ export class UsersViewComponent implements OnInit {
   deleteUser(user: any) {
     this.httpService.post('/user/delete', user).subscribe((response: any) => {
       if (response.success) {
-        console.log("borrado exitosamente");
         location.reload();
       }
     })

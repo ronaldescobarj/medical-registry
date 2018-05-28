@@ -66,7 +66,6 @@ function generateQuery(data, type) {
     if (type == "update")
         query = "UPDATE medical_history.user SET name='" + data.name + "', last_name='" +
             data.last_name + "' WHERE id=" + data.id;
-    console.log(query);
     return query;
 }
 

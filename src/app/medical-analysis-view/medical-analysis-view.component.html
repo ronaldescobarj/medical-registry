@@ -4,51 +4,54 @@
   </button>
 </div>
 
-<blockquote *ngIf="show" class = "blockquote text-center">
-    <h1><b>Informacion del analisis</b></h1>
-    <br><br>
-    <div class="container">      
+<h4 *ngIf="show && error">{{error}}</h4>
+<blockquote *ngIf="show && !error" class="blockquote text-center">
+  <h1>
+    <b>Informacion del analisis</b>
+  </h1>
+  <br>
+  <br>
+  <div class="container">
 
-        <table class="table table-striped">
-          <tbody>
-            <tr>
-              <td>Resumen</td>
-              <td>{{analysis.summary}}</td>
-            </tr>
-            <tr>
-              <td>Tipo</td>
-              <td>{{analysis.type}}</td>
-            </tr>
-            <tr>
-              <td>Hospital</td>
-              <td>{{analysis.hospital}}</td>
-            </tr>
-            <!-- <tr>
+    <table class="table table-striped">
+      <tbody>
+        <tr>
+          <td>Resumen</td>
+          <td>{{analysis.summary}}</td>
+        </tr>
+        <tr>
+          <td>Tipo</td>
+          <td>{{analysis.type}}</td>
+        </tr>
+        <tr>
+          <td>Hospital</td>
+          <td>{{analysis.hospital}}</td>
+        </tr>
+        <!-- <tr>
               <td>Text</td>
               <td>{{analysis.description}}</td>
             </tr> -->
-            <tr>
-              <td>Fecha</td>
-              <td>{{analysis.date}}</td>
-            </tr>
-            <tr>
-              <td>Comentario</td>
-              <td>{{analysis.commentary}}</td>
-            </tr>
-            <tr>
-              <td>Imagenes</td>
-              <td>
-                <div *ngFor="let imgDecoded of imagesDecoded">
-                <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" [src]="imgDecoded" alt="Card image cap">
-                    <div class="card-body">
-                    </div>
-                  </div>
+        <tr>
+          <td>Fecha</td>
+          <td>{{analysis.date}}</td>
+        </tr>
+        <tr>
+          <td>Comentario</td>
+          <td>{{analysis.commentary}}</td>
+        </tr>
+        <tr>
+          <td>Imagenes</td>
+          <td>
+            <div *ngFor="let imgDecoded of imagesDecoded">
+              <div class="card" style="width: 18rem;">
+                <img class="card-img-top" [src]="imgDecoded" alt="Card image cap">
+                <div class="card-body">
                 </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </blockquote>
-
