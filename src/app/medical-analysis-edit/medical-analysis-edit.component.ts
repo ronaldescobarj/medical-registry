@@ -23,6 +23,7 @@ export class MedicalAnalysisEditComponent implements OnInit {
   private dateError: boolean;
   private typeValidator: boolean;
   private firstTime: boolean;
+  private userId: any;
 
   constructor(
     private httpService: HttpService,
@@ -37,31 +38,32 @@ export class MedicalAnalysisEditComponent implements OnInit {
     this.dateError = false;
     this.typeValidator = true;
     this.firstTime = true;
-
+    this.userId = JSON.parse(localStorage.getItem('currentUser')).id;
     this.id = this.route.snapshot.paramMap.get('id');
-    this.httpService.get('/analysis/get?id=' + this.id).subscribe((response: any) => {
-      if (response.success) {
-        if (response.response.id) {
-          this.medicalAnalysis = response.response;
-          this.httpService.get('/image/get?analysisId=' + this.medicalAnalysis.id).subscribe((res: any) => {
-            if (res.success) {
-              this.images = res.response;
-              this.imagesDecoded = [];
-              for (let i = 0; i < this.images.length; i++) {
-                let imageDecoded = this.domSanitizer.bypassSecurityTrustResourceUrl('data:' + this.images[i].file_type + ';base64,'
-                  + this.images[i].base_64_image);
-                this.imagesDecoded.push({ img: imageDecoded, id: this.images[i].id });
+    this.httpService.get('/analysis/get?id=' + this.id + '&userId=' + this.userId)
+      .subscribe((response: any) => {
+        if (response.success) {
+          if (response.response.id) {
+            this.medicalAnalysis = response.response;
+            this.httpService.get('/image/get?analysisId=' + this.medicalAnalysis.id).subscribe((res: any) => {
+              if (res.success) {
+                this.images = res.response;
+                this.imagesDecoded = [];
+                for (let i = 0; i < this.images.length; i++) {
+                  let imageDecoded = this.domSanitizer.bypassSecurityTrustResourceUrl('data:' + this.images[i].file_type + ';base64,'
+                    + this.images[i].base_64_image);
+                  this.imagesDecoded.push({ img: imageDecoded, id: this.images[i].id });
+                }
+                this.show = true;
               }
-              this.show = true;
-            }
-          })
+            })
+          }
+          else {
+            this.error = "La observacion propia solicitada no existe, o pertenece a otro usuario";
+            this.show = true;
+          }
         }
-        else {
-          this.error = "La observacion propia solicitada no existe, o pertenece a otro usuario";
-          this.show = true;
-        }
-      }
-    });
+      });
   }
 
   saveChanges() {
@@ -79,11 +81,15 @@ export class MedicalAnalysisEditComponent implements OnInit {
             };
             imagesObj.images.push(imageObj);
           }
-          this.httpService.post('/image/add', imagesObj).subscribe((res: any) => {
-            if (res.success) {
-              this.router.navigateByUrl('/registers');
-            }
-          })
+          if (this.images.length) {
+            this.httpService.post('/image/add', imagesObj).subscribe((res: any) => {
+              if (res.success) {
+                this.router.navigateByUrl('/registers');
+              }
+            })
+          }
+          else
+            this.router.navigateByUrl('/registers');
         }
       })
     }

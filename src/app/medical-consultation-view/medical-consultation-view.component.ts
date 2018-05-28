@@ -14,6 +14,7 @@ export class MedicalConsultationViewComponent implements OnInit {
   private id: string;
   private show: boolean = false;
   private error: string;
+  private userId: any;
 
   constructor(
     private httpService: HttpService,
@@ -23,17 +24,19 @@ export class MedicalConsultationViewComponent implements OnInit {
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
-    this.httpService.get('/consultation/get?id=' + this.id).subscribe((response: any) => {
-      if (response.success) {
-        if (response.response.id) {
-          this.consultation = response.response;
+    this.userId = JSON.parse(localStorage.getItem('currentUser')).id;
+    this.httpService.get('/consultation/get?id=' + this.id + '&userId=' + this.userId).
+      subscribe((response: any) => {
+        if (response.success) {
+          if (response.response.id) {
+            this.consultation = response.response;
+          }
+          else {
+            this.error = "La observacion propia solicitada no existe, o pertenece a otro usuario";
+          }
+          this.show = true;
         }
-        else {
-          this.error = "La observacion propia solicitada no existe, o pertenece a otro usuario";
-        }
-        this.show = true;
-      }
-    })
+      })
   }
   goBack() {
     this.router.navigateByUrl('/registers');

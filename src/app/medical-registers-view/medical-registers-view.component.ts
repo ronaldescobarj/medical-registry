@@ -36,7 +36,7 @@ export class MedicalRegistersViewComponent implements OnInit {
     this.userId = JSON.parse(localStorage.getItem('currentUser')).id;
     if (this.subscription)
       this.subscription.unsubscribe();
-    this.subscription = this.httpService.get('/registers/list').subscribe((response: any) => {
+    this.subscription = this.httpService.get('/registers/list?userId=' + this.userId).subscribe((response: any) => {
       if (response.success) {
         this.registers = response.response;
         this.registers.forEach((register: any) => this.originalRegisters.push(register));

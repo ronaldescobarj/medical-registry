@@ -23,6 +23,7 @@ export class MedicalConsultationEditComponent implements OnInit {
   private doctorValidator: boolean;
   private firstTime: boolean;
   private error: string;
+  private userId: any;
 
   ngOnInit() {
     this.diagnosticError = false;
@@ -33,17 +34,19 @@ export class MedicalConsultationEditComponent implements OnInit {
     this.dateError = false;
 
     this.id = this.route.snapshot.paramMap.get('id');
-    this.httpService.get('/consultation/get?id=' + this.id).subscribe((response: any) => {
-      if (response.success) {
-        if (response.response.id) {
-          this.medicalConsultation = response.response;
+    this.userId = JSON.parse(localStorage.getItem('currentUser')).id;
+    this.httpService.get('/consultation/get?id=' + this.id + '&userId=' + this.userId)
+      .subscribe((response: any) => {
+        if (response.success) {
+          if (response.response.id) {
+            this.medicalConsultation = response.response;
+          }
+          else {
+            this.error = "La observacion propia solicitada no existe, o pertenece a otro usuario";
+          }
+          this.show = true;
         }
-        else {
-          this.error = "La observacion propia solicitada no existe, o pertenece a otro usuario";
-        }
-        this.show = true;
-      }
-    })
+      })
   }
   saveChanges() {
     this.httpService.post('/consultation/update', this.medicalConsultation).subscribe((response: any) => {

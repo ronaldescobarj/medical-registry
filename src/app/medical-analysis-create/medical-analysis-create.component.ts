@@ -11,7 +11,7 @@ export class MedicalAnalysisCreateComponent implements OnInit {
 
   private medicalAnalysis: any = {};
   private testImage: any;
-  private images: any;
+  private images: any = [];
   private typeError: boolean;
   private dateError: boolean;
   private firstTime: boolean;
@@ -42,22 +42,28 @@ export class MedicalAnalysisCreateComponent implements OnInit {
       this.medicalAnalysis.user_id = JSON.parse(localStorage.getItem('currentUser')).id;
       var imagesObj = { images: [] };
       this.httpService.post('/analysis/create', this.medicalAnalysis).subscribe((response: any) => {
+        console.log(response);
         if (response.success) {
-          for (let i = 0; i < this.images.length; i++) {
+          this.images.forEach((image: any) => {
             let imageObj = {
               id: Math.floor(Math.random() * 100000),
-              base_64_image: this.images[i].value,
-              file_name: this.images[i].filename,
-              file_type: this.images[i].filetype,
+              base_64_image: image.value,
+              file_name: image.filename,
+              file_type: image.filetype,
               analysis_id: this.medicalAnalysis.id
             };
             imagesObj.images.push(imageObj);
+          });
+          if (this.images.length) {
+            console.log("einter");
+            this.httpService.post('/image/add', imagesObj).subscribe((res: any) => {
+              if (res.success) {
+                this.router.navigateByUrl('/registers');
+              }
+            })
           }
-          this.httpService.post('/image/add', imagesObj).subscribe((res: any) => {
-            if (res.success) {
-              this.router.navigateByUrl('/registers');
-            }
-          })
+          else
+            this.router.navigateByUrl('/registers');
         }
       })
     }
