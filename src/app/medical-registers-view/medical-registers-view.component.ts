@@ -4,6 +4,7 @@ import { HttpService } from '../http.service';
 import { Location } from '@angular/common';
 // import { ENETDOWN } from 'constants';
 import { Subscription } from 'rxjs/Subscription';
+import { NotificationsService } from '../notifications.service';
 
 @Component({
   selector: 'app-medical-registers-view',
@@ -22,7 +23,11 @@ export class MedicalRegistersViewComponent implements OnInit {
   private listOfTypes: String[];
   private subscription: Subscription;
   private userId: any;
-  constructor(private httpService: HttpService, private router: Router, private location: Location) { }
+  constructor(
+    private httpService: HttpService,
+    private router: Router,
+    private location: Location,
+    private notificationsService: NotificationsService) { }
 
   ngOnInit() {
     this.listOfTypes = ["Todos", "Consulta", "Observacion propia", "Analisis"]
