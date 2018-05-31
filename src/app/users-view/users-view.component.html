@@ -6,9 +6,7 @@
   <div *ngIf="users.length == 4">Solo se puede tener un maximo de cuatro usuarios por cuenta</div>
   <div *ngFor="let user of users">
     <div class="card" style="width: 18rem;">
-      <div class="card-img-top">
-        <span class="fas fa-user-circle"></span>
-      </div>
+      <img class="card-img-top" src="https://www.vccircle.com/wp-content/uploads/2017/03/default-profile.png" alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title">{{user.name}} {{user.last_name}}</h5>
         <button class="btn btn-primary" (click)="selectUser(user)">Select</button>
