@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit {
     localStorage.removeItem('currentUser');
 
     if (this.validate()) {
+      console.log('enter')
       this.loading = true;
       this.loginService.login(this.account.username, this.account.password,
         (message: string) => {
