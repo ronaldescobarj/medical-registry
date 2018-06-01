@@ -3,18 +3,21 @@
   <button [disabled]="users.length == 4" class="btn btn-success" title="Agregar usuario" (click)="addUser()">
     <span class="fas fa-user-plus"></span>
   </button>
-  <div *ngIf="users.length == 4">Solo se puede tener un maximo de cuatro usuarios por cuenta</div>
-  <div *ngFor="let user of users">
-    <div class="card" style="width: 18rem;">
-      <div class="card-img-top">
-        <span class="fas fa-user-circle"></span>
-      </div>
-      <div class="card-body">
-        <h5 class="card-title">{{user.name}} {{user.last_name}}</h5>
-        <button class="btn btn-primary" (click)="selectUser(user)">Select</button>
-        <a class="btn btn-secondary" routerLink="/viewUser/{{user.id}}">View</a>
-        <app-delete-modal #deleteModal [type]="'usuario'" (canceling)="refresh()" (deleting)="deleteUser(user)"></app-delete-modal>
-        <button class="btn btn-danger" (click)="deleteModal.open()">Delete</button>
+  <div *ngIf="users.length == 4" style="color: tomato">Solo se puede tener un maximo de cuatro usuarios por cuenta</div>
+  <div class="col-md-12">
+    <div *ngFor="let user of users">
+      <div class="col-md-3">
+        <div class="card" style="width: 18rem;">
+          <img class="card-img-top" style="height: 120px; width: 120px;" src="https://www.vccircle.com/wp-content/uploads/2017/03/default-profile.png"
+            alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">{{user.name}} {{user.last_name}}</h5>
+            <button class="btn btn-primary" (click)="selectUser(user)">Select</button>
+            <a class="btn btn-secondary" routerLink="/viewUser/{{user.id}}">View</a>
+            <app-delete-modal #deleteModal [type]="'usuario'" (canceling)="refresh()" (deleting)="deleteUser(user)"></app-delete-modal>
+            <button class="btn btn-danger" (click)="deleteModal.open()">Delete</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>

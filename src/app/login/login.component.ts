@@ -10,9 +10,14 @@ import { LoginService } from '../login.service';
 export class LoginComponent implements OnInit {
 
   private account: any = {};
-  private firstTime: boolean = true;
-  private errorMessage: string = "";
-  private loading = false;
+  private firstTime: boolean;
+  private errorMessage: string;
+  private loading;
+
+  private usernameError: boolean;
+  private passwordError: boolean;
+  private usernameValidator: boolean;
+  private passwordValidator: boolean;
 
   constructor(private httpService: HttpService, private loginService: LoginService) { }
 
@@ -21,13 +26,20 @@ export class LoginComponent implements OnInit {
       username: "",
       password: ""
     }
+    this.firstTime = true;
+    this.loading = false;
+    this.passwordError = false;
+    this.usernameError = false;
+    this.passwordValidator = true;
+    this.usernameValidator = true;
   }
 
   login() {
     localStorage.removeItem('currentAccount');
     localStorage.removeItem('currentUser');
-    this.firstTime = false;
-    if (this.account.username != "" && this.account.password != "") {
+
+    if (this.validate()) {
+      console.log('enter')
       this.loading = true;
       this.loginService.login(this.account.username, this.account.password,
         (message: string) => {
@@ -35,8 +47,41 @@ export class LoginComponent implements OnInit {
           this.loading = false;
         });
     }
-    else {
-      this.errorMessage = "Faltan campos a introducir";
-    }
   }
+
+  validate() {
+    let res = true;
+    this.firstTime = false;
+    if (this.account.password == "") {
+      this.passwordError = true;
+      this.passwordValidator = false;
+      res = false;
+    } else {
+      this.passwordError = false;
+      this.passwordValidator = true;
+    }
+
+    if (this.account.username == "") {
+      this.usernameError = true;
+      this.usernameValidator = false;
+      res = false;
+    } else {
+      this.usernameError = false;
+      this.usernameValidator = true;
+    }
+    return res;
+  }
+
+  borderColor(type: any) {
+    if (type == 'password') {
+      if (!this.firstTime && (!this.passwordValidator || this.passwordError))
+        return 'tomato'
+    }
+    if (type == 'username') {
+      if (!this.firstTime && (!this.usernameValidator || this.usernameError))
+        return 'tomato'
+    }
+    return "";
+  }
+
 }

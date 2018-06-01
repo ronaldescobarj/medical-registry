@@ -23,7 +23,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-9">
-                        <label class="validation-message">Doctor</label>
+                        <label class="validation-message">Doctor *</label>
                         <input name="doctor" (input)="doctorValidator=true; doctorError=false" [style.border-color]="borderColor(true)" [(ngModel)]="medicalConsultation.doctor"
                             type="text" placeholder="Doctor" class="form-control" />
                         <div *ngIf="doctorError && !firstTime" style="color: tomato">Introduzca al doctor</div>
