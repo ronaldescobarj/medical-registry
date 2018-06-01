@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { HttpService } from '../http.service';
+import { IMyDpOptions } from 'mydatepicker';
 
 @Component({
   selector: 'app-medical-consultation-edit',
@@ -49,6 +50,7 @@ export class MedicalConsultationEditComponent implements OnInit {
       })
   }
   saveChanges() {
+    this.medicalConsultation.date = this.medicalConsultation.date.date.year + '-' + this.medicalConsultation.date.date.month + '-' + this.medicalConsultation.date.date.day;
     this.httpService.post('/consultation/update', this.medicalConsultation).subscribe((response: any) => {
       if (response.success)
         this.router.navigateByUrl('/registers');
@@ -100,5 +102,18 @@ export class MedicalConsultationEditComponent implements OnInit {
     }
     return "";
   }
+  public myDatePickerOptions: IMyDpOptions = {
+    dateFormat: 'dd-mm-yyyy',
+    editableDateField: false,
+    openSelectorOnInputClick: true,
+    dayLabels: { su: 'Dom', mo: 'Lun', tu: 'Mar', we: 'Mie', th: 'Jue', fr: 'Vie', sa: 'Sab' },
+    todayBtnTxt: "Hoy",
+    monthLabels: { 1: 'Enero', 2: 'Febrero', 3: 'Marzo', 4: 'Abril', 5: 'Mayo', 6: 'Junio', 7: 'Julio', 8: 'Agosto', 9: 'Septiembre', 10: 'Octubre', 11: 'Noviembre', 12: 'Diciembre' },
+    selectorHeight: "232px",
+    selectorWidth: "350px"
+  };
+
+  // Initialized to specific date (09.10.2018).
+  public model: any = { date: { year: 2018, month: 10, day: 9 } };
 
 }

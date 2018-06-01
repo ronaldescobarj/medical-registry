@@ -47,11 +47,15 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-md-9">
-                        <label class="validation-message">Fecha *</label>
-                        <input required="required" name="date" [(ngModel)]="medicalAnalysis.date" placeholder="AAAA-MM-DD" class="form-control">
-                        <div *ngIf="dateError && !firstTime" style="color: tomato">Introduzca la fecha</div>
+                    <div class="form-group">
+                        <div class="col-md-9">
+                            <label class="validation-message">Fecha *</label>
+                            <my-date-picker name="date" [(ngModel)]="medicalAnalysis.date" [placeholder]="'dd-mm-yyyy'" [options]="myDatePickerOptions"
+                                required></my-date-picker>
+                            <div *ngIf="dateError && !firstTime" style="color: tomato">Introduzca la fecha</div>
+                        </div>
                     </div>
+
                     <div class="form-group">
                         <div class="col-md-9">
                             <label class="validation-message">Agregar imagenes</label>

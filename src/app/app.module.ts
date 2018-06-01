@@ -30,6 +30,11 @@ import { UsersViewComponent } from './users-view/users-view.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { CreateEditUserComponent } from './create-edit-user/create-edit-user.component';
 import { ManageAccountComponent } from './manage-account/manage-account.component';
+
+
+import { MyDatePickerModule } from 'mydatepicker'
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,7 +63,8 @@ import { ManageAccountComponent } from './manage-account/manage-account.componen
     BsModalModule,
     FormsModule,
     HttpModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    MyDatePickerModule
   ],
   providers: [HttpService, LoginService, AuthGuard],
   bootstrap: [AppComponent]

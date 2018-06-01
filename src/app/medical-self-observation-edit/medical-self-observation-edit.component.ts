@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpService } from '../http.service';
 import { Location } from '@angular/common';
+import { IMyDpOptions } from 'mydatepicker';
 
 @Component({
   selector: 'app-medical-self-observation-edit',
@@ -45,6 +46,7 @@ export class MedicalSelfObservationEditComponent implements OnInit {
   }
   saveChanges() {
     if (this.validate()) {
+      this.medicalSelfObservation.date = this.medicalSelfObservation.date.date.year + '-' + this.medicalSelfObservation.date.date.month + '-' + this.medicalSelfObservation.date.date.day;
       this.httpService.post('/selfObservation/update', this.medicalSelfObservation).subscribe((response: any) => {
         if (response.success)
           this.router.navigateByUrl('/registers');
@@ -82,4 +84,18 @@ export class MedicalSelfObservationEditComponent implements OnInit {
       return 'tomato'
     return "";
   }
+
+  public myDatePickerOptions: IMyDpOptions = {
+    dateFormat: 'dd-mm-yyyy',
+    editableDateField: false,
+    openSelectorOnInputClick: true,
+    dayLabels: { su: 'Dom', mo: 'Lun', tu: 'Mar', we: 'Mie', th: 'Jue', fr: 'Vie', sa: 'Sab' },
+    todayBtnTxt: "Hoy",
+    monthLabels: { 1: 'Enero', 2: 'Febrero', 3: 'Marzo', 4: 'Abril', 5: 'Mayo', 6: 'Junio', 7: 'Julio', 8: 'Agosto', 9: 'Septiembre', 10: 'Octubre', 11: 'Noviembre', 12: 'Diciembre' },
+    selectorHeight: "232px",
+    selectorWidth: "350px"
+  };
+
+  // Initialized to specific date (09.10.2018).
+  public model: any = { date: { year: 2018, month: 10, day: 9 } };
 }

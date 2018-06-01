@@ -3,6 +3,7 @@ import { HttpService } from '../http.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { DomSanitizer } from '@angular/platform-browser';
+import { IMyDpOptions, IMyDate } from 'mydatepicker';
 
 
 @Component({
@@ -25,6 +26,7 @@ export class MedicalAnalysisEditComponent implements OnInit {
   private firstTime: boolean;
   private userId: any;
 
+
   constructor(
     private httpService: HttpService,
     private route: ActivatedRoute,
@@ -34,6 +36,7 @@ export class MedicalAnalysisEditComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
     this.typeError = false;
     this.dateError = false;
     this.typeValidator = true;
@@ -45,6 +48,9 @@ export class MedicalAnalysisEditComponent implements OnInit {
         if (response.success) {
           if (response.response.id) {
             this.medicalAnalysis = response.response;
+            console.log(this.medicalAnalysis.date);
+            this.medicalAnalysis.date = this.parseDate(this.medicalAnalysis.date);
+            console.log(this.medicalAnalysis.date);
             this.httpService.get('/image/get?analysisId=' + this.medicalAnalysis.id).subscribe((res: any) => {
               if (res.success) {
                 this.images = res.response;
@@ -66,9 +72,35 @@ export class MedicalAnalysisEditComponent implements OnInit {
       });
   }
 
+  parseDate(date: String) {
+    let resp = "";
+    let day = "";
+    let mon = "";
+    let year = "";
+    let aux = 1;
+    for (let i = 0; i < date.length; i++) {
+      if (date[i] == "T") {
+        break;
+      }
+      if (date[i] == "-") {
+        aux = aux + 1;
+      } else {
+        if (aux == 1)
+          year = year + date[i];
+        if (aux == 2)
+          mon = mon + date[i];
+        if (aux == 3)
+          day = day + date[i];
+      }
+    }
+    resp = day + "-" + mon + "-" + year;
+    return resp;
+  }
+
   saveChanges() {
     if (this.validate()) {
       var imagesObj = { images: [] };
+      this.medicalAnalysis.date = this.medicalAnalysis.date.date.year + '-' + this.medicalAnalysis.date.date.month + '-' + this.medicalAnalysis.date.date.day;
       this.httpService.post('/analysis/update', this.medicalAnalysis).subscribe((response: any) => {
         if (response.success) {
           for (let i = 0; i < this.images.length; i++) {
@@ -152,5 +184,17 @@ export class MedicalAnalysisEditComponent implements OnInit {
     return "";
   }
 
+  public myDatePickerOptions: IMyDpOptions = {
+    dateFormat: 'dd-mm-yyyy',
+    editableDateField: false,
+    openSelectorOnInputClick: true,
+    dayLabels: { su: 'Dom', mo: 'Lun', tu: 'Mar', we: 'Mie', th: 'Jue', fr: 'Vie', sa: 'Sab' },
+    todayBtnTxt: "Hoy",
+    monthLabels: { 1: 'Enero', 2: 'Febrero', 3: 'Marzo', 4: 'Abril', 5: 'Mayo', 6: 'Junio', 7: 'Julio', 8: 'Agosto', 9: 'Septiembre', 10: 'Octubre', 11: 'Noviembre', 12: 'Diciembre' },
+    selectorHeight: "232px",
+    selectorWidth: "350px"
+  };
 
+  // Initialized to specific date (09.10.2018).
+  public model: any = { date: { year: 2018, month: 10, day: 9 } };
 }

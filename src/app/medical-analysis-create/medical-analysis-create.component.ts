@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../http.service';
 import { Router } from '@angular/router';
+import { IMyDpOptions } from 'mydatepicker';
 
 @Component({
   selector: 'app-medical-analysis-create',
@@ -41,6 +42,7 @@ export class MedicalAnalysisCreateComponent implements OnInit {
       this.medicalAnalysis.id = Math.floor(Math.random() * 100000);
       this.medicalAnalysis.user_id = JSON.parse(localStorage.getItem('currentUser')).id;
       var imagesObj = { images: [] };
+      this.medicalAnalysis.date = this.medicalAnalysis.date.date.year + '-' + this.medicalAnalysis.date.date.month + '-' + this.medicalAnalysis.date.date.day;
       this.httpService.post('/analysis/create', this.medicalAnalysis).subscribe((response: any) => {
         console.log(response);
         if (response.success) {
@@ -118,5 +120,16 @@ export class MedicalAnalysisCreateComponent implements OnInit {
       return 'tomato'
     return "";
   }
-
+  public myDatePickerOptions: IMyDpOptions = {
+    dateFormat: 'dd-mm-yyyy',
+    editableDateField: false,
+    openSelectorOnInputClick: true,
+    dayLabels: { su: 'Dom', mo: 'Lun', tu: 'Mar', we: 'Mie', th: 'Jue', fr: 'Vie', sa: 'Sab' },
+    todayBtnTxt: "Hoy",
+    monthLabels: { 1: 'Enero', 2: 'Febrero', 3: 'Marzo', 4: 'Abril', 5: 'Mayo', 6: 'Junio', 7: 'Julio', 8: 'Agosto', 9: 'Septiembre', 10: 'Octubre', 11: 'Noviembre', 12: 'Diciembre' },
+    selectorHeight: "232px",
+    selectorWidth: "350px"
+  };
+  // Initialized to specific date (09.10.2018).
+  public model: any = { date: { year: 2018, month: 10, day: 9 } };
 }
