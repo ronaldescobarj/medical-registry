@@ -57,8 +57,7 @@ export class MedicalAnalysisCreateComponent implements OnInit {
             imagesObj.images.push(imageObj);
           });
           if (this.images.length) {
-            console.log("einter");
-            this.httpService.post('/image/add', imagesObj).subscribe((res: any) => {
+            this.httpService.post('/analysisImage/add', imagesObj).subscribe((res: any) => {
               if (res.success) {
                 this.router.navigateByUrl('/registers');
               }

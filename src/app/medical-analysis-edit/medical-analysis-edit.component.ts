@@ -36,7 +36,6 @@ export class MedicalAnalysisEditComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
     this.typeError = false;
     this.dateError = false;
     this.typeValidator = true;
@@ -48,10 +47,15 @@ export class MedicalAnalysisEditComponent implements OnInit {
         if (response.success) {
           if (response.response.id) {
             this.medicalAnalysis = response.response;
-            console.log(this.medicalAnalysis.date);
-            this.medicalAnalysis.date = this.parseDate(this.medicalAnalysis.date);
-            console.log(this.medicalAnalysis.date);
-            this.httpService.get('/image/get?analysisId=' + this.medicalAnalysis.id).subscribe((res: any) => {
+            this.medicalAnalysis.date = {
+              date:
+                {
+                  year: parseInt(this.medicalAnalysis.date.slice(0, 4)),
+                  month: parseInt(this.medicalAnalysis.date.slice(5, 7)),
+                  day: parseInt(this.medicalAnalysis.date.slice(8, 10)),
+                }
+            };
+            this.httpService.get('/analysisImage/get?analysisId=' + this.medicalAnalysis.id).subscribe((res: any) => {
               if (res.success) {
                 this.images = res.response;
                 this.imagesDecoded = [];
@@ -72,31 +76,6 @@ export class MedicalAnalysisEditComponent implements OnInit {
       });
   }
 
-  parseDate(date: String) {
-    let resp = "";
-    let day = "";
-    let mon = "";
-    let year = "";
-    let aux = 1;
-    for (let i = 0; i < date.length; i++) {
-      if (date[i] == "T") {
-        break;
-      }
-      if (date[i] == "-") {
-        aux = aux + 1;
-      } else {
-        if (aux == 1)
-          year = year + date[i];
-        if (aux == 2)
-          mon = mon + date[i];
-        if (aux == 3)
-          day = day + date[i];
-      }
-    }
-    resp = day + "-" + mon + "-" + year;
-    return resp;
-  }
-
   saveChanges() {
     if (this.validate()) {
       var imagesObj = { images: [] };
@@ -114,7 +93,7 @@ export class MedicalAnalysisEditComponent implements OnInit {
             imagesObj.images.push(imageObj);
           }
           if (this.images.length) {
-            this.httpService.post('/image/add', imagesObj).subscribe((res: any) => {
+            this.httpService.post('/analysisImage/add', imagesObj).subscribe((res: any) => {
               if (res.success) {
                 this.router.navigateByUrl('/registers');
               }
@@ -132,7 +111,7 @@ export class MedicalAnalysisEditComponent implements OnInit {
   }
 
   deleteImage(id: any) {
-    this.httpService.post('/image/delete', { id: id }).subscribe((response: any) => {
+    this.httpService.post('/analysisImage/delete', { id: id }).subscribe((response: any) => {
       if (response.success)
         location.reload();
     })

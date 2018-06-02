@@ -39,7 +39,7 @@ export class MedicalAnalysisViewComponent implements OnInit {
         if (response.success) {
           if (response.response.id) {
             this.analysis = response.response;
-            this.httpService.get('/image/get?analysisId=' + this.analysis.id).subscribe((res: any) => {
+            this.httpService.get('/analysisImage/get?analysisId=' + this.analysis.id).subscribe((res: any) => {
               if (response.success) {
                 this.images = res.response;
                 this.imagesDecoded = [];

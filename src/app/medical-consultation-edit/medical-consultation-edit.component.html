@@ -71,6 +71,23 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <div class="col-md-9">
+                        <label class="validation-message">Agregar imagenes</label>
+                        <input multiple type="file" #fileupload name="image" class="form-control" (change)="onFileChange($event)">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="validation-message">Imagenes</label>
+                    <div *ngFor="let imgDecoded of imagesDecoded">
+                        <div class="card" style="width: 18rem;">
+                            <img class="card-img-top" [src]="imgDecoded.img" alt="Card image cap">
+                            <div class="card-body">
+                                <button class="btn btn-danger" (click)="deleteImage(imgDecoded.id)">Eliminar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
                     <div class="col-md-3">
                         <button class="btn btn-success btn-block" (click)="saveChanges()">Guardar</button>
                     </div>

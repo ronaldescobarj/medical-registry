@@ -36,6 +36,14 @@ export class MedicalSelfObservationEditComponent implements OnInit {
         if (response.success) {
           if (response.response.id) {
             this.medicalSelfObservation = response.response;
+            this.medicalSelfObservation.date = {
+              date:
+                {
+                  year: parseInt(this.medicalSelfObservation.date.slice(0, 4)),
+                  month: parseInt(this.medicalSelfObservation.date.slice(5, 7)),
+                  day: parseInt(this.medicalSelfObservation.date.slice(8, 10)),
+                }
+            };
           }
           else {
             this.error = "La observacion propia solicitada no existe, o pertenece a otro usuario";

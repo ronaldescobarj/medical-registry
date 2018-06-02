@@ -18,6 +18,7 @@ export class MedicalConsultationCreateComponent implements OnInit {
   private diagnosticValidator: boolean;
   private doctorValidator: boolean;
   private firstTime: boolean;
+  private images: any = [];
 
   constructor(private httpService: HttpService, private router: Router) { }
 
@@ -45,17 +46,57 @@ export class MedicalConsultationCreateComponent implements OnInit {
   createConsultation() {
     if (this.validate()) {
       this.medicalConsultation.id = Math.floor(Math.random() * 100000);
-      this.medicalConsultation.date = this.medicalConsultation.date.date.year + '-' + this.medicalConsultation.date.date.month + '-' + this.medicalConsultation.date.date.day;
       this.medicalConsultation.user_id = JSON.parse(localStorage.getItem('currentUser')).id;
+      var imagesObj = { images: [] };
+      this.medicalConsultation.date = this.medicalConsultation.date.date.year + '-' + this.medicalConsultation.date.date.month + '-' + this.medicalConsultation.date.date.day;
       this.httpService.post('/consultation/create', this.medicalConsultation).subscribe((response: any) => {
-        if (response.success)
-          this.router.navigateByUrl('/registers');
+        console.log(response);
+        if (response.success) {
+          this.images.forEach((image: any) => {
+            let imageObj = {
+              id: Math.floor(Math.random() * 100000),
+              base_64_image: image.value,
+              file_name: image.filename,
+              file_type: image.filetype,
+              consultation_id: this.medicalConsultation.id
+            };
+            imagesObj.images.push(imageObj);
+          });
+          if (this.images.length) {
+            this.httpService.post('/consultationImage/add', imagesObj).subscribe((res: any) => {
+              if (res.success) {
+                this.router.navigateByUrl('/registers');
+              }
+            })
+          }
+          else
+            this.router.navigateByUrl('/registers');
+        }
       })
     }
   }
 
   goBack() {
     this.router.navigateByUrl('/registers');
+  }
+
+  onFileChange(event) {
+    let readers = [];
+    this.images = [];
+    if (event.target.files && event.target.files.length > 0) {
+      for (let i = 0; i < event.target.files.length; i++) {
+        readers[i] = new FileReader();
+        let file = event.target.files[i];
+        readers[i].readAsDataURL(file);
+        readers[i].onload = () => {
+          this.images.push({
+            filename: file.name,
+            filetype: file.type,
+            value: readers[i].result.split(',')[1]
+          });
+        };
+      }
+    }
   }
 
   validate() {

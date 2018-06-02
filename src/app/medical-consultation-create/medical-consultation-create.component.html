@@ -67,6 +67,12 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <div class="col-md-9">
+                        <label class="validation-message">Imagenes</label>
+                        <input multiple type="file" #fileupload name="image" class="form-control" (change)="onFileChange($event)">
+                    </div>
+                </div>
+                <div class="form-group">
                     <div class="col-md-3">
                         <button class="btn btn-success btn-block" (click)="createConsultation()">Registrar</button>
                     </div>
