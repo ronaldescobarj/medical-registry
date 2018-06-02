@@ -47,13 +47,8 @@
           <tr>
             <td>Imagenes</td>
             <td>
-              <div *ngFor="let imgDecoded of imagesDecoded">
-                <div class="card" style="width: 18rem;">
-                  <img class="card-img-top" [src]="imgDecoded" alt="Card image cap">
-                  <div class="card-body">
-                  </div>
-                </div>
-              </div>
+              <slideshow [showArrows]="false" [imageUrls]="imagesDecoded" [lazyLoad]="imagesDecoded?.length > 1">
+              </slideshow>
             </td>
           </tr>
         </tbody>

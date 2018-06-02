@@ -30,7 +30,7 @@ import { UsersViewComponent } from './users-view/users-view.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { CreateEditUserComponent } from './create-edit-user/create-edit-user.component';
 import { ManageAccountComponent } from './manage-account/manage-account.component';
-
+import { SlideshowModule } from 'ng-simple-slideshow';
 
 import { MyDatePickerModule } from 'mydatepicker'
 
@@ -64,7 +64,8 @@ import { MyDatePickerModule } from 'mydatepicker'
     FormsModule,
     HttpModule,
     NgxPaginationModule,
-    MyDatePickerModule
+    MyDatePickerModule,
+    SlideshowModule
   ],
   providers: [HttpService, LoginService, AuthGuard],
   bootstrap: [AppComponent]
