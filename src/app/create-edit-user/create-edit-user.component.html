@@ -23,6 +23,24 @@
           </div>
         </div>
         <div class="form-group">
+          <div class="col-md-9">
+            <label class="validation-message">Edad</label>
+            <input name="age" [(ngModel)]="user.age" type="text" placeholder="Edad" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-md-9">
+            <label class="validation-message">Alergias</label>
+            <input name="allergies" [(ngModel)]="user.allergies" type="text" placeholder="Alergias" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-md-9">
+            <label class="validation-message">Enfermedades</label>
+            <input name="diseases" [(ngModel)]="user.diseases" type="text" placeholder="Enfermedades" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group">
           <div class="col-md-3">
             <button class="btn btn-success btn-block" (click)="saveChanges()">Guardar</button>
             <button class="btn btn-danger btn-block" (click)="goBack()">Cancelar</button>
