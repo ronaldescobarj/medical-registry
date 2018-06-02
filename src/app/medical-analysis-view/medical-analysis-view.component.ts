@@ -46,11 +46,7 @@ export class MedicalAnalysisViewComponent implements OnInit {
                 for (let i = 0; i < this.images.length; i++) {
                   let imageDecoded = this.domSanitizer.bypassSecurityTrustResourceUrl('data:' + this.images[i].file_type + ';base64,'
                     + this.images[i].base_64_image);
-                  this.imagesDecoded.push({
-                    id: "image-" + i,
-                    image: imageDecoded,
-                    show: false
-                  });
+                  this.imagesDecoded.push(imageDecoded);
                 }
                 this.show = true;
               }
@@ -65,13 +61,5 @@ export class MedicalAnalysisViewComponent implements OnInit {
   }
   goBack() {
     this.router.navigateByUrl('/registers');
-  }
-
-  openImage(id: any) {
-    this.imagesDecoded.map((img: any) => {
-      if (img.id == id) {
-        img.show = true
-      }
-    });
   }
 }

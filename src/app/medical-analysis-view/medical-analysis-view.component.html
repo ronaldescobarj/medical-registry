@@ -48,12 +48,9 @@
             <td>Imagenes</td>
             <td>
               <div *ngFor="let imgDecoded of imagesDecoded">
-                <div class="carousel slide" data-ride="carousel">
-                  <div *ngIf="imgDecoded.id == ìmage-0" class="carousel-item active">
-                    <img style="width:100%" [src]="imgDecoded.image" (click)="open(imgDecoded.id)">
-                  </div>
-                  <div *ngIf="!(imgDecoded.id == ìmage-0)" class="carousel-item">
-                    <img style="width:100%" [src]="imgDecoded.image" (click)="open(imgDecoded.id)">
+                <div class="card" style="width: 18rem;">
+                  <img class="card-img-top" [src]="imgDecoded" alt="Card image cap"> -
+                  <div class="card-body">
                   </div>
                 </div>
               </div>
