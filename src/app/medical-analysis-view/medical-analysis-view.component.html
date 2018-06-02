@@ -47,11 +47,9 @@
           <tr>
             <td>Imagenes</td>
             <td>
-              <div *ngFor="let imgDecoded of imagesDecoded">
-                <div class="card" style="width: 18rem;">
-                  <img class="card-img-top" [src]="imgDecoded" alt="Card image cap">
-                  <div class="card-body">
-                  </div>
+              <div *ngFor="let imgDecoded of imagesDecoded" class="row">
+                <div class="column">
+                  <img style="width:100%" [src]="imgDecoded.image" alt="Card image cap" (click)="open(imgDecoded.id)">
                 </div>
               </div>
             </td>
@@ -60,4 +58,10 @@
       </table>
     </div>
   </blockquote>
+  <div *ngFor="let imgDecoded of imagesDecoded">
+    <div *ngIf="imgDecoded.show" class="modal" [attr.id]="imgDecoded.id">
+      <span class="close">&times;</span>
+      <img [src]="imgDecoded.image">
+    </div>
+  </div>
 </div>
