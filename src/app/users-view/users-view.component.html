@@ -12,10 +12,11 @@
             alt="Card image cap">
           <div class="card-body">
             <h5 class="card-title">{{user.name}} {{user.last_name}}</h5>
-            <button class="btn btn-primary" (click)="selectUser(user)">Select</button>
-            <a class="btn btn-secondary" routerLink="/viewUser/{{user.id}}">View</a>
+            <button class="btn btn-primary" (click)="selectUser(user)">Seleccionar</button>
+            <a class="btn btn-secondary" routerLink="/viewUser/{{user.id}}">Ver</a>
             <app-delete-modal #deleteModal [type]="'usuario'" (canceling)="refresh()" (deleting)="deleteUser(user)"></app-delete-modal>
-            <button class="btn btn-danger" (click)="deleteModal.open()">Delete</button>
+            <button *ngIf="!user.default_user" class="btn btn-secondary" (click)="setDefault(user)">Definir por defecto</button>
+            <button class="btn btn-danger" (click)="deleteModal.open()">Eliminar</button>
           </div>
         </div>
       </div>

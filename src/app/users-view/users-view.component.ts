@@ -32,7 +32,10 @@ export class UsersViewComponent implements OnInit {
   }
 
   addUser() {
-    this.router.navigateByUrl('/user/create/#');
+    if (this.users.length > 0)
+      this.router.navigateByUrl('/user/create/#');
+    else
+      this.router.navigateByUrl('/user/create/firstUser');
   }
 
   deleteUser(user: any) {
@@ -41,6 +44,19 @@ export class UsersViewComponent implements OnInit {
         location.reload();
       }
     })
+  }
+
+  setDefault(newDefault: any) {
+    let currentDefault = this.users.find((user: any) => {
+      return user.default_user;
+    });
+    console.log(currentDefault);
+    this.httpService.post('/user/changeDefault', { currentDefault: currentDefault, newDefault: newDefault })
+      .subscribe((response: any) => {
+        if (response.success) {
+          location.reload();
+        }
+      })
   }
 
 }
