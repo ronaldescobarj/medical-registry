@@ -47,9 +47,14 @@
           <tr>
             <td>Imagenes</td>
             <td>
-              <div *ngFor="let imgDecoded of imagesDecoded" class="row">
-                <div class="column">
-                  <img style="width:100%" [src]="imgDecoded.image" alt="Card image cap" (click)="open(imgDecoded.id)">
+              <div *ngFor="let imgDecoded of imagesDecoded">
+                <div class="carousel slide" data-ride="carousel">
+                  <div *ngIf="imgDecoded.id == ìmage-0" class="carousel-item active">
+                    <img style="width:100%" [src]="imgDecoded.image" (click)="open(imgDecoded.id)">
+                  </div>
+                  <div *ngIf="!(imgDecoded.id == ìmage-0)" class="carousel-item">
+                    <img style="width:100%" [src]="imgDecoded.image" (click)="open(imgDecoded.id)">
+                  </div>
                 </div>
               </div>
             </td>
@@ -58,10 +63,10 @@
       </table>
     </div>
   </blockquote>
-  <div *ngFor="let imgDecoded of imagesDecoded">
+  <!-- <div *ngFor="let imgDecoded of imagesDecoded">
     <div *ngIf="imgDecoded.show" class="modal" [attr.id]="imgDecoded.id">
       <span class="close">&times;</span>
       <img [src]="imgDecoded.image">
     </div>
-  </div>
+  </div> -->
 </div>
