@@ -15,6 +15,7 @@ export class CreateEditUserComponent implements OnInit {
   private show: boolean = false;
   private errorMessage: string = "";
   private firstTime: boolean = true;
+  private firstUser: boolean = false;
 
   constructor(private httpService: HttpService, private route: ActivatedRoute, private router: Router) { }
 
@@ -30,6 +31,9 @@ export class CreateEditUserComponent implements OnInit {
       });
     }
     if (this.action == "create") {
+      if (this.route.snapshot.paramMap.get('id') == "firstUser") {
+        this.firstUser = true;
+      }
       this.show = true;
       this.user = {
         name: "",
@@ -41,6 +45,7 @@ export class CreateEditUserComponent implements OnInit {
 
   saveChanges() {
     this.firstTime = false;
+    this.user.default_user = this.firstUser;
     let apiRoute = "";
     if (this.user.name != "" && this.user.last_name != "") {
       if (this.action == "create") {
