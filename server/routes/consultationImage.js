@@ -35,7 +35,7 @@ router.get('/get', function (req, res) {
 });
 
 function generateQuery(images) {
-    var query = "INSERT INTO medical_history.consultation_image VALUES ";
+    var query = "INSERT INTO medical_history.consultation_image(id, base_64_image, file_name, file_type, consultation_id) VALUES ";
     for (let i = 0; i < images.length; i++) {
         query += "(" + images[i].id + ", '" + images[i].base_64_image + "', '" + images[i].file_name + "', '" + images[i].file_type + "', " + images[i].consultation_id + ")";
         if (i == images.length - 1) {
