@@ -32,10 +32,7 @@ export class UsersViewComponent implements OnInit {
   }
 
   addUser() {
-    if (this.users.length > 0)
-      this.router.navigateByUrl('/user/create/#');
-    else
-      this.router.navigateByUrl('/user/create/firstUser');
+    this.router.navigateByUrl('/user/create/#');
   }
 
   deleteUser(user: any) {

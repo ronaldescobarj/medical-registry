@@ -27,7 +27,6 @@ export class CreateEditUserComponent implements OnInit {
   constructor(private httpService: HttpService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-    this.firstUser = false;
     this.firstTime = true;
 
     this.nameError = false;
@@ -47,20 +46,25 @@ export class CreateEditUserComponent implements OnInit {
       });
     }
     if (this.action == "create") {
-      if (this.route.snapshot.paramMap.get('id') == "firstUser") {
-        this.firstUser = true;
-      }
-      this.show = true;
-      this.user = {
-        name: "",
-        last_name: "",
-        account_id: JSON.parse(localStorage.getItem('currentAccount')).id
-      }
+      this.httpService.get('/user/list?accountId=' + JSON.parse(localStorage.getItem('currentAccount')).id)
+        .subscribe((response: any) => {
+          if (response.success) {
+            this.firstUser = response.response.length > 0;
+          }
+          this.user = {
+            name: "",
+            last_name: "",
+            account_id: JSON.parse(localStorage.getItem('currentAccount')).id
+          }
+          this.show = true;
+        })
     }
   }
 
   saveChanges() {
-    this.user.default_user = this.firstUser;
+    if (this.action == "create") {
+      this.user.default_user = this.firstUser;
+    }
     let apiRoute = "";
     if (this.validate()) {
       if (this.action == "create") {

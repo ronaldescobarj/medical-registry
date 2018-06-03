@@ -19,7 +19,7 @@ export class LoginService {
             this.router.navigateByUrl('/registers');
           }
           else {
-            this.router.navigateByUrl('/user/create/firstUser');
+            this.router.navigateByUrl('/user/create/#');
           }
         }
       })
