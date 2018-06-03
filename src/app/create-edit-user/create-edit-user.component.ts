@@ -13,13 +13,26 @@ export class CreateEditUserComponent implements OnInit {
   private action: any;
   private user: any = {};
   private show: boolean = false;
-  private errorMessage: string = "";
-  private firstTime: boolean = true;
-  private firstUser: boolean = false;
+
+  private firstTime: boolean;
+  private firstUser: boolean;
+
+  private nameError: boolean;
+  private lastNameError: boolean;
+  private nameValidator: boolean;
+  private lastNameValidator: boolean;
 
   constructor(private httpService: HttpService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
+    this.firstUser = false;
+    this.firstTime = true;
+
+    this.nameError = false;
+    this.nameValidator = true;
+    this.lastNameError = false;
+    this.lastNameValidator = true;
+
     this.action = this.route.snapshot.paramMap.get('action');
     if (this.action == "edit") {
       this.userId = this.route.snapshot.paramMap.get('id');
@@ -44,10 +57,9 @@ export class CreateEditUserComponent implements OnInit {
   }
 
   saveChanges() {
-    this.firstTime = false;
     this.user.default_user = this.firstUser;
     let apiRoute = "";
-    if (this.user.name != "" && this.user.last_name != "") {
+    if (this.validate()) {
       if (this.action == "create") {
         apiRoute = "create";
         this.user.id = Math.floor(Math.random() * 100000);
@@ -60,9 +72,6 @@ export class CreateEditUserComponent implements OnInit {
         }
       })
     }
-    else {
-      this.errorMessage = "Faltan campos a introducir";
-    }
   }
 
   goBack() {
@@ -72,6 +81,43 @@ export class CreateEditUserComponent implements OnInit {
     else {
       this.router.navigateByUrl('/users');
     }
+  }
+
+  validate() {
+    let res = true;
+    this.firstTime = false;
+
+    if (this.user.name == "") {
+      this.nameError = true;
+      this.nameValidator = false;
+      res = false;
+    } else {
+      this.nameError = false;
+      this.nameValidator = true;
+    }
+
+    if (this.user.last_name == "") {
+      this.lastNameError = true;
+      this.lastNameValidator = false;
+      res = false;
+    } else {
+      this.lastNameError = false;
+      this.lastNameValidator = true;
+    }
+
+    return res;
+  }
+
+  borderColor(isName: boolean) {
+    if (isName) {
+      if (!this.firstTime && (!this.nameValidator || this.nameError))
+        return 'tomato'
+    }
+    else {
+      if (!this.firstTime && (!this.lastNameValidator || this.lastNameError))
+        return 'tomato'
+    }
+    return "";
   }
 
 }

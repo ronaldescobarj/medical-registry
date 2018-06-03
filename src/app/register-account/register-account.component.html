@@ -2,13 +2,13 @@
   <h2>Registrar</h2>
   <form name="form">
     <div class="form-group">
-      <label for="username">Username</label>
+      <label for="username">Username* </label>
       <input type="text" class="form-control" name="username" (input)="usernameValidator=true; usernameError=false" [style.border-color]="borderColor('username')"
         [(ngModel)]="account.username" />
       <div *ngIf="!firstTime && usernameError" class="help-block" style="color: tomato">El nombre de usuario es obligatorio</div>
     </div>
     <div class="form-group">
-      <label for="password">Contraseña</label>
+      <label for="password">Contraseña *</label>
       <input type="password" class="form-control" name="password" (input)="passwordValidator=true; passwordError=false" [style.border-color]="borderColor('password')"
         [(ngModel)]="account.password" />
       <div *ngIf="!firstTime && passwordError" class="help-block" style="color: tomato">La contraseña es obligatoria</div>

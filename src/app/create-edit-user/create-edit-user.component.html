@@ -12,14 +12,18 @@
         <h2 *ngIf="action=='create'">Crear usuario</h2>
         <div class="form-group">
           <div class="col-md-9">
-            <label class="validation-message">Nombre</label>
-            <input name="name" [(ngModel)]="user.name" type="text" placeholder="Nombre" class="form-control" />
+            <label class="validation-message">Nombre *</label>
+            <input name="nameInput" (input)="nameValidator=true; nameError=false" [style.border-color]="borderColor(true)" [(ngModel)]="user.name"
+              type="text" placeholder="Nombre..." class="form-control" />
+            <div *ngIf="nameError && !firstTime" style="color: tomato">Introduzca el nombre</div>
           </div>
         </div>
         <div class="form-group">
           <div class="col-md-9">
-            <label class="validation-message">Apellido</label>
-            <input name="doctor" [(ngModel)]="user.last_name" type="text" placeholder="Apellido" class="form-control" />
+            <label class="validation-message">Apellido *</label>
+            <input name="lastNameInput" (input)="lastNameValidator=true; lastNameError=false" [style.border-color]="borderColor(false)"
+              [(ngModel)]="user.last_name" type="text" placeholder="Apellido..." class="form-control" />
+            <div *ngIf="lastNameError && !firstTime" style="color: tomato">Introduzca el apellido</div>
           </div>
         </div>
         <div class="form-group">
@@ -41,12 +45,17 @@
           </div>
         </div>
         <div class="form-group">
-          <div class="col-md-3">
-            <button class="btn btn-success btn-block" (click)="saveChanges()">Guardar</button>
-            <button class="btn btn-danger btn-block" (click)="goBack()">Cancelar</button>
+          <div class="col-md-9">
+            <button class="col-md-3 btn btn-success btn-block" (click)="saveChanges()">Guardar</button>
+            <button class="col-md-3 btn btn-danger btn-block" (click)="goBack()">Cancelar</button>
+          </div>
+          <div class="form-group">
+            <div class="col-md-9">
+              <div>Los campos con * son obligatorios</div>
+              <div *ngIf="(nameError || lastNameError) && !firstTime" style="color: tomato">Por favor introduzca los datos marcados como obligatorios</div>
+            </div>
           </div>
         </div>
-        <div *ngIf="!firstTime && errorMessage" class="help-block">{{errorMessage}}</div>
       </form>
     </div>
   </div>
