@@ -23,6 +23,8 @@ export class CreateEditUserComponent implements OnInit {
   private lastNameValidator: boolean;
   private dateError: boolean;
   private loading: boolean = false;
+  maxUsers: boolean = false;
+  notAllowed: boolean = false;
 
   constructor(private httpService: HttpService, private route: ActivatedRoute, private router: Router) { }
 
@@ -34,22 +36,31 @@ export class CreateEditUserComponent implements OnInit {
     this.lastNameError = false;
     this.lastNameValidator = true;
     this.dateError = false;
-
+    let accountId = JSON.parse(localStorage.getItem('currentAccount')).id;
     this.action = this.route.snapshot.paramMap.get('action');
     if (this.action == "edit") {
       this.userId = this.route.snapshot.paramMap.get('id');
-      this.httpService.get('/user/get?id=' + this.userId).subscribe((response: any) => {
-        if (response.success) {
-          this.user = response.response;
-          this.show = true;
-        }
-      });
+      this.httpService.get('/user/get?id=' + this.userId + '&accountId=' + accountId)
+        .subscribe((response: any) => {
+          if (response.success) {
+            if (response.response.id) {
+              this.user = response.response;
+            }
+            else {
+              this.notAllowed = true;
+            }
+            this.show = true;
+          }
+        });
     }
     if (this.action == "create") {
       this.httpService.get('/user/list?accountId=' + JSON.parse(localStorage.getItem('currentAccount')).id)
         .subscribe((response: any) => {
           if (response.success) {
-            this.firstUser = response.response.length > 0;
+            this.firstUser = response.response.length == 0;
+            if (response.response.length >= 4) {
+              this.maxUsers = true;
+            }
           }
           this.user = {
             name: "",
@@ -62,6 +73,7 @@ export class CreateEditUserComponent implements OnInit {
   }
 
   saveChanges() {
+    console.log(this.firstUser);
     if (this.action == "create") {
       this.user.default_user = this.firstUser;
     }
@@ -85,7 +97,12 @@ export class CreateEditUserComponent implements OnInit {
 
   goBack() {
     if (localStorage.getItem('currentUser')) {
-      this.router.navigateByUrl('/viewUser/' + this.userId);
+      if (this.notAllowed) {
+        this.router.navigateByUrl('/registers');
+      }
+      else {
+        this.router.navigateByUrl('/viewUser/' + this.userId);
+      }
     }
     else {
       this.router.navigateByUrl('/users');

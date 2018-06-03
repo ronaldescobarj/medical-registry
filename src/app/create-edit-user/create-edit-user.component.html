@@ -4,7 +4,9 @@
   </button>
 </div>
 
-<div *ngIf="show" class="container">
+<h2 *ngIf="show && action=='create' && maxUsers">No se pueden tener mas de cuatro usuarios en una cuenta</h2>
+<h2 *ngIf="show && action=='edit' && notAllowed">El usuario seleccionado no existe o pertenece a otra cuenta</h2>
+<div *ngIf="show && !maxUsers && !notAllowed" class="container">
   <div class="row">
     <div class="col-md-12 col-md-offset-6">
       <form class="form-horizontal" role="form">

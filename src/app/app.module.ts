@@ -25,7 +25,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { LoginComponent } from './login/login.component';
 import { LoginService } from './login.service';
 import { RegisterAccountComponent } from './register-account/register-account.component';
-import { AuthGuard } from './guards/auth.guard';
+import { AuthAccountGuard } from './guards/authAccount.guard';
+import { AuthUserGuard } from './guards/authUser.guard';
 import { UsersViewComponent } from './users-view/users-view.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { CreateEditUserComponent } from './create-edit-user/create-edit-user.component';
@@ -65,7 +66,7 @@ import { MyDatePickerModule } from 'mydatepicker'
     NgxPaginationModule,
     MyDatePickerModule,
   ],
-  providers: [HttpService, LoginService, AuthGuard],
+  providers: [HttpService, LoginService, AuthAccountGuard, AuthUserGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -36,8 +36,11 @@ router.get('/list', function (req, res) {
 
 router.get('/get', function (req, res) {
     var id = req.query.id;
-    var queryString = 'SELECT * FROM medical_history.user WHERE id=' + id;
+    var accountId = req.query.accountId;
+    var queryString = 'SELECT * FROM medical_history.user WHERE id=' + id + ' and account_id=' +
+        accountId + ';';
     var response = prepareResponse(req);
+    response.response = {};
     dbConnection.pool.connect(function (error, connection, done) {
         if (error) {
             console.error("error");
@@ -48,9 +51,10 @@ router.get('/get', function (req, res) {
                 if (err) {
                     console.error(JSON.stringify(err));
                 } else {
-                    var rows = resultObj.rows;
                     response.success = true;
-                    response.response = rows[0];
+                    if (resultObj.rows.length > 0) {
+                        response.response = resultObj.rows[0];
+                    }
                 }
                 res.json(response);
             });

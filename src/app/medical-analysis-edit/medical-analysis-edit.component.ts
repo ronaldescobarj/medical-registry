@@ -110,6 +110,9 @@ export class MedicalAnalysisEditComponent implements OnInit {
             this.router.navigateByUrl('/registers');
           }
         }
+        else {
+          this.loading = false;
+        }
       })
     }
   }

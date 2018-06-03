@@ -13,17 +13,25 @@ export class UserDetailsComponent implements OnInit {
   private userId: any;
   private show = false;
   private user: any = {};
+  notAllowed: boolean = false;
 
   constructor(private route: ActivatedRoute, private httpService: HttpService, private location: Location) { }
 
   ngOnInit() {
     this.userId = this.route.snapshot.paramMap.get('id');
-    this.httpService.get('/user/get?id=' + this.userId).subscribe((response: any) => {
-      if (response.success) {
-        this.user = response.response;
-        this.show = true;
-      }
-    })
+    let accountId = JSON.parse(localStorage.getItem('currentAccount')).id;
+    this.httpService.get('/user/get?id=' + this.userId + '&accountId=' + accountId)
+      .subscribe((response: any) => {
+        if (response.success) {
+          if (response.response.id) {
+            this.user = response.response;
+          }
+          else {
+            this.notAllowed = true;
+          }
+          this.show = true;
+        }
+      })
   }
 
   goBack() {
