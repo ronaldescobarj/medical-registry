@@ -45,19 +45,19 @@
           </tr>
         </tbody>
       </table>
-      <!-- <div *ngFor="let imgDecoded of imagesDecoded" class="row">
-        <div class="column">
-          <img [src]="imgDecoded" style="width:100%">
-        </div>
-      </div>
-      !-->
     </div>
   </blockquote>
   <div class="row">
     <div *ngFor="let img of imagesDecoded">
       <div class="column">
-        <img [src]="img" style="width:250px; height: 250px;">
+        <img [src]="img" style="width:250px; height: 250px;" (click)="openImageModal(img)">
       </div>
     </div>
   </div>
+
+  <div *ngIf="showImage" class="modal">
+    <span class="close" (click)="showImage = false">&times;</span>
+    <img [src]="imgModal" class="modal-content">
+  </div>
+
 </div>
