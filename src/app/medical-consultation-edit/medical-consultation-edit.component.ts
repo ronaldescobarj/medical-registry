@@ -26,6 +26,7 @@ export class MedicalConsultationEditComponent implements OnInit {
   private userId: any;
   private images: any[];
   private imagesDecoded: any[];
+  private imagesError: boolean;
 
   constructor(
     private httpService: HttpService,
@@ -141,6 +142,12 @@ export class MedicalConsultationEditComponent implements OnInit {
   validate() {
     let res = true;
     this.firstTime = false;
+    this.images.forEach(image => {
+      if (image.filetype != "image/jpeg" && image.filetype != "image/png" && image.filetype != "image/jpg") {
+        res = false;
+        this.imagesError = true;
+      }
+    });
     if (this.medicalConsultation.diagnostic == "") {
       this.diagnosticError = true;
       this.diagnosticValidator = false;

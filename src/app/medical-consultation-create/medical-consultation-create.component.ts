@@ -15,6 +15,7 @@ export class MedicalConsultationCreateComponent implements OnInit {
   private diagnosticError: boolean;
   private doctorError: boolean;
   private dateError: boolean;
+  private imagesError: boolean;
   private diagnosticValidator: boolean;
   private doctorValidator: boolean;
   private firstTime: boolean;
@@ -29,6 +30,7 @@ export class MedicalConsultationCreateComponent implements OnInit {
     this.doctorValidator = true;
     this.firstTime = true;
     this.dateError = false;
+    this.imagesError = false;
 
     this.medicalConsultation = {
       id: "",
@@ -47,32 +49,34 @@ export class MedicalConsultationCreateComponent implements OnInit {
     if (this.validate()) {
       this.medicalConsultation.id = Math.floor(Math.random() * 100000);
       this.medicalConsultation.user_id = JSON.parse(localStorage.getItem('currentUser')).id;
-      var imagesObj = { images: [] };
-      this.medicalConsultation.date = this.medicalConsultation.date.date.year + '-' + this.medicalConsultation.date.date.month + '-' + this.medicalConsultation.date.date.day;
-      this.httpService.post('/consultation/create', this.medicalConsultation).subscribe((response: any) => {
-        console.log(response);
-        if (response.success) {
-          this.images.forEach((image: any) => {
-            let imageObj = {
-              id: Math.floor(Math.random() * 100000),
-              base_64_image: image.value,
-              file_name: image.filename,
-              file_type: image.filetype,
-              consultation_id: this.medicalConsultation.id
-            };
-            imagesObj.images.push(imageObj);
-          });
-          if (this.images.length) {
-            this.httpService.post('/consultationImage/add', imagesObj).subscribe((res: any) => {
-              if (res.success) {
-                this.router.navigateByUrl('/registers');
-              }
-            })
+      let imagesObj = { images: [] };
+      this.medicalConsultation.date = this.medicalConsultation.date.date.year + '-' +
+        this.medicalConsultation.date.date.month + '-' + this.medicalConsultation.date.date.day;
+      this.httpService.post('/consultation/create', this.medicalConsultation)
+        .subscribe((response: any) => {
+          console.log(response);
+          if (response.success) {
+            this.images.forEach((image: any) => {
+              let imageObj = {
+                id: Math.floor(Math.random() * 100000),
+                base_64_image: image.value,
+                file_name: image.filename,
+                file_type: image.filetype,
+                consultation_id: this.medicalConsultation.id
+              };
+              imagesObj.images.push(imageObj);
+            });
+            if (this.images.length) {
+              this.httpService.post('/consultationImage/add', imagesObj).subscribe((res: any) => {
+                if (res.success) {
+                  this.router.navigateByUrl('/registers');
+                }
+              })
+            }
+            else
+              this.router.navigateByUrl('/registers');
           }
-          else
-            this.router.navigateByUrl('/registers');
-        }
-      })
+        })
     }
   }
 
@@ -102,6 +106,12 @@ export class MedicalConsultationCreateComponent implements OnInit {
   validate() {
     let res = true;
     this.firstTime = false;
+    this.images.forEach(image => {
+      if (image.filetype != "image/jpeg" && image.filetype != "image/png" && image.filetype != "image/jpg") {
+        res = false;
+        this.imagesError = true;
+      }
+    });
     if (this.medicalConsultation.diagnostic == "") {
       this.diagnosticError = true;
       this.diagnosticValidator = false;
@@ -147,7 +157,10 @@ export class MedicalConsultationCreateComponent implements OnInit {
     openSelectorOnInputClick: true,
     dayLabels: { su: 'Dom', mo: 'Lun', tu: 'Mar', we: 'Mie', th: 'Jue', fr: 'Vie', sa: 'Sab' },
     todayBtnTxt: "Hoy",
-    monthLabels: { 1: 'Enero', 2: 'Febrero', 3: 'Marzo', 4: 'Abril', 5: 'Mayo', 6: 'Junio', 7: 'Julio', 8: 'Agosto', 9: 'Septiembre', 10: 'Octubre', 11: 'Noviembre', 12: 'Diciembre' },
+    monthLabels: {
+      1: 'Enero', 2: 'Febrero', 3: 'Marzo', 4: 'Abril', 5: 'Mayo', 6: 'Junio',
+      7: 'Julio', 8: 'Agosto', 9: 'Septiembre', 10: 'Octubre', 11: 'Noviembre', 12: 'Diciembre'
+    },
     selectorHeight: "232px",
     selectorWidth: "350px"
   };

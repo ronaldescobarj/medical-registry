@@ -15,6 +15,7 @@ export class MedicalAnalysisCreateComponent implements OnInit {
   private images: any = [];
   private typeError: boolean;
   private dateError: boolean;
+  private imagesError: boolean;
   private firstTime: boolean;
   private typeValidator: boolean;
 
@@ -96,6 +97,12 @@ export class MedicalAnalysisCreateComponent implements OnInit {
   validate() {
     let res = true;
     this.firstTime = false;
+    this.images.forEach(image => {
+      if (image.filetype != "image/jpeg" && image.filetype != "image/png" && image.filetype != "image/jpg") {
+        res = false;
+        this.imagesError = true;
+      }
+    });
     if (this.medicalAnalysis.type == "") {
       this.typeError = true;
       this.typeValidator = false;
