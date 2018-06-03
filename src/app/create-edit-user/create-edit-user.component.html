@@ -48,6 +48,7 @@
         <div class="form-group ">
           <div class="col-md-9 ">
             <button class="col-md-3 btn btn-success btn-block " (click)="saveChanges() ">Guardar</button>
+            <div *ngIf="loading" class="help-block">Guardando...</div>
             <button class="col-md-3 btn btn-danger btn-block " (click)="goBack() ">Cancelar</button>
           </div>
           <div class="form-group ">

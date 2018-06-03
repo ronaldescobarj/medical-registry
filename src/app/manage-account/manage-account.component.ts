@@ -17,6 +17,7 @@ export class ManageAccountComponent implements OnInit {
   private errorMessage: string = "";
   private show: boolean = false;
   private successMessage: string;
+  private loading: boolean = false;
 
   constructor(private httpService: HttpService, private router: Router, private location: Location) { }
 
@@ -71,14 +72,12 @@ export class ManageAccountComponent implements OnInit {
       }
     }
     if (condition) {
+      this.loading = true;
       this.httpService.post('/account/update', this.account).subscribe((response: any) => {
         if (response.success) {
-          /*           if (localStorage.getItem('currentUser'))
-                      this.router.navigateByUrl('/registers');
-                    else
-                      this.router.navigateByUrl('/users');*/
           this.successMessage = "exito";
         }
+        this.loading = false;
       })
     }
   }

@@ -22,6 +22,7 @@ export class CreateEditUserComponent implements OnInit {
   private nameValidator: boolean;
   private lastNameValidator: boolean;
   private dateError: boolean;
+  private loading: boolean = false;
 
   constructor(private httpService: HttpService, private route: ActivatedRoute, private router: Router) { }
 
@@ -68,10 +69,12 @@ export class CreateEditUserComponent implements OnInit {
       }
       if (this.action == "edit")
         apiRoute = "update";
+      this.loading = true;
       this.httpService.post('/user/' + apiRoute, this.user).subscribe((response: any) => {
         if (response.success) {
           this.goBack();
         }
+        this.loading = false;
       })
     }
   }

@@ -18,6 +18,7 @@ export class MedicalAnalysisCreateComponent implements OnInit {
   private imagesError: boolean;
   private firstTime: boolean;
   private typeValidator: boolean;
+  private loading: boolean = true;
 
   constructor(private httpService: HttpService, private router: Router) { }
 
@@ -44,8 +45,8 @@ export class MedicalAnalysisCreateComponent implements OnInit {
       this.medicalAnalysis.user_id = JSON.parse(localStorage.getItem('currentUser')).id;
       var imagesObj = { images: [] };
       this.medicalAnalysis.date = this.medicalAnalysis.date.date.year + '-' + this.medicalAnalysis.date.date.month + '-' + this.medicalAnalysis.date.date.day;
+      this.loading = true;
       this.httpService.post('/analysis/create', this.medicalAnalysis).subscribe((response: any) => {
-        console.log(response);
         if (response.success) {
           this.images.forEach((image: any) => {
             let imageObj = {
@@ -62,10 +63,13 @@ export class MedicalAnalysisCreateComponent implements OnInit {
               if (res.success) {
                 this.router.navigateByUrl('/registers');
               }
+              this.loading = false;
             })
           }
-          else
+          else {
             this.router.navigateByUrl('/registers');
+            this.loading = false;
+          }
         }
       })
     }

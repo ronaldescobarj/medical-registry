@@ -22,6 +22,7 @@
     <div class="form-group">
       <button [disabled]="loading" class="btn btn-primary" (click)="register()">Registrarse</button>
       <a [routerLink]="['/login']" class="btn btn-link">Cancelar</a>
+      <div *ngIf="loading" class="help-block">Registrando...</div>
     </div>
     <div *ngIf="(account.password != account.passwordConfirm)" class="help-block" style="color: tomato">Las contraseñas no coinciden</div>
     <div *ngIf="errorMessage" class="help-block" style="color: tomato">{{errorMessage}}</div>
