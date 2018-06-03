@@ -29,30 +29,31 @@
         <div class="form-group">
           <div class="col-md-9">
             <label class="validation-message">Edad</label>
-            <input name="age" [(ngModel)]="user.age" type="number" placeholder="Edad" class="form-control" />
+            <input name="age" [(ngModel)]="user.age" type="number" placeholder="Edad" class="form-control" min="0" />
+            <div *ngIf="dateError && !firstTime" style="color: tomato">No puede haber una edad negativa</div>
           </div>
         </div>
-        <div class="form-group">
-          <div class="col-md-9">
-            <label class="validation-message">Alergias</label>
-            <input name="allergies" [(ngModel)]="user.allergies" type="text" placeholder="Alergias" class="form-control" />
+        <div class=" form-group ">
+          <div class="col-md-9 ">
+            <label class="validation-message ">Alergias</label>
+            <input name="allergies " [(ngModel)]="user.allergies " type="text " placeholder="Alergias " class="form-control " />
           </div>
         </div>
-        <div class="form-group">
-          <div class="col-md-9">
-            <label class="validation-message">Enfermedades</label>
-            <input name="diseases" [(ngModel)]="user.diseases" type="text" placeholder="Enfermedades" class="form-control" />
+        <div class="form-group ">
+          <div class="col-md-9 ">
+            <label class="validation-message ">Enfermedades</label>
+            <input name="diseases " [(ngModel)]="user.diseases " type="text " placeholder="Enfermedades " class="form-control " />
           </div>
         </div>
-        <div class="form-group">
-          <div class="col-md-9">
-            <button class="col-md-3 btn btn-success btn-block" (click)="saveChanges()">Guardar</button>
-            <button class="col-md-3 btn btn-danger btn-block" (click)="goBack()">Cancelar</button>
+        <div class="form-group ">
+          <div class="col-md-9 ">
+            <button class="col-md-3 btn btn-success btn-block " (click)="saveChanges() ">Guardar</button>
+            <button class="col-md-3 btn btn-danger btn-block " (click)="goBack() ">Cancelar</button>
           </div>
-          <div class="form-group">
-            <div class="col-md-9">
+          <div class="form-group ">
+            <div class="col-md-9 ">
               <div>Los campos con * son obligatorios</div>
-              <div *ngIf="(nameError || lastNameError) && !firstTime" style="color: tomato">Por favor introduzca los datos marcados como obligatorios</div>
+              <div *ngIf="(nameError || lastNameError) && !firstTime " style="color: tomato ">Por favor introduzca los datos marcados como obligatorios</div>
             </div>
           </div>
         </div>

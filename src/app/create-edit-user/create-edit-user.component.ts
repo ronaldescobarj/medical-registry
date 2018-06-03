@@ -21,6 +21,7 @@ export class CreateEditUserComponent implements OnInit {
   private lastNameError: boolean;
   private nameValidator: boolean;
   private lastNameValidator: boolean;
+  private dateError: boolean;
 
   constructor(private httpService: HttpService, private route: ActivatedRoute, private router: Router) { }
 
@@ -32,6 +33,7 @@ export class CreateEditUserComponent implements OnInit {
     this.nameValidator = true;
     this.lastNameError = false;
     this.lastNameValidator = true;
+    this.dateError = false;
 
     this.action = this.route.snapshot.paramMap.get('action');
     if (this.action == "edit") {
@@ -86,6 +88,13 @@ export class CreateEditUserComponent implements OnInit {
   validate() {
     let res = true;
     this.firstTime = false;
+
+    if (this.user.age < 0) {
+      this.dateError = true;
+      res = false;
+    } else {
+      this.dateError = false;
+    }
 
     if (this.user.name == "") {
       this.nameError = true;
