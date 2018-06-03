@@ -24,6 +24,7 @@ export class MedicalAnalysisEditComponent implements OnInit {
   private dateError: boolean;
   private typeValidator: boolean;
   private firstTime: boolean;
+  private imagesError: boolean;
   private userId: any;
 
 
@@ -139,6 +140,12 @@ export class MedicalAnalysisEditComponent implements OnInit {
   validate() {
     let res = true;
     this.firstTime = false;
+    this.images.forEach(image => {
+      if (image.filetype != "image/jpeg" && image.filetype != "image/png" && image.filetype != "image/jpg") {
+        res = false;
+        this.imagesError = true;
+      }
+    });
     if (this.medicalAnalysis.type == "") {
       this.typeError = true;
       this.typeValidator = false;

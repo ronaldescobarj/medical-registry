@@ -73,8 +73,9 @@
                 <div class="form-group">
                     <div class="col-md-9">
                         <label class="validation-message">Agregar imagenes</label>
-                        <input multiple type="file" #fileupload name="image" class="form-control" (change)="onFileChange($event)">
+                        <input multiple type="file" accept="image/jpeg,image/png" #fileupload name="image" class="form-control" (change)="onFileChange($event)">
                     </div>
+                    <div *ngIf="imagesError && !firstTime" style="color: tomato">La aplicacion solo soporta imagenes en formato jpeg y png</div>
                 </div>
                 <div class="form-group">
                     <label class="validation-message">Imagenes</label>
