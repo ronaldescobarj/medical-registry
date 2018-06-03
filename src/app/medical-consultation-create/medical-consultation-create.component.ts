@@ -20,6 +20,7 @@ export class MedicalConsultationCreateComponent implements OnInit {
   private doctorValidator: boolean;
   private firstTime: boolean;
   private images: any = [];
+  private loading: boolean = false;
 
   constructor(private httpService: HttpService, private router: Router) { }
 
@@ -52,9 +53,9 @@ export class MedicalConsultationCreateComponent implements OnInit {
       let imagesObj = { images: [] };
       this.medicalConsultation.date = this.medicalConsultation.date.date.year + '-' +
         this.medicalConsultation.date.date.month + '-' + this.medicalConsultation.date.date.day;
+      this.loading = true;
       this.httpService.post('/consultation/create', this.medicalConsultation)
         .subscribe((response: any) => {
-          console.log(response);
           if (response.success) {
             this.images.forEach((image: any) => {
               let imageObj = {
@@ -71,10 +72,16 @@ export class MedicalConsultationCreateComponent implements OnInit {
                 if (res.success) {
                   this.router.navigateByUrl('/registers');
                 }
+                this.loading = false;
               })
             }
-            else
+            else {
+              this.loading = false;
               this.router.navigateByUrl('/registers');
+            }
+          }
+          else {
+            this.loading = false;
           }
         })
     }

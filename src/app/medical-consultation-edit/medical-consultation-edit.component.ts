@@ -27,6 +27,7 @@ export class MedicalConsultationEditComponent implements OnInit {
   private images: any[];
   private imagesDecoded: any[];
   private imagesError: boolean;
+  private loading: boolean = false;
 
   constructor(
     private httpService: HttpService,
@@ -83,6 +84,7 @@ export class MedicalConsultationEditComponent implements OnInit {
     if (this.validate()) {
       var imagesObj = { images: [] };
       this.medicalConsultation.date = this.medicalConsultation.date.date.year + '-' + this.medicalConsultation.date.date.month + '-' + this.medicalConsultation.date.date.day;
+      this.loading = true;
       this.httpService.post('/consultation/update', this.medicalConsultation).subscribe((response: any) => {
         if (response.success) {
           for (let i = 0; i < this.images.length; i++) {
@@ -100,10 +102,16 @@ export class MedicalConsultationEditComponent implements OnInit {
               if (res.success) {
                 this.router.navigateByUrl('/registers');
               }
+              this.loading = false;
             })
           }
-          else
+          else {
+            this.loading = false;
             this.router.navigateByUrl('/registers');
+          }
+        }
+        else {
+          this.loading = false;
         }
       })
     }

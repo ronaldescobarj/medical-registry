@@ -16,6 +16,8 @@ export class MedicalSelfObservationCreateComponent implements OnInit {
   private observationError: boolean;
   private firstTime: boolean;
   private observationValidator: boolean;
+  private loading: boolean = false;
+
   constructor(private httpService: HttpService, private router: Router) { }
 
   ngOnInit() {
@@ -37,9 +39,11 @@ export class MedicalSelfObservationCreateComponent implements OnInit {
       this.medicalSelfObservation.id = Math.floor(Math.random() * 100000);
       this.medicalSelfObservation.user_id = JSON.parse(localStorage.getItem('currentUser')).id;
       this.medicalSelfObservation.date = this.medicalSelfObservation.date.date.year + '-' + this.medicalSelfObservation.date.date.month + '-' + this.medicalSelfObservation.date.date.day;
+      this.loading = true;
       this.httpService.post('/selfObservation/create', this.medicalSelfObservation).subscribe((response: any) => {
         if (response.success)
           this.router.navigateByUrl('/registers');
+        this.loading = false;
       })
     }
   }

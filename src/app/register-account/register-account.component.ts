@@ -12,7 +12,7 @@ export class RegisterAccountComponent implements OnInit {
   private firstTime: boolean;
   private account: any = {};
   private errorMessage: string;
-  private loading: boolean;
+  private loading: boolean = false;
 
   private usernameError: boolean;
   private passwordError: boolean;

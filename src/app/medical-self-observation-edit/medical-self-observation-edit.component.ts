@@ -16,6 +16,7 @@ export class MedicalSelfObservationEditComponent implements OnInit {
   private show: boolean = false;
   private error: string;
   private userId: any;
+  private loading: boolean = false;
 
   private dateError: boolean;
   private observationError: boolean;
@@ -55,9 +56,11 @@ export class MedicalSelfObservationEditComponent implements OnInit {
   saveChanges() {
     if (this.validate()) {
       this.medicalSelfObservation.date = this.medicalSelfObservation.date.date.year + '-' + this.medicalSelfObservation.date.date.month + '-' + this.medicalSelfObservation.date.date.day;
+      this.loading = true;
       this.httpService.post('/selfObservation/update', this.medicalSelfObservation).subscribe((response: any) => {
         if (response.success)
           this.router.navigateByUrl('/registers');
+        this.loading = false;
       })
     }
   }
