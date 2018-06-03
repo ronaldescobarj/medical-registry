@@ -30,9 +30,9 @@
         </div>
         <div class="form-group">
           <div class="col-md-9">
-            <label class="validation-message">Edad</label>
-            <input name="age" [(ngModel)]="user.age" type="number" placeholder="Edad" class="form-control" min="0" />
-            <div *ngIf="dateError && !firstTime" style="color: tomato">No puede haber una edad negativa</div>
+            <label class="validation-message">Fecha de nacimiento *</label>
+            <my-date-picker name="mydate" [placeholder]="'dd-mm-aaaa'" [options]="myDatePickerOptions" [(ngModel)]="user.birthdate" required></my-date-picker>
+            <div *ngIf="birthdateError && !firstTime" style="color: tomato">Introduzca la fecha</div>
           </div>
         </div>
         <div class=" form-group ">

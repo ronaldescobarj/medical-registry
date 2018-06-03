@@ -83,7 +83,14 @@ export class ManageAccountComponent implements OnInit {
   }
 
   goBack() {
-    this.location.back();
+    if (localStorage.getItem('currentUser')) {
+      this.router.navigateByUrl('/registers');
+    }
+    else {
+      if (localStorage.getItem('currentAccount')) {
+        this.router.navigateByUrl('/users');
+      }
+    }
   }
 
 }

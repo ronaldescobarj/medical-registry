@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../http.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { IMyDpOptions } from 'mydatepicker';
 
 @Component({
   selector: 'app-create-edit-user',
@@ -45,6 +46,14 @@ export class CreateEditUserComponent implements OnInit {
           if (response.success) {
             if (response.response.id) {
               this.user = response.response;
+              this.user.birthdate = {
+                date:
+                  {
+                    year: parseInt(this.user.birthdate.slice(0, 4)),
+                    month: parseInt(this.user.birthdate.slice(5, 7)),
+                    day: parseInt(this.user.birthdate.slice(8, 10)),
+                  }
+              };
             }
             else {
               this.notAllowed = true;
@@ -73,19 +82,19 @@ export class CreateEditUserComponent implements OnInit {
   }
 
   saveChanges() {
-    console.log(this.firstUser);
-    if (this.action == "create") {
-      this.user.default_user = this.firstUser;
-    }
     let apiRoute = "";
     if (this.validate()) {
       if (this.action == "create") {
+        this.user.default_user = this.firstUser;
         apiRoute = "create";
         this.user.id = Math.floor(Math.random() * 100000);
       }
-      if (this.action == "edit")
+      if (this.action == "edit") {
         apiRoute = "update";
+      }
       this.loading = true;
+      this.user.birthdate = this.user.birthdate.date.year + '-' + this.user.birthdate.date.month
+        + '-' + this.user.birthdate.date.day;
       this.httpService.post('/user/' + apiRoute, this.user).subscribe((response: any) => {
         if (response.success) {
           this.goBack();
@@ -152,5 +161,15 @@ export class CreateEditUserComponent implements OnInit {
     }
     return "";
   }
+  public myDatePickerOptions: IMyDpOptions = {
+    dateFormat: 'dd-mm-yyyy',
+    editableDateField: false,
+    openSelectorOnInputClick: true,
+    dayLabels: { su: 'Dom', mo: 'Lun', tu: 'Mar', we: 'Mie', th: 'Jue', fr: 'Vie', sa: 'Sab' },
+    todayBtnTxt: "Hoy",
+    monthLabels: { 1: 'Enero', 2: 'Febrero', 3: 'Marzo', 4: 'Abril', 5: 'Mayo', 6: 'Junio', 7: 'Julio', 8: 'Agosto', 9: 'Septiembre', 10: 'Octubre', 11: 'Noviembre', 12: 'Diciembre' },
+    selectorHeight: "232px",
+    selectorWidth: "350px"
+  };
 
 }

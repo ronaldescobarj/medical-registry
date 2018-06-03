@@ -50,7 +50,7 @@
                     <div class="form-group">
                         <div class="col-md-9">
                             <label class="validation-message">Fecha *</label>
-                            <my-date-picker name="date" [(ngModel)]="medicalAnalysis.date" [placeholder]="'dd-mm-yyyy'" [options]="myDatePickerOptions"
+                            <my-date-picker name="date" [(ngModel)]="medicalAnalysis.date" [placeholder]="'dd-mm-aaaa'" [options]="myDatePickerOptions"
                                 required></my-date-picker>
                             <div *ngIf="dateError && !firstTime" style="color: tomato">Introduzca la fecha</div>
                         </div>

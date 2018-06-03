@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpService } from '../http.service';
 import { Location } from '@angular/common';
 
@@ -15,7 +15,11 @@ export class UserDetailsComponent implements OnInit {
   private user: any = {};
   notAllowed: boolean = false;
 
-  constructor(private route: ActivatedRoute, private httpService: HttpService, private location: Location) { }
+  constructor(
+    private route: ActivatedRoute,
+    private httpService: HttpService,
+    private location: Location,
+    private router: Router) { }
 
   ngOnInit() {
     this.userId = this.route.snapshot.paramMap.get('id');
@@ -35,7 +39,12 @@ export class UserDetailsComponent implements OnInit {
   }
 
   goBack() {
-    this.location.back();
+    if (localStorage.getItem('currentUser')) {
+      this.router.navigateByUrl('/registers');
+    }
+    else {
+      this.router.navigateByUrl('/users');
+    }
   }
 
 }
