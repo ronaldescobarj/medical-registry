@@ -59,4 +59,8 @@ export class UsersViewComponent implements OnInit {
       })
   }
 
+  refresh() {
+    location.reload();
+  }
+
 }
