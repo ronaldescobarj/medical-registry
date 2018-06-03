@@ -18,6 +18,8 @@ export class MedicalConsultationViewComponent implements OnInit {
   private userId: any;
   private images: any[];
   private imagesDecoded: any[];
+  private imgModal: any;
+  private showImage: boolean;
 
   constructor(
     private httpService: HttpService,
@@ -28,6 +30,7 @@ export class MedicalConsultationViewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.showImage = false;
     this.id = this.route.snapshot.paramMap.get('id');
     this.userId = JSON.parse(localStorage.getItem('currentUser')).id;
     this.httpService.get('/consultation/get?id=' + this.id + '&userId=' + this.userId)
@@ -58,5 +61,10 @@ export class MedicalConsultationViewComponent implements OnInit {
 
   goBack() {
     this.router.navigateByUrl('/registers');
+  }
+
+  openImageModal(img: any) {
+    this.imgModal = img;
+    this.showImage = true;
   }
 }

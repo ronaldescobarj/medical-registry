@@ -2,13 +2,13 @@
   <h2>Registrar</h2>
   <form name="form">
     <div class="form-group">
-      <label for="username">Username</label>
+      <label for="username">Username* </label>
       <input type="text" class="form-control" name="username" (input)="usernameValidator=true; usernameError=false" [style.border-color]="borderColor('username')"
         [(ngModel)]="account.username" />
       <div *ngIf="!firstTime && usernameError" class="help-block" style="color: tomato">El nombre de usuario es obligatorio</div>
     </div>
     <div class="form-group">
-      <label for="password">Contraseña</label>
+      <label for="password">Contraseña *</label>
       <input type="password" class="form-control" name="password" (input)="passwordValidator=true; passwordError=false" [style.border-color]="borderColor('password')"
         [(ngModel)]="account.password" />
       <div *ngIf="!firstTime && passwordError" class="help-block" style="color: tomato">La contraseña es obligatoria</div>
@@ -21,7 +21,7 @@
     </div>
     <div class="form-group">
       <button [disabled]="loading" class="btn btn-primary" (click)="register()">Registrarse</button>
-      <a [routerLink]="['/login']" class="btn btn-link">Cancel</a>
+      <a [routerLink]="['/login']" class="btn btn-link">Cancelar</a>
       <div *ngIf="loading" class="help-block">Registrando...</div>
     </div>
     <div *ngIf="(account.password != account.passwordConfirm)" class="help-block" style="color: tomato">Las contraseñas no coinciden</div>

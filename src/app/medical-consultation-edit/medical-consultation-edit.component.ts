@@ -27,6 +27,8 @@ export class MedicalConsultationEditComponent implements OnInit {
   private images: any[];
   private imagesDecoded: any[];
   private imagesError: boolean;
+  private imgModal: any;
+  private showImage: boolean;
   private loading: boolean = false;
 
   constructor(
@@ -38,6 +40,7 @@ export class MedicalConsultationEditComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.showImage = false;
     this.diagnosticError = false;
     this.doctorError = false;
     this.diagnosticValidator = true;
@@ -207,5 +210,10 @@ export class MedicalConsultationEditComponent implements OnInit {
 
   // Initialized to specific date (09.10.2018).
   public model: any = { date: { year: 2018, month: 10, day: 9 } };
+
+  openImageModal(img: any) {
+    this.imgModal = img;
+    this.showImage = true;
+  }
 
 }

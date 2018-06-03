@@ -19,6 +19,8 @@ export class MedicalAnalysisEditComponent implements OnInit {
   private images: any[];
   private imagesDecoded: any[];
   private error: string;
+  private imgModal: any;
+  private showImage: boolean;
 
   private typeError: boolean;
   private dateError: boolean;
@@ -37,6 +39,7 @@ export class MedicalAnalysisEditComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.showImage = false;
     this.typeError = false;
     this.dateError = false;
     this.typeValidator = true;
@@ -187,4 +190,10 @@ export class MedicalAnalysisEditComponent implements OnInit {
 
   // Initialized to specific date (09.10.2018).
   public model: any = { date: { year: 2018, month: 10, day: 9 } };
+
+
+  openImageModal(img: any) {
+    this.imgModal = img;
+    this.showImage = true;
+  }
 }

@@ -18,6 +18,8 @@ export class MedicalAnalysisViewComponent implements OnInit {
   private error: string;
   private userId: any;
 
+  private showImage: boolean;
+  private imgModal: any;
   private testImage: any;
 
   // private imageDecoded: any;
@@ -32,6 +34,7 @@ export class MedicalAnalysisViewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.showImage = false;
     this.id = this.route.snapshot.paramMap.get('id');
     this.userId = JSON.parse(localStorage.getItem('currentUser')).id;
     this.httpService.get('/analysis/get?id=' + this.id + '&userId=' + this.userId)
@@ -61,5 +64,10 @@ export class MedicalAnalysisViewComponent implements OnInit {
   }
   goBack() {
     this.router.navigateByUrl('/registers');
+  }
+
+  openImageModal(img: any) {
+    this.imgModal = img;
+    this.showImage = true;
   }
 }
