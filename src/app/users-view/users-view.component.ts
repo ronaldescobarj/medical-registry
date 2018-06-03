@@ -47,13 +47,16 @@ export class UsersViewComponent implements OnInit {
     let currentDefault = this.users.find((user: any) => {
       return user.default_user;
     });
-    console.log(currentDefault);
     this.httpService.post('/user/changeDefault', { currentDefault: currentDefault, newDefault: newDefault })
       .subscribe((response: any) => {
         if (response.success) {
           location.reload();
         }
       })
+  }
+
+  refresh() {
+    location.reload();
   }
 
 }
